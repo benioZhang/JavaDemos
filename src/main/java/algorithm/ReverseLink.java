@@ -10,16 +10,18 @@ public class ReverseLink {
         }
     }
 
-    public static void reverse(Node head) {
+    public static Node reverse(Node head) {
         if (head == null) {
             throw new NullPointerException();
         }
-        Node pre = null;
+        Node pre = null, tmp = null;
         while (head != null) {
+            tmp = head.next;
             head.next = pre;
             pre = head;
-            head = head.next;
+            head = tmp;
         }
+        return pre;
     }
 
 }
