@@ -1,7 +1,5 @@
 package demo
 
-import javafx.scene.Parent
-
 /**
  * http://www.runoob.com/kotlin/kotlin-class-object.html
  */
