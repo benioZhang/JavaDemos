@@ -70,11 +70,42 @@ object Site {
 
 class Site2 {
     var name = "菜鸟"
-    object DeskTop{
+
+    object DeskTop {
         val url = "www.runoob.com"
         fun showName() {
             //println("desk legs $name") // 错误，不能访问到外部类的方法和变量
         }
+    }
+}
+
+// 伴生对象
+// 类内部的对象声明可以用 companion 关键字标记，这样它就与外部类关联在一起，我们就可以直接通过外部类访问到对象的内部元素
+// 可以省略掉该对象的对象名，然后使用 Companion 替代需要声明的对象名
+// 注意：一个类里面只能声明一个内部关联对象，即关键字 companion 只能使用一次
+// 伴生对象的成员看起来像其他语言的静态成员，但在运行时他们仍然是真实对象的实例成员
+class MyClass {
+    val x = 10
+
+    companion object Factory {
+        fun create(): MyClass = MyClass()
+    }
+}
+
+class MyClass2 {
+    val x = 10
+
+    companion object {
+    }
+}
+
+interface Factory<T> {
+    fun create(): T
+}
+
+class MyClass3 {
+    companion object : Factory<MyClass3> {
+        override fun create(): MyClass3 = MyClass3()
     }
 }
 
@@ -91,5 +122,11 @@ fun main(args: Array<String>) {
     println(s1.url)
     println(s2.url)
 
+    var site2 = Site2()
+    //println(site2.DeskTop.url)// 错误，不能通过外部类的实例访问到该对象
+    println(Site2.DeskTop.url)// 正确
 
+    val instance = MyClass.create() // 访问到对象的内部元素
+    val instance2 = MyClass2.Companion
+    val instance3 = MyClass3.create()
 }
