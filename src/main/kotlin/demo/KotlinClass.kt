@@ -151,6 +151,18 @@ interface TestInterface {
 // public     // 所有调用的地方都可见
 // internal   // 同一个模块中可见
 
+// 类中没有定义任何属性
+class Constructor1(name: String) {
+}
+
+// 类中定义了 val name属性
+class Constructor2(val name: String) {
+}
+
+// 类中定义了 var name属性
+class Constructor3(var name: String) {
+}
+
 fun main(args: Array<String>) {
     // Kotlin 中没有 new 关键字
     val a = Runoob2()

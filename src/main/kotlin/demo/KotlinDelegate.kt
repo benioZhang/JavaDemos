@@ -1,6 +1,7 @@
 package demo
 
 import kotlin.properties.Delegates
+import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 /**
@@ -82,9 +83,53 @@ class Example3 {
     var notNullProperty: String by Delegates.notNull<String>()
 }
 
-//=====================局部委托属性===================
+//=====================局部变量声明为委托属性===================
 fun test(compute: () -> Example) {
     val e by lazy(compute) // 只会在第一次访问时计算
+}
+
+//=====================提供委托======================
+// 通过定义 provideDelegate 操作符，可以扩展创建属性实现所委托对象的逻辑。
+// 如果 by 右侧所使用的对象将 provideDelegate 定义为成员或扩展函数，那么会调用该函数来创建属性委托实例。
+// provideDelegate 的一个可能的使用场景是在创建属性时（而不仅在其 getter 或 setter 中）检查属性一致性。
+enum class ResourceID(id: Int, name: String) {
+    image_id(1001, "image"),
+    text_id(1002, "text");
+
+    val id = id
+    val propertyName = name
+}
+
+class ResourceLoader(val id: ResourceID) {
+    // provideDelegate名称不能改，否则会报'operator' modifier is inapplicable on this function: illegal function name
+    operator fun provideDelegate(thisRef: MyUI, property: KProperty<*>): ReadOnlyProperty<MyUI, String> {
+        // Do your job here
+        println("Do your job here")
+        checkProperty(thisRef, property.name)
+        return Impl(id)
+    }
+
+    private fun checkProperty(thisRef: MyUI, name: String) {
+        when (name) {
+            "image", "text" -> println("Valid property $name")
+            else -> throw Exception("Invalid property $name")
+        }
+    }
+
+    private class Impl(val id: ResourceID) : ReadOnlyProperty<MyUI, String> {
+        override fun getValue(thisRef: MyUI, property: KProperty<*>): String {
+            return "id:${id.id}, name:${id.propertyName}"
+        }
+    }
+}
+
+class MyUI {
+    val image by bindResource(ResourceID.image_id)
+    val text by bindResource(ResourceID.text_id)
+
+    private fun bindResource(id: ResourceID): ResourceLoader {
+        return ResourceLoader(id)
+    }
 }
 
 fun main(args: Array<String>) {
@@ -123,4 +168,8 @@ fun main(args: Array<String>) {
     val e3 = Example3()
     e3.notNullProperty = "aaa"
     println(e3.notNullProperty)
+
+    val ui = MyUI()
+    println(ui.image)
+    println(ui.text)
 }
