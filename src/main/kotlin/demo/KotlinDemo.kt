@@ -231,7 +231,7 @@ private fun compareNumber() {
     var h: Int? = 128
     var i: Int? = 128
     println(d === e) // true Integer会缓存[-128,127]的实例
-    println(f === g) // true 为什么？
+    println(f === g) // true 为什么？----查看class文件发现，f和g并没有装箱！！
     println(h === i) // false
 }
 // ----------------------比较两个数字-----------------------------
