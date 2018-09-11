@@ -1,7 +1,5 @@
 package leetcode.linklist;
 
-import javax.swing.plaf.PanelUI;
-
 public class LinkedListProblems {
 
     /**
@@ -295,4 +293,183 @@ public class LinkedListProblems {
         return slow;
     }
 
+    /**
+     * https://leetcode-cn.com/problems/merge-two-sorted-lists/description/
+     * Q:将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
+     * <p>
+     * 示例：
+     * <p>
+     * 输入：1->2->4, 1->3->4
+     * 输出：1->1->2->3->4->4
+     *
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+        ListNode head = null;
+        if (l1.val <= l2.val) {
+            head = l1;
+            l1 = l1.next;
+        } else {
+            head = l2;
+            l2 = l2.next;
+        }
+        ListNode p = head;
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                p.next = l1;
+                l1 = l1.next;
+            } else {
+                p.next = l2;
+                l2 = l2.next;
+            }
+            p = p.next;
+        }
+        if (l1 != null) {
+            p.next = l1;
+        }
+        if (l2 != null) {
+            p.next = l2;
+        }
+        return head;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/add-two-numbers/description/
+     * Q:给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。
+     * <p>
+     * 你可以假设除了数字 0 之外，这两个数字都不会以零开头。
+     * <p>
+     * 示例：
+     * <p>
+     * 输入：(2 -> 4 -> 3) + (5 -> 6 -> 4)
+     * 输出：7 -> 0 -> 8
+     * 原因：342 + 465 = 807
+     *
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode head = null, p = null;
+        int value, flag = 0;
+        // 退出循环的条件是，l1==null&&l2==null&&flag==0
+        // 注意flag>0表示有进位，需要多生成一位
+        while (l1 != null || l2 != null || flag > 0) {
+            // 计算当前位的值
+            value = flag;
+            if (l1 != null) {
+                value += l1.val;
+            }
+            if (l2 != null) {
+                value += l2.val;
+            }
+            flag = value / 10;// 进位
+            if (head == null) {
+                head = new ListNode(value % 10);
+                p = head;
+            } else {
+                p.next = new ListNode(value % 10);
+                p = p.next;
+            }
+            if (l1 != null) {
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                l2 = l2.next;
+            }
+        }
+        return head;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/flatten-a-multilevel-doubly-linked-list/description/
+     * Q:您将获得一个双向链表，除了下一个和前一个指针之外，它还有一个子指针，可能指向单独的双向链表。这些子列表可能有一个或多个自己的子项，依此类推，生成多级数据结构，如下面的示例所示。
+     * <p>
+     * 扁平化列表，使所有结点出现在单级双链表中。您将获得列表第一级的头部。
+     * <p>
+     * 示例:
+     * <p>
+     * 输入:
+     * 1---2---3---4---5---6--NULL
+     * |
+     * 7---8---9---10--NULL
+     * |
+     * 11--12--NULL
+     * <p>
+     * 输出:
+     * 1-2-3-7-8-11-12-9-10-4-5-6-NULL
+     *
+     * @param head
+     * @return
+     */
+    public static Node flatten(Node head) {
+        if (head == null) {
+            return null;
+        }
+        Node p = head;//p为主链表遍历指针
+        Node q;// q为子链表遍历指针
+        while (p != null) {
+            // 存在子链表，则将其插入到主链表中
+            // 子链表中可能仍存在子链表，但是插入到主链表后会交给主链表处理
+            if (p.child != null) {
+                q = p.child;
+                while (q.next != null) {
+                    q = q.next;
+                }
+                q.next = p.next;
+                if (q.next != null) {
+                    q.next.prev = q;
+                }
+                p.next = p.child;
+                p.child.prev = p;
+                p.child = null;
+            }
+            p = p.next;
+        }
+        return head;
+    }
+
+    /**
+     * Q:复制带随机指针的链表
+     * 给定一个链表，每个节点包含一个额外增加的随机指针，该指针可以指向链表中的任何节点或空节点。
+     * <p>
+     * 要求返回这个链表的深度拷贝。
+     * A:
+     * 1. 需要复制的链表ABCD，ABCD是原来的链表，A’B’C’D’是复制的链表。
+     * 2. 第一遍扫描顺序复制next指针，把ABCD的next分别指向A’B’C’D’，即A->A'->B->B'->C->C'->D->D'
+     * 复制random指针： A’->random=A->random->next
+     * 3. 第三遍扫描，恢复:A->next=A’->next;A’->next=A’->next->next;
+     *
+     * @param head
+     * @return
+     */
+    public static RandomListNode copyRandomList(RandomListNode head) {
+        if (head == null) {
+            return null;
+        }
+        RandomListNode p = head, q;
+        while (p != null) {
+            q = new RandomListNode(p.label);
+            q.next = p.next;
+            p.next = q;
+            p = q.next;
+        }
+
+        p = head;
+        while (p != null) {
+            if (p.random != null) {
+
+            }
+        }
+
+        return null;
+    }
 }

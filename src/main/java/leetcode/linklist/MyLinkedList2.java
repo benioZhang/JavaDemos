@@ -3,28 +3,30 @@ package leetcode.linklist;
 /**
  * https://leetcode-cn.com/problems/design-linked-list/description/
  */
-public class MyLinkedList {
+public class MyLinkedList2 {
     private int size = 0;
     private final Node head = new Node(Integer.MIN_VALUE);
 
     private static class Node {
         public int value;
         public Node next;
+        public Node pre;
 
         public Node(int value) {
             this.value = value;
         }
 
-        public Node(int value, Node next) {
+        public Node(int value, Node next, Node pre) {
             this.value = value;
             this.next = next;
+            this.pre = pre;
         }
     }
 
     /**
      * Initialize your data structure here.
      */
-    public MyLinkedList() {
+    public MyLinkedList2() {
     }
 
     /**
@@ -62,13 +64,15 @@ public class MyLinkedList {
         if (index < 0 || index > size) {
             return;
         }
-        Node n = head;
-        Node p = null;
-        for (int i = 0; i <= index; i++) {
-            p = n;
-            n = n.next;
+        Node p = head, q;
+        for (int i = 0; i < index; i++) {
+            p = p.next;
         }
-        p.next = new Node(val, n);
+        q = new Node(val, p.next, p);
+        if (p.next != null) {
+            p.next.pre = q;
+        }
+        p.next = q;
         size++;
     }
 
@@ -79,24 +83,14 @@ public class MyLinkedList {
         if (index < 0 || index > size - 1) {
             return;
         }
-        Node n = head;
-        Node p = null;
+        Node p = head;
         for (int i = 0; i <= index; i++) {
-            p = n;
-            n = n.next;
+            p = p.next;
         }
-        p.next = n.next;
-        n.next = null;
+        if (p.next != null) {
+            p.next.pre = p.pre;
+        }
+        p.pre.next = p.next;
         size--;
     }
 }
-
-/**
- * Your MyLinkedList object will be instantiated and called as such:
- * MyLinkedList obj = new MyLinkedList();
- * int param_1 = obj.get(index);
- * obj.addAtHead(val);
- * obj.addAtTail(val);
- * obj.addAtIndex(index,val);
- * obj.deleteAtIndex(index);
- */

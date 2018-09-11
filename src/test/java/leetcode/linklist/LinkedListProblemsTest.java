@@ -3,13 +3,14 @@ package leetcode.linklist;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
+import static leetcode.linklist.LinkedListUtil.createRandomList;
 import static leetcode.linklist.ListNodeUtil.createLinkedList;
 import static leetcode.linklist.ListNodeUtil.getLinkedListValue;
+import static leetcode.linklist.LinkedListUtil.createNodeList;
+import static leetcode.linklist.LinkedListUtil.getNodeListValue;
 
 public class LinkedListProblemsTest {
     @Test
@@ -164,5 +165,129 @@ public class LinkedListProblemsTest {
         node = node.next = new ListNode(2);
         node = node.next = new ListNode(1);
         Assert.assertTrue(LinkedListProblems.isPalindrome(list));
+    }
+
+    @Test
+    public void mergeTwoLists() {
+        ListNode list1, list2, node;
+        node = LinkedListProblems.mergeTwoLists(null, null);
+        Assert.assertNull(node);
+
+        node = list1 = new ListNode(1);// 1->2->4
+        node = node.next = new ListNode(2);
+        node = node.next = new ListNode(4);
+        node = LinkedListProblems.mergeTwoLists(list1, null);
+        Assert.assertEquals(node, list1);
+        node = list2 = new ListNode(1);// 1->3->4
+        node = node.next = new ListNode(3);
+        node = node.next = new ListNode(4);
+        node = LinkedListProblems.mergeTwoLists(list1, list2);
+        Assert.assertEquals(node, list1);
+        Assert.assertEquals(Arrays.asList(1, 1, 2, 3, 4, 4), getLinkedListValue(node));
+
+        node = list1 = new ListNode(1);// 1->2->4->5
+        node = node.next = new ListNode(2);
+        node = node.next = new ListNode(4);
+        node = node.next = new ListNode(5);
+        node = list2 = new ListNode(1);// 1->2->3
+        node = node.next = new ListNode(2);
+        node = node.next = new ListNode(3);
+        node = LinkedListProblems.mergeTwoLists(list1, list2);
+        Assert.assertEquals(node, list1);
+        Assert.assertEquals(Arrays.asList(1, 1, 2, 2, 3, 4, 5), getLinkedListValue(node));
+    }
+
+    @Test
+    public void addTwoNumbers() {
+        ListNode list1, list2, node;
+        list1 = new ListNode(1);
+        list2 = new ListNode(9);
+        list2.next = new ListNode(9);
+        node = LinkedListProblems.addTwoNumbers(list1, list2);
+        Assert.assertEquals(Arrays.asList(0, 0, 1), getLinkedListValue(node));
+
+        list1 = new ListNode(2);
+        list2 = new ListNode(8);
+        list2.next = new ListNode(9);
+        list2.next.next = new ListNode(9);
+        list2.next.next.next = new ListNode(9);
+        node = LinkedListProblems.addTwoNumbers(list1, list2);
+        Assert.assertEquals(Arrays.asList(0, 0, 0, 0, 1), getLinkedListValue(node));
+
+        node = list1 = new ListNode(2);
+        node = node.next = new ListNode(4);
+        node = node.next = new ListNode(3);
+        node = list2 = new ListNode(5);
+        node = node.next = new ListNode(6);
+        node = node.next = new ListNode(4);
+        node = LinkedListProblems.addTwoNumbers(list1, list2);
+        Assert.assertEquals(Arrays.asList(7, 0, 8), getLinkedListValue(node));
+
+        node = list1 = new ListNode(2);
+        node = node.next = new ListNode(4);
+        node = node.next = new ListNode(3);
+        node = list2 = new ListNode(5);
+        node = node.next = new ListNode(6);
+        node = node.next = new ListNode(9);
+        node = LinkedListProblems.addTwoNumbers(list1, list2);
+        Assert.assertEquals(Arrays.asList(7, 0, 3, 1), getLinkedListValue(node));
+
+        node = list1 = new ListNode(1);
+        node = node.next = new ListNode(9);
+        node = node.next = new ListNode(3);
+        node = node.next = new ListNode(4);
+        node = list2 = new ListNode(9);
+        node = node.next = new ListNode(9);
+        node = node.next = new ListNode(9);
+        node = LinkedListProblems.addTwoNumbers(list1, list2);
+        Assert.assertEquals(Arrays.asList(0, 9, 3, 5), getLinkedListValue(node));
+    }
+
+    @Test
+    public void flatten() {
+        Node list1, list2, list3, node;
+        list1 = createNodeList(6, 1);
+        list2 = createNodeList(4, 7);
+        list3 = createNodeList(2, 11);
+        list1.next.next.child = list2;
+        list2.next.child = list3;
+        list1 = LinkedListProblems.flatten(list1);
+        Assert.assertEquals(Arrays.asList(1, 2, 3, 7, 8, 11, 12, 9, 10, 4, 5, 6), getNodeListValue(list1));
+        while (list1 != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("val: ").append(list1.val);
+            sb.append(", pre: ");
+            if (list1.prev != null) {
+                sb.append(list1.prev.val);
+            } else {
+                sb.append("null");
+            }
+            sb.append(", next: ");
+            if (list1.next != null) {
+                sb.append(list1.next.val);
+            } else {
+                sb.append("null");
+            }
+            System.out.println(sb);
+            list1 = list1.next;
+        }
+    }
+
+    @Test
+    public void copyRandomList() {
+        RandomListNode node;
+        RandomListNode head = createRandomList(5);
+        node = head;
+        while (node != null) {
+            System.out.println("raw:" + node + "," + node.label + "," + node.random + "," + node.random.label);
+            node = node.next;
+        }
+
+        RandomListNode copyHead = LinkedListProblems.copyRandomList(head);
+        node = copyHead;
+        while (node != null) {
+            System.out.println("copy:" + node + "," + node.label + "," + node.random + "," + node.random.label);
+            node = node.next;
+        }
     }
 }
