@@ -275,19 +275,34 @@ public class LinkedListProblemsTest {
 
     @Test
     public void copyRandomList() {
-        RandomListNode node;
-        RandomListNode head = createRandomList(5);
+        RandomListNode node, head;
+
+        head = createRandomList(5);
+        RandomListNode copyHead = LinkedListProblems.copyRandomList(head);
+        Assert.assertNotEquals(head, copyHead);
+
         node = head;
         while (node != null) {
             System.out.println("raw:" + node + "," + node.label + "," + node.random + "," + node.random.label);
             node = node.next;
         }
-
-        RandomListNode copyHead = LinkedListProblems.copyRandomList(head);
         node = copyHead;
         while (node != null) {
             System.out.println("copy:" + node + "," + node.label + "," + node.random + "," + node.random.label);
             node = node.next;
         }
+    }
+
+    private static boolean deepEquals(RandomListNode a, RandomListNode b) {
+        if (a == b) {
+            return false;
+        }
+        if (a.label != b.label) {
+            return false;
+        }
+        if (a.next != null) {
+
+        }
+        return true;
     }
 }

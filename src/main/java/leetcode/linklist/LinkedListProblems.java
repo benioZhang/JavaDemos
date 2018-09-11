@@ -443,10 +443,9 @@ public class LinkedListProblems {
      * <p>
      * 要求返回这个链表的深度拷贝。
      * A:
-     * 1. 需要复制的链表ABCD，ABCD是原来的链表，A’B’C’D’是复制的链表。
-     * 2. 第一遍扫描顺序复制next指针，把ABCD的next分别指向A’B’C’D’，即A->A'->B->B'->C->C'->D->D'
-     * 复制random指针： A’->random=A->random->next
-     * 3. 第三遍扫描，恢复:A->next=A’->next;A’->next=A’->next->next;
+     * 1. 复制节点，如A-B-C => A-A’-B-B’-C-C’
+     * 2. 复制random指针： A’->random=A->random->next
+     * 3. 分离成 A-B-C 和 A’-B’-C’，A’-B’-C’便是所求链表
      *
      * @param head
      * @return
@@ -455,21 +454,34 @@ public class LinkedListProblems {
         if (head == null) {
             return null;
         }
-        RandomListNode p = head, q;
+        RandomListNode p = head, q, head2;
+        //复制原始链表，A->B变成A->A'->B->B'
         while (p != null) {
             q = new RandomListNode(p.label);
             q.next = p.next;
             p.next = q;
             p = q.next;
         }
-
+        // 复制random指针
         p = head;
         while (p != null) {
             if (p.random != null) {
-
+                p.next.random = p.random.next;
             }
+            //  跳过复制的结点
+            p = p.next.next;
         }
-
-        return null;
+        // 拆分新旧链表
+        p = head;
+        head2 = q = head.next;
+        while (p != null && q != null) {
+            p.next = q.next;
+            if (q.next != null) {
+                q.next = q.next.next;
+            }
+            p = p.next;
+            q = q.next;
+        }
+        return head2;
     }
 }
