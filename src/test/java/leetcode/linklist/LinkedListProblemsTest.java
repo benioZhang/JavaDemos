@@ -253,8 +253,8 @@ public class LinkedListProblemsTest {
         list2.next.child = list3;
         list1 = LinkedListProblems.flatten(list1);
         Assert.assertEquals(Arrays.asList(1, 2, 3, 7, 8, 11, 12, 9, 10, 4, 5, 6), getNodeListValue(list1));
+        StringBuilder sb = new StringBuilder();
         while (list1 != null) {
-            StringBuilder sb = new StringBuilder();
             sb.append("val: ").append(list1.val);
             sb.append(", pre: ");
             if (list1.prev != null) {
@@ -268,41 +268,59 @@ public class LinkedListProblemsTest {
             } else {
                 sb.append("null");
             }
-            System.out.println(sb);
+            sb.append('\n');
             list1 = list1.next;
         }
+        System.out.println(sb);
     }
 
     @Test
     public void copyRandomList() {
-        RandomListNode node, head;
+        RandomListNode node, head, head2;
+        head = createRandomList(1);
+        head2 = LinkedListProblems.copyRandomList(head);
+        deepEquals(head, head2);
 
         head = createRandomList(5);
-        RandomListNode copyHead = LinkedListProblems.copyRandomList(head);
-        Assert.assertNotEquals(head, copyHead);
-
-        node = head;
-        while (node != null) {
-            System.out.println("raw:" + node + "," + node.label + "," + node.random + "," + node.random.label);
-            node = node.next;
-        }
-        node = copyHead;
-        while (node != null) {
-            System.out.println("copy:" + node + "," + node.label + "," + node.random + "," + node.random.label);
-            node = node.next;
-        }
+        head2 = LinkedListProblems.copyRandomList(head);
+        deepEquals(head, head2);
     }
 
-    private static boolean deepEquals(RandomListNode a, RandomListNode b) {
-        if (a == b) {
-            return false;
+    private static void deepEquals(RandomListNode a, RandomListNode b) {
+        if (a == null || b == null) {
+            Assert.assertEquals(a, b);
+            return;
+        } else {
+            Assert.assertNotEquals(a, b);
         }
-        if (a.label != b.label) {
-            return false;
+        while (a != null && b != null) {
+            // a,b值相等
+            Assert.assertEquals(a.label, b.label);
+            if ((a.random == null || b.random == null)) {
+                // 其中一个random为null，另一个也必须为null
+                Assert.assertEquals(a.random, b.random);
+            } else {
+                // random均不为Null
+                Assert.assertNotEquals(a.random, b.random);
+                Assert.assertEquals(a.random.label, b.random.label);
+            }
+            a = a.next;
+            b = b.next;
         }
-        if (a.next != null) {
+        //结束后，a=b=null
+        Assert.assertNull(a);
+        Assert.assertNull(b);
+    }
 
-        }
-        return true;
+    @Test
+    public void rotateRight() {
+        ListNode head, head2;
+        head = createLinkedList(2);//1->2
+        head2 = LinkedListProblems.rotateRight(head, 5);
+        Assert.assertEquals(Arrays.asList(2, 1), getLinkedListValue(head2));
+
+        head = createLinkedList(5);// 1->2->3->4->5
+        head = LinkedListProblems.rotateRight(head, 2);
+        Assert.assertEquals(Arrays.asList(4, 5, 1, 2, 3), getLinkedListValue(head));
     }
 }

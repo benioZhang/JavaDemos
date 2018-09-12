@@ -16,7 +16,6 @@ public class LinkedListUtil {
 
     public static Node createNodeList(int length, int valueBegin) {
         Node head = new Node();//空结点
-        head.val = -1;
         Node p = head, q;
         for (int i = 0; i < length; i++) {
             q = p;
@@ -25,6 +24,7 @@ public class LinkedListUtil {
             p.val = valueBegin + i;
             p.prev = q;
         }
+        head.next.prev = null;
         return head.next;
     }
 
