@@ -164,4 +164,54 @@ public class ArrayQuestions {
         }
         return digits;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/diagonal-traverse/description/
+     * Q:给定一个含有 M x N 个元素的矩阵（M行，N列），请以对角线遍历的顺序返回这个矩阵中的所有元素，对角线遍历如下图所示。
+     * <p>
+     * 示例:
+     * <p>
+     * 输入:
+     * [
+     * [ 1, 2, 3 ],
+     * [ 4, 5, 6 ],
+     * [ 7, 8, 9 ]
+     * ]
+     * 输出:  [1,2,4,7,5,3,6,8,9]
+     *
+     * @param matrix
+     * @return
+     */
+    public static int[] findDiagonalOrder(int[][] matrix) {
+        if (matrix == null || matrix.length == 0) {
+            return null;
+        }
+        final int row = matrix.length, col = matrix[0].length;
+        if (row == 1) {
+            return matrix[0];
+        }
+        int[] result = new int[row * col];
+        int k = 0;// 记录result当前下标
+        int max, min;// 当前层数的最大与最小下标
+        System.out.println(row + "," + col);
+        for (int i = 0; i < row + col - 1; i++) { // 共row + col - 1层
+            max = Math.min(i, col - 1);
+            min = i - max;
+            System.out.println(min + "," + max);
+            if (i % 2 == 0) {
+                // 偶数层往上遍历
+//                for (int j = max; j >= min; j--) {
+//                    result[k++] = matrix[j][i - j];
+//                    System.out.println(matrix[j][i - j]);
+//                }
+            } else {
+                // 奇数层往下遍历
+//                for (int j = min; j <= max; j++) {
+//                    result[k++] = matrix[j][i - j];
+//                    System.out.println(matrix[j][i - j]);
+//                }
+            }
+        }
+        return result;
+    }
 }

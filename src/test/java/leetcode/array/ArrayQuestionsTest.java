@@ -50,4 +50,26 @@ public class ArrayQuestionsTest {
         digits = ArrayQuestions.plusOne(digits);
         Assert.assertArrayEquals(new int[]{1, 2, 4}, digits);
     }
+
+    @Test
+    public void findDiagonalOrder() {
+        int[][] matrix;
+        matrix = null;
+        Assert.assertNull(ArrayQuestions.findDiagonalOrder(matrix));
+
+        matrix = new int[][]{};
+        Assert.assertNull(ArrayQuestions.findDiagonalOrder(matrix));
+
+        matrix = new int[][]{{1, 2, 3}};
+        Assert.assertArrayEquals(new int[]{1, 2, 3}, ArrayQuestions.findDiagonalOrder(matrix));
+
+        matrix = new int[][]{{1}, {2}, {3}};
+        //Assert.assertArrayEquals(new int[]{1, 2, 3}, ArrayQuestions.findDiagonalOrder(matrix));
+
+        matrix = new int[][]{{1, 2, 3}, {4, 5, 6}};
+        //Assert.assertArrayEquals(new int[]{1, 2, 4, 5, 3, 6}, ArrayQuestions.findDiagonalOrder(matrix));
+
+        matrix = new int[][]{{1, 2, 3, 5}, {4, 5, 6, 5}, {7, 8, 9, 5}};
+        Assert.assertArrayEquals(new int[]{1, 2, 4, 7, 5, 3, 6, 8, 9}, ArrayQuestions.findDiagonalOrder(matrix));
+    }
 }
