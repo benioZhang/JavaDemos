@@ -1,5 +1,8 @@
 package leetcode.array;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ArrayQuestions {
 
     /**
@@ -183,34 +186,107 @@ public class ArrayQuestions {
      * @return
      */
     public static int[] findDiagonalOrder(int[][] matrix) {
-        if (matrix == null || matrix.length == 0) {
+        if (matrix == null) {
             return null;
         }
-        final int row = matrix.length, col = matrix[0].length;
-        if (row == 1) {
-            return matrix[0];
+        if (matrix.length == 0) {
+            return new int[0];
         }
+        final int row = matrix.length, col = matrix[0].length;
         int[] result = new int[row * col];
         int k = 0;// 记录result当前下标
-        int max, min;// 当前层数的最大与最小下标
-        System.out.println(row + "," + col);
+        //横纵坐标用(x,y)表示
+        //观察得x的最小值为x = max(0, i - col + 1), x的最大值为x = min(i, row-1)，且y = i - x
+        int xMax, xMin;// 当前层数的x的最大与最小下标
         for (int i = 0; i < row + col - 1; i++) { // 共row + col - 1层
-            max = Math.min(i, col - 1);
-            min = i - max;
-            System.out.println(min + "," + max);
+            xMax = Math.min(i, row - 1);
+            xMin = Math.max(0, i - col + 1);
             if (i % 2 == 0) {
-                // 偶数层往上遍历
-//                for (int j = max; j >= min; j--) {
-//                    result[k++] = matrix[j][i - j];
-//                    System.out.println(matrix[j][i - j]);
-//                }
+                // 偶数层往上遍历，x逐渐变小
+                for (int j = xMax; j >= xMin; j--) {
+                    result[k++] = matrix[j][i - j];
+                }
             } else {
-                // 奇数层往下遍历
-//                for (int j = min; j <= max; j++) {
-//                    result[k++] = matrix[j][i - j];
-//                    System.out.println(matrix[j][i - j]);
-//                }
+                // 奇数层往下遍历, x逐渐变大
+                for (int j = xMin; j <= xMax; j++) {
+                    result[k++] = matrix[j][i - j];
+                }
             }
+        }
+        return result;
+    }
+
+    /**
+     * Q:螺旋矩阵
+     * 给定一个包含 m x n 个元素的矩阵（m 行, n 列），请按照顺时针螺旋顺序，返回矩阵中的所有元素。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入:
+     * [
+     * [ 1, 2, 3 ],
+     * [ 4, 5, 6 ],
+     * [ 7, 8, 9 ]
+     * ]
+     * 输出: [1,2,3,6,9,8,7,4,5]
+     *
+     * @param matrix
+     * @return
+     */
+    public static List<Integer> spiralOrder(int[][] matrix) {
+        if (matrix == null) {
+            return null;
+        }
+        if (matrix.length == 0) {
+            return new ArrayList<>(0);
+        }
+        final int row = matrix.length, col = matrix[0].length;
+        List<Integer> result = new ArrayList<>(row * col);
+        int i = 0, j = 0, k = 0;// k为当前圈数
+        int n = 0;
+        while (n < row * col) {
+            // 从左上到右上
+            while (j < col - k) {
+                System.out.print(matrix[i][j] + ",");
+                j++;
+                n++;
+            }
+            j = col - k - 1;
+            i++;
+            System.out.println("\ni,j=" + i + "," + j);
+
+            // 从右上到右下
+            while (i < row - k) {
+                System.out.print(matrix[i][j] + ",");
+                i++;
+                n++;
+            }
+            i = row - k - 1;
+
+            System.out.println("\ni,j=" + i + "," + j);
+
+            // 从右下到左下
+            j--;
+            while (j >= k) {
+                System.out.print(matrix[i][j] + ",");
+                j--;
+                n++;
+            }
+            j++;
+
+            System.out.println("\ni,j=" + i + "," + j);
+
+            // 从左下到左上
+            i--;
+            while (i >= k + 1) {
+                System.out.print(matrix[i][j] + ",");
+                i--;
+                n++;
+            }
+            i++;
+            j++;
+            System.out.println("\ni,j=" + i + "," + j);
+            k++;
         }
         return result;
     }

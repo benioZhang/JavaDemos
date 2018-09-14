@@ -3,6 +3,9 @@ package leetcode.array;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class ArrayQuestionsTest {
 
     @Test
@@ -58,18 +61,52 @@ public class ArrayQuestionsTest {
         Assert.assertNull(ArrayQuestions.findDiagonalOrder(matrix));
 
         matrix = new int[][]{};
-        Assert.assertNull(ArrayQuestions.findDiagonalOrder(matrix));
+        Assert.assertArrayEquals(new int[0], ArrayQuestions.findDiagonalOrder(matrix));
 
-        matrix = new int[][]{{1, 2, 3}};
+        matrix = new int[][]{{1, 2, 3}};//1*3
         Assert.assertArrayEquals(new int[]{1, 2, 3}, ArrayQuestions.findDiagonalOrder(matrix));
 
-        matrix = new int[][]{{1}, {2}, {3}};
-        //Assert.assertArrayEquals(new int[]{1, 2, 3}, ArrayQuestions.findDiagonalOrder(matrix));
+        matrix = new int[][]{{1}, {2}, {3}};//3*1
+        Assert.assertArrayEquals(new int[]{1, 2, 3}, ArrayQuestions.findDiagonalOrder(matrix));
 
-        matrix = new int[][]{{1, 2, 3}, {4, 5, 6}};
-        //Assert.assertArrayEquals(new int[]{1, 2, 4, 5, 3, 6}, ArrayQuestions.findDiagonalOrder(matrix));
+        matrix = new int[][]{{1, 2}, {3, 4}};//2*2
+        Assert.assertArrayEquals(new int[]{1, 2, 3, 4}, ArrayQuestions.findDiagonalOrder(matrix));
 
-        matrix = new int[][]{{1, 2, 3, 5}, {4, 5, 6, 5}, {7, 8, 9, 5}};
+        matrix = new int[][]{{1, 2, 3}, {4, 5, 6}};//2*3
+        Assert.assertArrayEquals(new int[]{1, 2, 4, 5, 3, 6}, ArrayQuestions.findDiagonalOrder(matrix));
+
+        matrix = new int[][]{{1, 2}, {3, 4}, {5, 6}};//3*2
+        Assert.assertArrayEquals(new int[]{1, 2, 3, 5, 4, 6}, ArrayQuestions.findDiagonalOrder(matrix));
+
+        matrix = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};// 3*3
         Assert.assertArrayEquals(new int[]{1, 2, 4, 7, 5, 3, 6, 8, 9}, ArrayQuestions.findDiagonalOrder(matrix));
+    }
+
+    @Test
+    public void spiralOrder() {
+        int[][] matrix;
+        matrix = null;
+        Assert.assertNull(ArrayQuestions.spiralOrder(matrix));
+
+        matrix = new int[][]{};
+        Assert.assertEquals(Collections.emptyList(), ArrayQuestions.spiralOrder(matrix));
+
+//        matrix = new int[][]{{1, 2, 3}};//1*3
+//        Assert.assertEquals(Arrays.asList(1, 2, 3), ArrayQuestions.spiralOrder(matrix));
+//
+//        matrix = new int[][]{{1}, {2}, {3}};//3*1
+//        Assert.assertEquals(Arrays.asList(1, 2, 3), ArrayQuestions.spiralOrder(matrix));
+
+        //matrix = new int[][]{{1, 2}, {3, 4}};//2*2
+        //Assert.assertEquals(Arrays.asList(1, 2, 4, 3), ArrayQuestions.spiralOrder(matrix));
+
+        //matrix = new int[][]{{1, 2, 3}, {4, 5, 6}};//2*3
+        //Assert.assertEquals(Arrays.asList(1, 2, 4, 3), ArrayQuestions.spiralOrder(matrix));
+
+//        matrix = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};// 3*3
+//        Assert.assertEquals(Arrays.asList(1, 2, 4, 3), ArrayQuestions.spiralOrder(matrix));
+
+        matrix = new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};// 3*3
+        Assert.assertEquals(Arrays.asList(1, 2, 4, 3), ArrayQuestions.spiralOrder(matrix));
     }
 }
