@@ -242,51 +242,58 @@ public class ArrayQuestions {
         }
         final int row = matrix.length, col = matrix[0].length;
         List<Integer> result = new ArrayList<>(row * col);
-        int i = 0, j = 0, k = 0;// k为当前圈数
-        int n = 0;
+        int i = 0, j = 0, k = 0;// 下标(i,j), k为当前圈数
+        int n = 0;// 当前已遍历的数目
         while (n < row * col) {
             // 从左上到右上
             while (j < col - k) {
-                System.out.print(matrix[i][j] + ",");
+                result.add(matrix[i][j]);
                 j++;
                 n++;
             }
+            if (n >= row * col) {
+                break;
+            }
             j = col - k - 1;
             i++;
-            System.out.println("\ni,j=" + i + "," + j);
-
+            System.out.println("i,j=" + i + "," + j + "," + result);
             // 从右上到右下
             while (i < row - k) {
-                System.out.print(matrix[i][j] + ",");
+                result.add(matrix[i][j]);
                 i++;
                 n++;
             }
+            if (n >= row * col) {
+                break;
+            }
             i = row - k - 1;
-
-            System.out.println("\ni,j=" + i + "," + j);
-
-            // 从右下到左下
             j--;
+            System.out.println("i,j=" + i + "," + j + "," + result);
+            // 从右下到左下
             while (j >= k) {
-                System.out.print(matrix[i][j] + ",");
+                result.add(matrix[i][j]);
                 j--;
                 n++;
             }
-            j++;
-
-            System.out.println("\ni,j=" + i + "," + j);
-
-            // 从左下到左上
+            if (n >= row * col) {
+                break;
+            }
+            j = k;
             i--;
+            System.out.println("i,j=" + i + "," + j + "," + result);
+            // 从左下到左上
             while (i >= k + 1) {
-                System.out.print(matrix[i][j] + ",");
+                result.add(matrix[i][j]);
                 i--;
                 n++;
             }
-            i++;
-            j++;
-            System.out.println("\ni,j=" + i + "," + j);
+            if (n >= row * col) {
+                break;
+            }
+            i = k + 1;
+            j = k + 1;
             k++;
+            System.out.println("i,j=" + i + "," + j + "," + result);
         }
         return result;
     }

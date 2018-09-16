@@ -91,22 +91,28 @@ public class ArrayQuestionsTest {
         matrix = new int[][]{};
         Assert.assertEquals(Collections.emptyList(), ArrayQuestions.spiralOrder(matrix));
 
-//        matrix = new int[][]{{1, 2, 3}};//1*3
-//        Assert.assertEquals(Arrays.asList(1, 2, 3), ArrayQuestions.spiralOrder(matrix));
-//
-//        matrix = new int[][]{{1}, {2}, {3}};//3*1
-//        Assert.assertEquals(Arrays.asList(1, 2, 3), ArrayQuestions.spiralOrder(matrix));
+        matrix = new int[][]{{1, 2, 3}};//1*3
+        Assert.assertEquals(Arrays.asList(1, 2, 3), ArrayQuestions.spiralOrder(matrix));
 
-        //matrix = new int[][]{{1, 2}, {3, 4}};//2*2
-        //Assert.assertEquals(Arrays.asList(1, 2, 4, 3), ArrayQuestions.spiralOrder(matrix));
+        matrix = new int[][]{{1}, {2}, {3}};//3*1
+        Assert.assertEquals(Arrays.asList(1, 2, 3), ArrayQuestions.spiralOrder(matrix));
 
-        //matrix = new int[][]{{1, 2, 3}, {4, 5, 6}};//2*3
-        //Assert.assertEquals(Arrays.asList(1, 2, 4, 3), ArrayQuestions.spiralOrder(matrix));
-
-//        matrix = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};// 3*3
-//        Assert.assertEquals(Arrays.asList(1, 2, 4, 3), ArrayQuestions.spiralOrder(matrix));
-
-        matrix = new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};// 3*3
+        matrix = new int[][]{{1, 2}, {3, 4}};//2*2
         Assert.assertEquals(Arrays.asList(1, 2, 4, 3), ArrayQuestions.spiralOrder(matrix));
+
+        matrix = new int[][]{{1, 2, 3}, {4, 5, 6}};//2*3
+        Assert.assertEquals(Arrays.asList(1, 2, 3, 6, 5, 4), ArrayQuestions.spiralOrder(matrix));
+
+        matrix = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};// 3*3
+        Assert.assertEquals(Arrays.asList(1, 2, 3, 6, 9, 8, 7, 4, 5), ArrayQuestions.spiralOrder(matrix));
+
+        matrix = new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};// 3*4
+        Assert.assertEquals(Arrays.asList(1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7), ArrayQuestions.spiralOrder(matrix));
+
+        matrix = new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};// 3*4
+        Assert.assertEquals(Arrays.asList(1, 2, 3, 4, 8, 12, 16, 15, 14, 13, 9, 5, 6, 7, 11, 10), ArrayQuestions.spiralOrder(matrix));
+
+        matrix = new int[][]{{1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}, {11, 12, 13, 14, 15}, {16, 17, 18, 19, 20}};// 4*5
+        Assert.assertEquals(Arrays.asList(1, 2, 3, 4, 5, 10, 15, 20, 19, 18, 17, 16, 11, 6, 7, 8, 9, 14, 13, 12), ArrayQuestions.spiralOrder(matrix));
     }
 }
