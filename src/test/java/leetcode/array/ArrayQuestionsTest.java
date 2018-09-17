@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class ArrayQuestionsTest {
 
@@ -109,10 +110,25 @@ public class ArrayQuestionsTest {
         matrix = new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};// 3*4
         Assert.assertEquals(Arrays.asList(1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7), ArrayQuestions.spiralOrder(matrix));
 
-        matrix = new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};// 3*4
+        matrix = new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};// 4*4
         Assert.assertEquals(Arrays.asList(1, 2, 3, 4, 8, 12, 16, 15, 14, 13, 9, 5, 6, 7, 11, 10), ArrayQuestions.spiralOrder(matrix));
 
         matrix = new int[][]{{1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}, {11, 12, 13, 14, 15}, {16, 17, 18, 19, 20}};// 4*5
         Assert.assertEquals(Arrays.asList(1, 2, 3, 4, 5, 10, 15, 20, 19, 18, 17, 16, 11, 6, 7, 8, 9, 14, 13, 12), ArrayQuestions.spiralOrder(matrix));
+    }
+
+    @Test
+    public void generate() {
+        List<Integer> row1 = Arrays.asList(1);
+        List<Integer> row2 = Arrays.asList(1, 1);
+        List<Integer> row3 = Arrays.asList(1, 2, 1);
+        List<Integer> row4 = Arrays.asList(1, 3, 3, 1);
+        List<Integer> row5 = Arrays.asList(1, 4, 6, 4, 1);
+        Assert.assertEquals(Arrays.asList(), ArrayQuestions.generate(0));
+        Assert.assertEquals(Arrays.asList(row1), ArrayQuestions.generate(1));
+        Assert.assertEquals(Arrays.asList(row1, row2), ArrayQuestions.generate(2));
+        Assert.assertEquals(Arrays.asList(row1, row2, row3), ArrayQuestions.generate(3));
+        Assert.assertEquals(Arrays.asList(row1, row2, row3, row4), ArrayQuestions.generate(4));
+        Assert.assertEquals(Arrays.asList(row1, row2, row3, row4, row5), ArrayQuestions.generate(5));
     }
 }

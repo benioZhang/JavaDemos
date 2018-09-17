@@ -217,6 +217,7 @@ public class ArrayQuestions {
     }
 
     /**
+     * https://leetcode-cn.com/problems/spiral-matrix/description/
      * Q:螺旋矩阵
      * 给定一个包含 m x n 个元素的矩阵（m 行, n 列），请按照顺时针螺旋顺序，返回矩阵中的所有元素。
      * <p>
@@ -229,6 +230,12 @@ public class ArrayQuestions {
      * [ 7, 8, 9 ]
      * ]
      * 输出: [1,2,3,6,9,8,7,4,5]
+     * A:定义下标(i,j)，当前旋转圈数k
+     * 1.从左上到右上，(i,j)从(k,k)到(k,col - k - 1)
+     * 2.从右上到右下, (i,j)从(k+1,col - k - 1)到(row - k - 1,col - k - 1)
+     * 3.从右下到左下，(i,j)从(row - k - 1,col - k - 1 - 1)到(row - k - 1,k)
+     * 4.从左下到左上，(i,j)从(row - k - 1 - 1,k)到(k + 1,k)
+     * 5.边界不符合条件则退出遍历
      *
      * @param matrix
      * @return
@@ -241,60 +248,92 @@ public class ArrayQuestions {
             return new ArrayList<>(0);
         }
         final int row = matrix.length, col = matrix[0].length;
-        List<Integer> result = new ArrayList<>(row * col);
-        int i = 0, j = 0, k = 0;// 下标(i,j), k为当前圈数
-        int n = 0;// 当前已遍历的数目
-        while (n < row * col) {
+        final int count = row * col;
+        List<Integer> result = new ArrayList<>(count);
+        int i = 0, j = 0;// 下标(i,j)
+        int k = 0;// 当前圈数
+        while (result.size() < count) {
             // 从左上到右上
+            i = j = k;
             while (j < col - k) {
                 result.add(matrix[i][j]);
                 j++;
-                n++;
             }
-            if (n >= row * col) {
+            if (j == k) {
                 break;
             }
-            j = col - k - 1;
-            i++;
-            System.out.println("i,j=" + i + "," + j + "," + result);
             // 从右上到右下
+            j = col - k - 1;
+            i = k + 1;
             while (i < row - k) {
                 result.add(matrix[i][j]);
                 i++;
-                n++;
             }
-            if (n >= row * col) {
+            if (i == k + 1) {
                 break;
             }
-            i = row - k - 1;
-            j--;
-            System.out.println("i,j=" + i + "," + j + "," + result);
             // 从右下到左下
+            i = row - k - 1;
+            j = col - k - 1 - 1;
             while (j >= k) {
                 result.add(matrix[i][j]);
                 j--;
-                n++;
             }
-            if (n >= row * col) {
+            if (j == col - k - 1 - 1) {
                 break;
             }
-            j = k;
-            i--;
-            System.out.println("i,j=" + i + "," + j + "," + result);
             // 从左下到左上
+            j = k;
+            i = row - k - 1 - 1;
             while (i >= k + 1) {
                 result.add(matrix[i][j]);
                 i--;
-                n++;
             }
-            if (n >= row * col) {
+            if (i == row - k - 1 - 1) {
                 break;
             }
-            i = k + 1;
-            j = k + 1;
             k++;
-            System.out.println("i,j=" + i + "," + j + "," + result);
         }
         return result;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/pascals-triangle/description/
+     * Q:杨辉三角
+     * 给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
+     * 在杨辉三角中，每个数是它左上方和右上方的数的和。
+     * <p>
+     * 示例:
+     * <p>
+     * 输入: 5
+     * 输出:
+     * [
+     * [1],
+     * [1,1],
+     * [1,2,1],
+     * [1,3,3,1],
+     * [1,4,6,4,1]
+     * ]
+     *
+     * @param numRows
+     * @return
+     */
+    public static List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> result = new ArrayList<>(numRows);
+        List<Integer> row, lastRow;
+        for (int i = 0; i < numRows; i++) {
+            row = new ArrayList<>(i + 1);
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || j == i) {
+                    row.add(1);
+                } else {
+                    lastRow = result.get(i - 1);
+                    row.add(lastRow.get(j) + lastRow.get(j - 1));
+                }
+            }
+            result.add(row);
+        }
+        return result;
+    }
+
 }
