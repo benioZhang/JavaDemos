@@ -131,4 +131,13 @@ public class ArrayQuestionsTest {
         Assert.assertEquals(Arrays.asList(row1, row2, row3, row4), ArrayQuestions.generate(4));
         Assert.assertEquals(Arrays.asList(row1, row2, row3, row4, row5), ArrayQuestions.generate(5));
     }
+
+    @Test
+    public void twoSum() {
+        Assert.assertArrayEquals(new int[]{1, 2}, ArrayQuestions.twoSum(new int[]{2, 7, 11, 15}, 9));
+        Assert.assertArrayEquals(new int[]{1, 4}, ArrayQuestions.twoSum(new int[]{1, 2, 3, 4}, 5));
+
+        Assert.assertArrayEquals(new int[]{1, 2}, ArrayQuestions.twoSum2(new int[]{2, 7, 11, 15}, 9));
+        Assert.assertArrayEquals(new int[]{1, 4}, ArrayQuestions.twoSum2(new int[]{1, 2, 3, 4}, 5));
+    }
 }

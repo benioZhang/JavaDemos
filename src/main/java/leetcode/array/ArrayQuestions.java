@@ -1,7 +1,9 @@
 package leetcode.array;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ArrayQuestions {
 
@@ -336,4 +338,84 @@ public class ArrayQuestions {
         return result;
     }
 
+    /**
+     * Q:数组拆分 I
+     * 给定长度为 2n 的数组, 你的任务是将这些数分成 n 对, 例如 (a1, b1), (a2, b2), ..., (an, bn) ，使得从1 到 n 的 min(ai, bi) 总和最大。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入: [1,4,3,2]
+     * <p>
+     * 输出: 4
+     * 解释: n 等于 2, 最大总和为 4 = min(1, 2) + min(3, 4).
+     * 提示:
+     * <p>
+     * n 是正整数,范围在 [1, 10000].
+     * 数组中的元素范围在 [-10000, 10000].
+     *
+     * @param nums
+     * @return
+     */
+    public static int arrayPairSum(int[] nums) {
+        return 0;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/description/
+     * Q:两数之和 II - 输入有序数组
+     * 给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。
+     * <p>
+     * 函数应该返回这两个下标值 index1 和 index2，其中 index1 必须小于 index2。
+     * <p>
+     * 说明:
+     * <p>
+     * 返回的下标值（index1 和 index2）不是从零开始的。
+     * 你可以假设每个输入只对应唯一的答案，而且你不可以重复使用相同的元素。
+     * 示例:
+     * <p>
+     * 输入: numbers = [2, 7, 11, 15], target = 9
+     * 输出: [1,2]
+     * 解释: 2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。
+     *
+     * @param numbers
+     * @param target
+     * @return
+     */
+    public static int[] twoSum(int[] numbers, int target) {
+        Map<Integer, Integer> map = new HashMap<>(numbers.length);
+        for (int i = 0; i < numbers.length; i++) {
+            map.put(target - numbers[i], i);
+        }
+        for (int i = 0; i < numbers.length; i++) {
+            if (map.containsKey(numbers[i])) {
+                // 下标值（index1 和 index2）不是从零开始的
+                int[] result = new int[2];
+                result[0] = i + 1;
+                result[1] = map.get(numbers[i]) + 1;
+                return result;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 因为数组是升序的，所以可以用两个指针直接扫描
+     */
+    public static int[] twoSum2(int[] numbers, int target) {
+        int[] result = new int[2];
+        int i = 0, j = numbers.length - 1;
+        while (i < j) {
+            int val = numbers[i] + numbers[j];
+            if (val == target) {
+                break;
+            } else if (val < target) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+        result[0] = i + 1;
+        result[1] = j + 1;
+        return result;
+    }
 }

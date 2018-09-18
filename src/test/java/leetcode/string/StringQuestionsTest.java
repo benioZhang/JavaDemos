@@ -26,4 +26,10 @@ public class StringQuestionsTest {
         Assert.assertEquals("fl", StringQuestions.longestCommonPrefix(new String[]{"flower", "flow", "flight"}));
         Assert.assertEquals("", StringQuestions.longestCommonPrefix(new String[]{"dog", "racecar", "car"}));
     }
+
+    @Test
+    public void reverseString() {
+        Assert.assertEquals("olleh", StringQuestions.reverseString("hello"));
+        Assert.assertEquals("amanaP :lanac a ,nalp a ,nam A", StringQuestions.reverseString("A man, a plan, a canal: Panama"));
+    }
 }

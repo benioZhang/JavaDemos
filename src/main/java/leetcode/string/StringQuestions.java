@@ -122,4 +122,34 @@ public class StringQuestions {
         }
         return strs[0].substring(0, j);
     }
+
+    /**
+     * https://leetcode-cn.com/problems/reverse-string/description/
+     * Q: 编写一个函数，其作用是将输入的字符串反转过来。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入: "hello"
+     * 输出: "olleh"
+     *
+     * @param s
+     * @return
+     */
+    public static String reverseString(String s) {
+        if (s == null) {
+            return null;
+        }
+        char[] chars = s.toCharArray();
+        int i = 0;
+        int j = chars.length - 1;
+        char c;
+        while (i < j) {
+            c = chars[i];
+            chars[i] = chars[j];
+            chars[j] = c;
+            i++;
+            j--;
+        }
+        return new String(chars);
+    }
 }
