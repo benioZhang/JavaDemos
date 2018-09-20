@@ -133,6 +133,12 @@ public class ArrayQuestionsTest {
     }
 
     @Test
+    public void arrayPairSum() {
+        Assert.assertEquals(4, ArrayQuestions.arrayPairSum(new int[]{1, 4, 3, 2}));
+        Assert.assertEquals(12, ArrayQuestions.arrayPairSum(new int[]{8, 5, 2, 4, 7, 1}));
+    }
+
+    @Test
     public void twoSum() {
         Assert.assertArrayEquals(new int[]{1, 2}, ArrayQuestions.twoSum(new int[]{2, 7, 11, 15}, 9));
         Assert.assertArrayEquals(new int[]{1, 4}, ArrayQuestions.twoSum(new int[]{1, 2, 3, 4}, 5));

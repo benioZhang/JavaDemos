@@ -1,9 +1,6 @@
 package leetcode.array;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ArrayQuestions {
 
@@ -339,6 +336,7 @@ public class ArrayQuestions {
     }
 
     /**
+     * https://leetcode-cn.com/problems/array-partition-i/description/
      * Q:数组拆分 I
      * 给定长度为 2n 的数组, 你的任务是将这些数分成 n 对, 例如 (a1, b1), (a2, b2), ..., (an, bn) ，使得从1 到 n 的 min(ai, bi) 总和最大。
      * <p>
@@ -352,12 +350,23 @@ public class ArrayQuestions {
      * <p>
      * n 是正整数,范围在 [1, 10000].
      * 数组中的元素范围在 [-10000, 10000].
+     * A：
+     * 1.排序
+     * 2.每两个数，取最小相加求和
      *
      * @param nums
      * @return
      */
     public static int arrayPairSum(int[] nums) {
-        return 0;
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        Arrays.sort(nums);
+        int sum = 0;
+        for (int i = 0; i < nums.length; i += 2) {
+            sum += nums[i];
+        }
+        return sum;
     }
 
     /**
