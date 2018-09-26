@@ -141,7 +141,21 @@ public class LinkedListProblemsTest {
 
     @Test
     public void oddEvenList() {
+        ListNode list;
+        list = new ListNode(1);
+        Assert.assertEquals(Arrays.asList(1), getLinkedListValue(LinkedListProblems.oddEvenList(list)));
 
+        list = createLinkedList(2);
+        Assert.assertEquals(Arrays.asList(1, 2), getLinkedListValue(LinkedListProblems.oddEvenList(list)));
+
+        list = createLinkedList(3);
+        Assert.assertEquals(Arrays.asList(1, 3, 2), getLinkedListValue(LinkedListProblems.oddEvenList(list)));
+
+        list = createLinkedList(4);
+        Assert.assertEquals(Arrays.asList(1, 3, 2, 4), getLinkedListValue(LinkedListProblems.oddEvenList(list)));
+
+        list = createLinkedList(5);
+        Assert.assertEquals(Arrays.asList(1, 3, 5, 2, 4), getLinkedListValue(LinkedListProblems.oddEvenList(list)));
     }
 
     @Test

@@ -152,4 +152,81 @@ public class StringQuestions {
         }
         return new String(chars);
     }
+
+
+    /**
+     * https://leetcode-cn.com/problems/reverse-words-in-a-string/description/
+     * Q:翻转字符串里的单词
+     * 给定一个字符串，逐个翻转字符串中的每个单词。
+     * <p>
+     * 示例:
+     * <p>
+     * 输入: "the sky is blue",
+     * 输出: "blue is sky the".
+     * 说明:
+     * <p>
+     * 无空格字符构成一个单词。
+     * 输入字符串可以在前面或者后面包含多余的空格，但是反转后的字符不能包括。
+     * 如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。
+     *
+     * @param s
+     * @return
+     */
+    public static String reverseWords(String s) {
+        String[] arr = s.split(" ");
+        StringBuilder sb = new StringBuilder(s.length());
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (arr[i].length() > 0) {
+                if (sb.length() > 0) {
+                    sb.append(' ');// 给上一个单词添加空格
+                }
+                sb.append(arr[i]);
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/description/
+     * Q:反转字符串中的单词 III
+     * 给定一个字符串，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入: "Let's take LeetCode contest"
+     * 输出: "s'teL ekat edoCteeL tsetnoc"
+     * 注意：在字符串中，每个单词由单个空格分隔，并且字符串中不会有任何额外的空格。
+     *
+     * @param s
+     * @return
+     */
+    public static String reverseWords2(String s) {
+        if (s == null || s.isEmpty()) {
+            return s;
+        }
+
+        char[] chars = s.toCharArray();
+        int start = 0, end;
+        while (start <= chars.length) {
+            end = s.indexOf(" ", start);
+            if (end < 0) {
+                reverseChars(chars, start, chars.length - 1);
+                break;
+            }
+            reverseChars(chars, start, end - 1);
+            start = end + 1;
+        }
+        return new String(chars);
+    }
+
+    public static void reverseChars(char[] chars, int start, int end) {
+        char c;
+        while (start < end) {
+            c = chars[start];
+            chars[start] = chars[end];
+            chars[end] = c;
+            start++;
+            end--;
+        }
+    }
 }

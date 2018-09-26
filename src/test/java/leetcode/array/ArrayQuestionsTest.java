@@ -136,6 +136,10 @@ public class ArrayQuestionsTest {
     public void arrayPairSum() {
         Assert.assertEquals(4, ArrayQuestions.arrayPairSum(new int[]{1, 4, 3, 2}));
         Assert.assertEquals(12, ArrayQuestions.arrayPairSum(new int[]{8, 5, 2, 4, 7, 1}));
+        Assert.assertEquals(4, ArrayQuestions.arrayPairSum2(new int[]{1, 4, 3, 2}));
+        Assert.assertEquals(12, ArrayQuestions.arrayPairSum2(new int[]{8, 5, 2, 4, 7, 1}));
+        Assert.assertEquals(5, ArrayQuestions.arrayPairSum2(new int[]{2, 2, 2, 2, 1, 4}));
+        Assert.assertEquals(5, ArrayQuestions.arrayPairSum2(new int[]{2, 1, 2, 2, 1, 4}));
     }
 
     @Test
@@ -145,5 +149,70 @@ public class ArrayQuestionsTest {
 
         Assert.assertArrayEquals(new int[]{1, 2}, ArrayQuestions.twoSum2(new int[]{2, 7, 11, 15}, 9));
         Assert.assertArrayEquals(new int[]{1, 4}, ArrayQuestions.twoSum2(new int[]{1, 2, 3, 4}, 5));
+    }
+
+    @Test
+    public void removeElement() {
+        int[] nums, nums2;
+        int len;
+
+        nums = new int[]{3, 2, 2, 3};
+        len = ArrayQuestions.removeElement(nums, 3);
+        nums2 = new int[len];
+        System.arraycopy(nums, 0, nums2, 0, len);
+        Assert.assertArrayEquals(new int[]{2, 2}, nums2);
+        Assert.assertEquals(2, len);
+
+        nums = new int[]{0, 1, 2, 2, 3, 0, 4, 2};
+        len = ArrayQuestions.removeElement(nums, 2);
+        nums2 = new int[len];
+        System.arraycopy(nums, 0, nums2, 0, len);
+        Assert.assertArrayEquals(new int[]{0, 1, 3, 0, 4}, nums2);
+        Assert.assertEquals(5, len);
+    }
+
+    @Test
+    public void findMaxConsecutiveOnes() {
+        Assert.assertEquals(1, ArrayQuestions.findMaxConsecutiveOnes(new int[]{1}));
+        Assert.assertEquals(0, ArrayQuestions.findMaxConsecutiveOnes(new int[]{0}));
+        Assert.assertEquals(0, ArrayQuestions.findMaxConsecutiveOnes(new int[]{0, 0}));
+        Assert.assertEquals(2, ArrayQuestions.findMaxConsecutiveOnes(new int[]{1, 1}));
+        Assert.assertEquals(3, ArrayQuestions.findMaxConsecutiveOnes(new int[]{1, 1, 0, 1, 1, 1}));
+    }
+
+    @Test
+    public void minSubArrayLen() {
+        Assert.assertEquals(0, ArrayQuestions.minSubArrayLen(100, new int[]{1, 2, 3}));
+        Assert.assertEquals(1, ArrayQuestions.minSubArrayLen(7, new int[]{2, 3, 1, 2, 7, 3}));
+        Assert.assertEquals(2, ArrayQuestions.minSubArrayLen(7, new int[]{2, 3, 1, 2, 4, 3}));
+        Assert.assertEquals(3, ArrayQuestions.minSubArrayLen(9, new int[]{2, 3, 1, 2, 4, 3}));
+        Assert.assertEquals(4, ArrayQuestions.minSubArrayLen(10, new int[]{2, 3, 1, 2, 4, 3}));
+
+        Assert.assertEquals(0, ArrayQuestions.minSubArrayLen2(100, new int[]{1, 2, 3}));
+        Assert.assertEquals(1, ArrayQuestions.minSubArrayLen2(7, new int[]{2, 3, 1, 2, 7, 3}));
+        Assert.assertEquals(2, ArrayQuestions.minSubArrayLen2(7, new int[]{2, 3, 1, 2, 4, 3}));
+        Assert.assertEquals(3, ArrayQuestions.minSubArrayLen2(9, new int[]{2, 3, 1, 2, 4, 3}));
+        Assert.assertEquals(4, ArrayQuestions.minSubArrayLen2(10, new int[]{2, 3, 1, 2, 4, 3}));
+    }
+
+    @Test
+    public void rotate() {
+        int[] nums;
+        nums = new int[]{1, 2, 3, 4, 5, 6, 7};
+        ArrayQuestions.rotate(nums, 3);
+        Assert.assertArrayEquals(new int[]{5, 6, 7, 1, 2, 3, 4}, nums);
+
+        nums = new int[]{1, 2, 3, 4, 5, 6, 7};
+        ArrayQuestions.rotate(nums, 4);
+        Assert.assertArrayEquals(new int[]{4, 5, 6, 7, 1, 2, 3}, nums);
+    }
+
+    @Test
+    public void getRow() {
+        Assert.assertEquals(Arrays.asList(1), ArrayQuestions.getRow(0));
+        Assert.assertEquals(Arrays.asList(1, 1), ArrayQuestions.getRow(1));
+        Assert.assertEquals(Arrays.asList(1, 2, 1), ArrayQuestions.getRow(2));
+        Assert.assertEquals(Arrays.asList(1, 3, 3, 1), ArrayQuestions.getRow(3));
+        Assert.assertEquals(Arrays.asList(1, 4, 6, 4, 1), ArrayQuestions.getRow(4));
     }
 }

@@ -218,6 +218,7 @@ public class LinkedListProblems {
     }
 
     /**
+     * https://leetcode-cn.com/problems/odd-even-linked-list/
      * Q:奇偶链表
      * 给定一个单链表，把所有的奇数节点和偶数节点分别排在一起。请注意，这里的奇数节点和偶数节点指的是节点编号的奇偶性，而不是节点的值的奇偶性。
      * <p>
@@ -239,8 +240,20 @@ public class LinkedListProblems {
      * @param head
      * @return
      */
-    public ListNode oddEvenList(ListNode head) {
-        return null;
+    public static ListNode oddEvenList(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode p = head, q = head.next;// p,q分别负责奇偶数节点遍历
+        ListNode evenHead = head.next;// 指向偶数节点链表头
+        while (q != null && q.next != null) {
+            p.next = q.next;
+            q.next = q.next.next;
+            p = p.next;//p 指向最后一个奇数节点
+            q = q.next;
+        }
+        p.next = evenHead;
+        return head;
     }
 
     /**

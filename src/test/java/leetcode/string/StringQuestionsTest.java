@@ -32,4 +32,15 @@ public class StringQuestionsTest {
         Assert.assertEquals("olleh", StringQuestions.reverseString("hello"));
         Assert.assertEquals("amanaP :lanac a ,nalp a ,nam A", StringQuestions.reverseString("A man, a plan, a canal: Panama"));
     }
+
+    @Test
+    public void reverseWords() {
+        Assert.assertEquals("", StringQuestions.reverseWords(""));
+        Assert.assertEquals("blue is sky the", StringQuestions.reverseWords("   the sky is    blue   "));
+    }
+
+    @Test
+    public void reverseWords2() {
+        Assert.assertEquals("s'teL ekat edoCteeL tsetnoc", StringQuestions.reverseWords2("Let's take LeetCode contest"));
+    }
 }

@@ -361,10 +361,56 @@ public class ArrayQuestions {
         if (nums == null || nums.length == 0) {
             return 0;
         }
-        Arrays.sort(nums);
+        // 桶排序
+        int[] arr = new int[20001];
+        for (int i = 0; i < nums.length; i++) {
+            arr[nums[i] + 10000]++;
+        }
+        boolean flag = true;// 每隔一个数便加一次
         int sum = 0;
-        for (int i = 0; i < nums.length; i += 2) {
-            sum += nums[i];
+        for (int i = 0; i < arr.length; i++) {
+            while (arr[i] > 0) {
+                if (flag) {
+                    sum += i - 10000;
+                }
+                flag = !flag;
+                arr[i]--;
+            }
+        }
+        return sum;
+    }
+
+    /**
+     * 虽然此方法减少了遍历的次数，但是乘法运算比加法运算慢，所以耗时比上一种方法长
+     *
+     * @param nums
+     * @return
+     */
+    public static int arrayPairSum2(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        // 桶排序
+        int[] arr = new int[20001];
+        for (int i = 0; i < nums.length; i++) {
+            arr[nums[i] + 10000]++;
+        }
+        boolean flag = true;// 每隔一个数便加一次
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > 0) {
+                // 假设n=arr[i]，j为arr中下一个不为0的下标，则(i,i,i,i...j,j)
+                if (flag) {
+                    // 若n为奇数，则下一次不会与第一个j相加 (i,i),(i,j)
+                    // 若n为偶数，则下一次必定与第一个j相加 (i,i),(i,i),(j,j)
+                    // 观察易得n个i的求arrayPairSum为 (arr[i] + 1) / 2 * i
+                    flag = arr[i] % 2 == 0;
+                    sum += ((arr[i] + 1) >> 1) * (i - 10000);
+                } else {
+                    flag = arr[i] % 2 != 0;
+                    sum += (arr[i] >> 1) * (i - 10000);
+                }
+            }
         }
         return sum;
     }
@@ -425,6 +471,241 @@ public class ArrayQuestions {
         }
         result[0] = i + 1;
         result[1] = j + 1;
+        return result;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/remove-element/description/
+     * Q:移除元素
+     * 给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。
+     * <p>
+     * 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
+     * <p>
+     * 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 给定 nums = [3,2,2,3], val = 3,
+     * <p>
+     * 函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。
+     * <p>
+     * 你不需要考虑数组中超出新长度后面的元素。
+     * 说明:
+     * <p>
+     * 为什么返回数值是整数，但输出的答案是数组呢?
+     * <p>
+     * 请注意，输入数组是以“引用”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。
+     * <p>
+     * 你可以想象内部操作如下:
+     * <p>
+     * // nums 是以“引用”方式传递的。也就是说，不对实参作任何拷贝
+     * int len = removeElement(nums, val);
+     * <p>
+     * // 在函数里修改输入数组对于调用者是可见的。
+     * // 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。
+     * for (int i = 0; i < len; i++) {
+     * print(nums[i]);
+     * }
+     * A:
+     * 使用两个指针：一个用于迭代，第二个指针总是指向下一次添加的位置。
+     *
+     * @param nums
+     * @param val
+     * @return
+     */
+    public static int removeElement(int[] nums, int val) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int i, j = 0;
+        for (i = 0; i < nums.length; i++) {
+            if (nums[i] != val) {
+                if (i != j) {
+                    nums[j] = nums[i];
+                }
+                j++;
+            }
+        }
+        return j;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/max-consecutive-ones/description/
+     * Q: 最大连续1的个数
+     * 给定一个二进制数组， 计算其中最大连续1的个数。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入: [1,1,0,1,1,1]
+     * 输出: 3
+     * 解释: 开头的两位和最后的三位都是连续1，所以最大连续1的个数是 3.
+     * 注意：
+     * <p>
+     * 输入的数组只包含 0 和1。
+     * 输入数组的长度是正整数，且不超过 10,000。
+     *
+     * @param nums
+     * @return
+     */
+    public static int findMaxConsecutiveOnes(int[] nums) {
+        int max = 0, n = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 1) {
+                n++;
+            } else {
+                // 已完成前面n个1的遍历，n为连续1的个数
+                if (max < n) {
+                    max = n;
+                }
+                // 重置n
+                n = 0;
+            }
+        }
+
+        // 这里的判断是为了防止nums最后一个元素为1
+        // 导致max没和最后最后一个n对比
+        if (max < n) {
+            max = n;
+        }
+        return max;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/minimum-size-subarray-sum/description/
+     * Q:长度最小的子数组
+     * 给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的连续子数组。如果不存在符合条件的连续子数组，返回 0。
+     * <p>
+     * 示例:
+     * <p>
+     * 输入: s = 7, nums = [2,3,1,2,4,3]
+     * 输出: 2
+     * 解释: 子数组 [4,3] 是该条件下的长度最小的连续子数组。
+     * 进阶:
+     * <p>
+     * 如果你已经完成了O(n) 时间复杂度的解法, 请尝试 O(n log n) 时间复杂度的解法。
+     *
+     * @param s
+     * @param nums
+     * @return
+     */
+    public static int minSubArrayLen(int s, int[] nums) {
+        // O(n^2)复杂度，暴力破解，第一时间想到的算法
+        // 1.子数组长度i:1<=i<=nums.length
+        // 2.子数组求和，可利用上一个长度的子数组和求当前长度的和
+        // 3.将所求和与s对比，若符合条件，则i为所求长度
+        int[] sums = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {// 当前子数组长度
+            for (int j = 0; j < nums.length - i; j++) {// 遍历数组求子数组和
+                sums[j] = sums[j] + nums[j + i];
+                if (sums[j] >= s) {
+                    return i + 1;
+                }
+            }
+        }
+        return 0;
+    }
+
+    public static int minSubArrayLen2(int s, int[] nums) {
+        int l = 0, r = 0;// 左右窗口边界，nums[l ... r] 为我们的滑动窗口
+        int sum = 0;
+        int len = Integer.MAX_VALUE;
+        while (l < nums.length) {
+            if (r < nums.length && sum < s) {
+                sum += nums[r++];//扩大窗口
+            } else {
+                sum -= nums[l++];//缩小窗口
+            }
+            if (sum >= s) {
+                len = Math.min(len, r - l);//注意此时r或l已+1
+            }
+        }
+        return len == Integer.MAX_VALUE ? 0 : len;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/rotate-array/description/
+     * Q:旋转数组
+     * 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入: [1,2,3,4,5,6,7] 和 k = 3
+     * 输出: [5,6,7,1,2,3,4]
+     * 解释:
+     * 向右旋转 1 步: [7,1,2,3,4,5,6]
+     * 向右旋转 2 步: [6,7,1,2,3,4,5]
+     * 向右旋转 3 步: [5,6,7,1,2,3,4]
+     * 说明:
+     * <p>
+     * 尽可能想出更多的解决方案，至少有三种不同的方法可以解决这个问题。
+     * 要求使用空间复杂度为 O(1) 的原地算法。
+     * A:三步翻转法
+     * 1.将数组从k位置分为前后两半；
+     * 2.翻转前半部分；
+     * 3.翻转后半部分；
+     * 4.翻转整个数组；
+     *
+     * @param nums
+     * @param k
+     */
+    public static void rotate(int[] nums, int k) {
+        final int length = nums.length;
+        k = k % length;
+        if (k == 0) {
+            return;
+        }
+
+        // 翻转前半部分
+        for (int i = 0; i < (length - k) >> 1; i++) {
+            swap(nums, i, length - k - 1 - i);
+        }
+        // 翻转后半部分
+        for (int i = 0; i < k >> 1; i++) {
+            swap(nums, length - k + i, length - 1 - i);
+        }
+        // 翻转整个数组
+        for (int i = 0; i < length >> 1; i++) {
+            swap(nums, i, length - 1 - i);
+        }
+    }
+
+    public static void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/pascals-triangle-ii/description/
+     * Q:杨辉三角 II
+     * 给定一个非负索引 k，其中 k ≤ 33，返回杨辉三角的第 k 行。
+     * <p>
+     * 在杨辉三角中，每个数是它左上方和右上方的数的和。
+     * <p>
+     * 示例:
+     * <p>
+     * 输入: 3
+     * 输出: [1,3,3,1]
+     * 进阶：
+     * <p>
+     * 你可以优化你的算法到 O(k) 空间复杂度吗？
+     *
+     * @param rowIndex
+     * @return
+     */
+    public static List<Integer> getRow(int rowIndex) {
+        List<Integer> result = new ArrayList<>(rowIndex + 1);
+        for (int i = 0; i <= rowIndex; i++) {
+            for (int j = i; j >= 0; j--) {// 这里需要从后边开始遍历，否则会覆盖前面的值
+                if (j == 0 || j == i) {
+                    if (j >= result.size()) {
+                        result.add(j, 1);
+                    }
+                } else {
+                    result.set(j, result.get(j - 1) + result.get(j));
+                }
+            }
+        }
         return result;
     }
 }
