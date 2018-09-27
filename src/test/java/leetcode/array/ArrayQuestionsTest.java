@@ -156,6 +156,13 @@ public class ArrayQuestionsTest {
         int[] nums, nums2;
         int len;
 
+        nums = new int[]{3, 3, 3};
+        len = ArrayQuestions.removeElement(nums, 3);
+        nums2 = new int[len];
+        System.arraycopy(nums, 0, nums2, 0, len);
+        Assert.assertArrayEquals(new int[]{}, nums2);
+        Assert.assertEquals(0, len);
+
         nums = new int[]{3, 2, 2, 3};
         len = ArrayQuestions.removeElement(nums, 3);
         nums2 = new int[len];
@@ -214,5 +221,48 @@ public class ArrayQuestionsTest {
         Assert.assertEquals(Arrays.asList(1, 2, 1), ArrayQuestions.getRow(2));
         Assert.assertEquals(Arrays.asList(1, 3, 3, 1), ArrayQuestions.getRow(3));
         Assert.assertEquals(Arrays.asList(1, 4, 6, 4, 1), ArrayQuestions.getRow(4));
+    }
+
+    @Test
+    public void removeDuplicates() {
+        int[] nums, nums2;
+        int len;
+
+        nums = new int[]{3, 3, 3};
+        len = ArrayQuestions.removeDuplicates(nums);
+        nums2 = new int[len];
+        System.arraycopy(nums, 0, nums2, 0, len);
+        Assert.assertArrayEquals(new int[]{3}, nums2);
+        Assert.assertEquals(1, len);
+
+        nums = new int[]{1, 1, 2};
+        len = ArrayQuestions.removeDuplicates(nums);
+        nums2 = new int[len];
+        System.arraycopy(nums, 0, nums2, 0, len);
+        Assert.assertArrayEquals(new int[]{1, 2}, nums2);
+        Assert.assertEquals(2, len);
+
+        nums = new int[]{0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
+        len = ArrayQuestions.removeDuplicates(nums);
+        nums2 = new int[len];
+        System.arraycopy(nums, 0, nums2, 0, len);
+        Assert.assertArrayEquals(new int[]{0, 1, 2, 3, 4}, nums2);
+        Assert.assertEquals(5, len);
+    }
+
+    @Test
+    public void moveZeroes() {
+        int[] nums;
+        nums = new int[]{0, 0, 0};
+        ArrayQuestions.moveZeroes(nums);
+        Assert.assertArrayEquals(new int[]{0, 0, 0}, nums);
+
+        nums = new int[]{1, 1, 1};
+        ArrayQuestions.moveZeroes(nums);
+        Assert.assertArrayEquals(new int[]{1, 1, 1}, nums);
+
+        nums = new int[]{0, 1, 0, 3, 12};
+        ArrayQuestions.moveZeroes(nums);
+        Assert.assertArrayEquals(new int[]{1, 3, 12, 0, 0}, nums);
     }
 }
