@@ -1,4 +1,4 @@
-package thread;
+package concurrent;
 
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -67,8 +67,8 @@ public class ProducerConsumer2 {
                         }
                         Thread.sleep(PRODUCE_DURATION);
                         Object o = (int) (Math.random() * 10);
-                        buffer.offer(o);
                         System.out.println("Producer#" + no + " produce " + o);
+                        buffer.offer(o);
                         lock.notifyAll();
                     }
                 } catch (InterruptedException e) {

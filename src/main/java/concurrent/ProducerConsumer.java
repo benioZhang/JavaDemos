@@ -1,4 +1,4 @@
-package thread;
+package concurrent;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -52,8 +52,8 @@ public class ProducerConsumer {
                 try {
                     Thread.sleep(PRODUCE_DURATION);
                     Object o = (int) (Math.random() * 10);
-                    mQueue.put(o);
                     System.out.println("Producer#" + mNo + " produce " + o);
+                    mQueue.put(o);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                     break;

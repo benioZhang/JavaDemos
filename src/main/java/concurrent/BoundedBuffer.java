@@ -1,4 +1,4 @@
-package thread;
+package concurrent;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -72,7 +72,7 @@ public class BoundedBuffer {
                 try {
                     for (int i = 0; i < 500; i++) {
                         Object o = buffer.take();
-                        System.out.println("reader thread take " + o);
+                        System.out.println("reader concurrent take " + o);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -86,7 +86,7 @@ public class BoundedBuffer {
                 try {
                     for (int i = 0; i < 500; i++) {
                         buffer.put(i);
-                        System.out.println("writer thread put " + i);
+                        System.out.println("writer concurrent put " + i);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
