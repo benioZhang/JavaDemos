@@ -1,7 +1,6 @@
 package leetcode.queue;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 /*
  * Return the length of the shortest path between root and target node.
  */
@@ -146,5 +145,123 @@ public class BFSQuestions {
                 }
             }
         }
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/open-the-lock/
+     * Q:你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字： '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' 。每个拨轮可以自由旋转：例如把 '9' 变为  '0'，'0' 变为 '9' 。每次旋转都只能旋转一个拨轮的一位数字。
+     * <p>
+     * 锁的初始数字为 '0000' ，一个代表四个拨轮的数字的字符串。
+     * <p>
+     * 列表 deadends 包含了一组死亡数字，一旦拨轮的数字和列表里的任何一个元素相同，这个锁将会被永久锁定，无法再被旋转。
+     * <p>
+     * 字符串 target 代表可以解锁的数字，你需要给出最小的旋转次数，如果无论如何不能解锁，返回 -1。
+     * <p>
+     * <p>
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入：deadends = ["0201","0101","0102","1212","2002"], target = "0202"
+     * 输出：6
+     * 解释：
+     * 可能的移动序列为 "0000" -> "1000" -> "1100" -> "1200" -> "1201" -> "1202" -> "0202"。
+     * 注意 "0000" -> "0001" -> "0002" -> "0102" -> "0202" 这样的序列是不能解锁的，
+     * 因为当拨动到 "0102" 时这个锁就会被锁定。
+     *
+     * @param deadends
+     * @param target
+     * @return
+     */
+    public static int openLock(String[] deadends, String target) {
+        Set<String> visited = new LinkedHashSet<>(deadends.length);
+        Collections.addAll(visited, deadends);
+        if (visited.contains("0000")) {
+            return -1;
+        }
+        Queue<String> queue = new LinkedList<>();
+        queue.add("0000");
+        visited.add("0000");
+        int step = 0;
+        // BFS
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; ++i) {
+                String cur = queue.peek();
+                // 当前节点就是target，则直接返回
+                if (cur.equals(target)) {
+                    return step;
+                }
+                // 1.将当前节点值每一位+1,-1
+                // 2.判断是否在visited，否则添加到queue
+                char[] chars = cur.toCharArray();
+                char curChar; // 记录当前位置的char，用来恢复使用
+                String nextStr;//记录生成的下一个字符串
+                for (int j = 0; j < chars.length; j++) {
+                    curChar = chars[j];
+                    chars[j] = (char) ((curChar - '0' + 1) % 10 + '0');
+                    nextStr = new String(chars);
+                    if (!visited.contains(nextStr)) {
+                        queue.add(nextStr);
+                        visited.add(nextStr);
+                    }
+                    chars[j] = (char) ((curChar - '0' + 9) % 10 + '0');
+                    nextStr = new String(chars);
+                    if (!visited.contains(nextStr)) {
+                        queue.add(nextStr);
+                        visited.add(nextStr);
+                    }
+                    // 恢复
+                    chars[j] = curChar;
+                }
+                queue.remove();
+            }
+            step = step + 1;
+        }
+        return -1;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/perfect-squares/description/
+     * Q:完全平方数
+     * 给定正整数 n，找到若干个完全平方数（比如 1, 4, 9, 16, ...）使得它们的和等于 n。你需要让组成和的完全平方数的个数最少。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入: n = 12
+     * 输出: 3
+     * 解释: 12 = 4 + 4 + 4.
+     * A:
+     * 1.计算n与最大平方数到1的差值
+     * 2.若差值为0，则证明n为平方数，可直接返回step
+     * 3.若差值不为0，则将其入队
+     *
+     * @param n
+     * @return
+     */
+    public static int numSquares(int n) {
+        Queue<Integer> queue = new LinkedList<>();
+        int step = 0;
+        queue.add(n);
+        // BFS
+        while (!queue.isEmpty()) {
+            step = step + 1;
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                int cur = queue.poll();
+                // 计算节点的平方根，取整。如cur=12则取平方根3
+                int sqrt = (int) Math.sqrt(cur);
+                // 如果是平方数，则直接返回step
+                if (cur == sqrt * sqrt) {
+                    return step;
+                }
+                // 12-3*3=3, 12-2*2=8, 12-1*1=11，下面分别将3，8，11入队
+                for (int j = sqrt; j >= 1; j--) {
+                    // 计算cur减去完全平方数，如果没出现过，则入队
+                    int left = cur - j * j;
+                    queue.add(left);
+                }
+            }
+        }
+        return 0;
     }
 }
