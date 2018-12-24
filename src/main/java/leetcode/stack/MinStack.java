@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * https://leetcode-cn.com/problems/min-stack/
  * Q:
  * 最小栈
  * 设计一个支持 push，pop，top 操作，并能在常数时间内检索到最小元素的栈。
@@ -26,9 +27,9 @@ import java.util.List;
  */
 public class MinStack {
 
-    private List<Integer> data;
+    private List<Long> data;
     // 当前栈中的最小元素
-    private int min;
+    private long min;
 
     /**
      * initialize your data structure here.
@@ -43,6 +44,7 @@ public class MinStack {
             min = x;
         }
         // 每一次push一个delta, delta=x-min，用于记录上一次的min
+        // 此处运算可能会超出int的范围
         data.add(x - min);
         // 更新min
         if (x < min) {
@@ -54,7 +56,7 @@ public class MinStack {
         if (data.isEmpty()) {
             return;
         }
-        int top = data.remove(data.size() - 1);
+        long top = data.remove(data.size() - 1);
         if (top < 0) {
             // 因为top=x-min(此处的min为上一次的min)，且如果x<min的话，min会被更新为x
             // 故top<0即x<min，上一次的min = 当前min - top
@@ -63,14 +65,14 @@ public class MinStack {
     }
 
     public int top() {
-        int top = data.get(data.size() - 1);
+        long top = data.get(data.size() - 1);
         if (top < 0) {
-            return min;
+            return (int) min;
         }
-        return top + min;
+        return (int) (top + min);
     }
 
     public int getMin() {
-        return min;
+        return (int) min;
     }
 }
