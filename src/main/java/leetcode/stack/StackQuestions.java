@@ -57,4 +57,51 @@ public class StackQuestions {
         // 全部匹配成功，则为有效字符串
         return stack.isEmpty();
     }
+
+    /**
+     * https://leetcode-cn.com/problems/daily-temperatures/
+     * Q:739. 每日温度
+     * 根据每日 气温 列表，请重新生成一个列表，对应位置的输入是你需要再等待多久温度才会升高的天数。如果之后都不会升高，请输入 0 来代替。
+     * <p>
+     * 例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1, 0, 0]。
+     * <p>
+     * 提示：气温 列表长度的范围是 [1, 30000]。每个气温的值的都是 [30, 100] 范围内的整数。
+     *
+     * @param T
+     * @return
+     */
+    public static int[] dailyTemperatures(int[] T) {
+        final int length = T.length;
+        int[] result = new int[length];
+        // 最后一天，肯定为0
+        result[length - 1] = 0;
+        for (int i = length - 2; i >= 0; i--) {
+            // 遍历今日之后的温度
+            int j = i + 1;
+            while (j < length) {
+                if (T[i] < T[j]) {
+                    break;
+                }
+                // 说明之后温度都不会升高，则可提前结束遍历
+                if (result[j] == 0) {
+                    j = length;
+                    break;
+                }
+                // 利用之前计算的结果进行快速跳转
+                // 天数  1   2   3   4   5   6   7   8
+                // 温度 [73, 74, 75, 71, 69, 72, 76, 73]
+                // 输出 [1,  1,  4,  2,  1,  1,  0,  0 ]
+                // 举例：计算第3天对应的输出4
+                // 第3天和第4天温度比较，75>71
+                // 另外我们从前面计算的结果得知，第4天之后2天温度升高，则我们可以直接拿第3天与第6天比较，75>72
+                // 从前面计算的结果知道第7天比第6天温度高，继续比较第3天与第7天的温度，75<76，7-3=4天，比较结束
+                j = j + result[j];
+            }
+            // 如果遍历到最后都没找到比今天温度高的，则输入0
+            // 否则计算间隔天数即可
+            result[i] = j >= length ? 0 : (j - i);
+        }
+        return result;
+    }
+
 }
