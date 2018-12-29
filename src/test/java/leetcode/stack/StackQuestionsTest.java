@@ -32,4 +32,10 @@ public class StackQuestionsTest {
         Assert.assertArrayEquals(result, StackQuestions.dailyTemperatures(T));
     }
 
+    @Test
+    public void evalRPN() {
+        Assert.assertEquals(9, StackQuestions.evalRPN(new String[]{"2", "1", "+", "3", "*"}));
+        Assert.assertEquals(6, StackQuestions.evalRPN(new String[]{"4", "13", "5", "/", "+"}));
+        Assert.assertEquals(22, StackQuestions.evalRPN(new String[]{"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"}));
+    }
 }
