@@ -16,12 +16,15 @@ public class ArrayQuestionsTest {
 
         nums = new int[]{1, 1, 1};
         Assert.assertEquals(1, ArrayQuestions.pivotIndex(nums));
+        Assert.assertEquals(1, ArrayQuestions.pivotIndex2(nums));
 
         nums = new int[]{1, 2, 3};
         Assert.assertEquals(-1, ArrayQuestions.pivotIndex(nums));
+        Assert.assertEquals(-1, ArrayQuestions.pivotIndex2(nums));
 
         nums = new int[]{1, 7, 3, 6, 5, 6};
         Assert.assertEquals(3, ArrayQuestions.pivotIndex(nums));
+        Assert.assertEquals(3, ArrayQuestions.pivotIndex2(nums));
     }
 
     @Test

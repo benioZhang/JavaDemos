@@ -65,6 +65,23 @@ public class ArrayQuestions {
         return -1;
     }
 
+    public static int pivotIndex2(int[] nums) {
+        int sum = 0;
+        // 求和
+        for (int i = 0, len = nums.length; i < len; i++) {
+            sum += nums[i];
+        }
+        // 判断左侧元素的和是否和右侧元素的和相等
+        int sumLeft = 0;
+        for (int i = 0, len = nums.length; i < len; i++) {
+            if (sumLeft == sum - nums[i] - sumLeft) {
+                return i;
+            }
+            sumLeft += nums[i];
+        }
+        return -1;
+    }
+
     /**
      * https://leetcode-cn.com/problems/largest-number-at-least-twice-of-others/description/
      * Q:至少是其他数字两倍的最大数
