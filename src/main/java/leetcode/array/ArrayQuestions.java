@@ -115,7 +115,7 @@ public class ArrayQuestions {
      * @return
      */
     public static int dominantIndex(int[] nums) {
-        if (nums == null) {
+        if (nums == null || nums.length == 0) {
             return -1;
         }
         if (nums.length == 1) {
@@ -133,6 +133,38 @@ public class ArrayQuestions {
         }
         if (nums[max] >= nums[second] << 1) {
             return max;
+        }
+        return -1;
+    }
+
+    /**
+     * 上面那种做法的执行用时为19ms，这种做法执行用时为10ms
+     * 猜测用时差距是花在根据某个下标i读取nums[i]上。
+     * 所以要记录数组中某个数然后要去做比较时，直接记录这个值，比记录下标效率高
+     * @param nums
+     * @return
+     */
+    public static int dominantIndex2(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return -1;
+        }
+        if (nums.length == 1) {
+            // 只有一个元素，则该元素最大
+            return 0;
+        }
+        int max = nums[0], second = 0;
+        int index = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (max < nums[i]) {
+                second = max;
+                max = nums[i];
+                index = i;
+            } else if (second < nums[i]) {
+                second = nums[i];
+            }
+        }
+        if (max >= second << 1) {
+            return index;
         }
         return -1;
     }
