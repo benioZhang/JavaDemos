@@ -3,6 +3,10 @@ package leetcode.queue;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * https://leetcode-cn.com/problems/implement-queue-using-stacks/
+ * 232. 用栈实现队列
+ */
 public class MyQueue {
     // 负责入栈操作
     private List<Integer> push;
