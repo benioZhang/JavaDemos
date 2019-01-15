@@ -38,4 +38,13 @@ public class StackQuestionsTest {
         Assert.assertEquals(6, StackQuestions.evalRPN(new String[]{"4", "13", "5", "/", "+"}));
         Assert.assertEquals(22, StackQuestions.evalRPN(new String[]{"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"}));
     }
+
+    @Test
+    public void decodeString() {
+        Assert.assertEquals("aaabcbc", StackQuestions.decodeString("3[a]2[bc]"));
+        Assert.assertEquals("accaccacc", StackQuestions.decodeString("3[a2[c]]"));
+        Assert.assertEquals("abcabccdcdcdef", StackQuestions.decodeString("2[abc]3[cd]ef"));
+        Assert.assertEquals("aaabFFFFcbFFFFc", StackQuestions.decodeString("3[a]2[b4[F]c]"));
+        Assert.assertEquals("baaacbbdebaaacbbdef", StackQuestions.decodeString("2[b3[a]c2[b]de]f"));
+    }
 }
