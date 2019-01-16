@@ -242,4 +242,41 @@ public class StackQuestions {
         }
         return sb.toString();
     }
+
+    public static String decodeString2(String s) {
+        // 存储重复次数
+        List<Integer> countStack = new ArrayList<>();
+        // 存储编码的字符串
+        List<String> stringStack = new ArrayList<>();
+        int i = 0, len = s.length();
+        char c;
+        int count = 0;
+        StringBuilder result = new StringBuilder();
+        while (i < len) {
+            c = s.charAt(i);
+            if (Character.isDigit(c)) {
+                // 计算'['前面的数字
+                count = count * 10 + c - '0';
+            } else if (c == '[') {
+                // 将'['前面的数字和字符串入栈
+                stringStack.add(result.toString());
+                countStack.add(count);
+                count = 0;
+                result.delete(0, result.length());
+            } else if (c == ']') {
+                // 将'['前面的数字和字符串出栈
+                String string = stringStack.remove(stringStack.size() - 1);
+                int repeatCount = countStack.remove(countStack.size() - 1);
+                StringBuilder sb = new StringBuilder(string);
+                for (int j = 0; j < repeatCount; j++) {
+                    sb.append(result);
+                }
+                result = sb;
+            } else {
+                result.append(c);
+            }
+            i++;
+        }
+        return result.toString();
+    }
 }

@@ -47,4 +47,13 @@ public class StackQuestionsTest {
         Assert.assertEquals("aaabFFFFcbFFFFc", StackQuestions.decodeString("3[a]2[b4[F]c]"));
         Assert.assertEquals("baaacbbdebaaacbbdef", StackQuestions.decodeString("2[b3[a]c2[b]de]f"));
     }
+
+    @Test
+    public void decodeString2() {
+        Assert.assertEquals("aaabcbc", StackQuestions.decodeString2("3[a]2[bc]"));
+        Assert.assertEquals("accaccacc", StackQuestions.decodeString2("3[a2[c]]"));
+        Assert.assertEquals("abcabccdcdcdef", StackQuestions.decodeString2("2[abc]3[cd]ef"));
+        Assert.assertEquals("aaabFFFFcbFFFFc", StackQuestions.decodeString2("3[a]2[b4[F]c]"));
+        Assert.assertEquals("baaacbbdebaaacbbdef", StackQuestions.decodeString2("2[b3[a]c2[b]de]f"));
+    }
 }
