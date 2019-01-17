@@ -250,7 +250,9 @@ public class StackQuestions {
         List<String> stringStack = new ArrayList<>();
         int i = 0, len = s.length();
         char c;
+        // 记录'['前的数字
         int count = 0;
+        // 记录'['之前的字符串
         StringBuilder result = new StringBuilder();
         while (i < len) {
             c = s.charAt(i);
@@ -261,18 +263,21 @@ public class StackQuestions {
                 // 将'['前面的数字和字符串入栈
                 stringStack.add(result.toString());
                 countStack.add(count);
+                // 入栈后，重置count和result
                 count = 0;
                 result.delete(0, result.length());
             } else if (c == ']') {
                 // 将'['前面的数字和字符串出栈
                 String string = stringStack.remove(stringStack.size() - 1);
                 int repeatCount = countStack.remove(countStack.size() - 1);
-                StringBuilder sb = new StringBuilder(string);
+                StringBuilder sb = new StringBuilder(string.length() + repeatCount * result.length());
+                sb.append(string);
                 for (int j = 0; j < repeatCount; j++) {
                     sb.append(result);
                 }
                 result = sb;
             } else {
+                // 字母，拼接到result
                 result.append(c);
             }
             i++;
