@@ -32,18 +32,23 @@ public class ArrayQuestionsTest {
         int[] nums;
         nums = new int[]{1};
         Assert.assertEquals(0, ArrayQuestions.dominantIndex(nums));
+        Assert.assertEquals(0, ArrayQuestions.dominantIndex2(nums));
 
         nums = new int[]{1, 0};
         Assert.assertEquals(0, ArrayQuestions.dominantIndex(nums));
+        Assert.assertEquals(0, ArrayQuestions.dominantIndex2(nums));
 
         nums = new int[]{3, 6, 1, 0};
         Assert.assertEquals(1, ArrayQuestions.dominantIndex(nums));
+        Assert.assertEquals(1, ArrayQuestions.dominantIndex2(nums));
 
         nums = new int[]{1, 2, 3, 4};
         Assert.assertEquals(-1, ArrayQuestions.dominantIndex(nums));
+        Assert.assertEquals(-1, ArrayQuestions.dominantIndex2(nums));
 
         nums = new int[]{0, 0, 3, 2};
         Assert.assertEquals(-1, ArrayQuestions.dominantIndex(nums));
+        Assert.assertEquals(-1, ArrayQuestions.dominantIndex2(nums));
     }
 
     @Test
@@ -55,6 +60,18 @@ public class ArrayQuestionsTest {
 
         digits = new int[]{1, 2, 3};
         digits = ArrayQuestions.plusOne(digits);
+        Assert.assertArrayEquals(new int[]{1, 2, 4}, digits);
+    }
+
+    @Test
+    public void plusOne2() throws Exception {
+        int[] digits;
+        digits = new int[]{9, 9, 9};
+        digits = ArrayQuestions.plusOne2(digits);
+        Assert.assertArrayEquals(new int[]{1, 0, 0, 0}, digits);
+
+        digits = new int[]{1, 2, 3};
+        digits = ArrayQuestions.plusOne2(digits);
         Assert.assertArrayEquals(new int[]{1, 2, 4}, digits);
     }
 

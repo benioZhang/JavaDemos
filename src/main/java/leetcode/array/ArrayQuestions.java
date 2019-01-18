@@ -141,6 +141,7 @@ public class ArrayQuestions {
      * 上面那种做法的执行用时为19ms，这种做法执行用时为10ms
      * 猜测用时差距是花在根据某个下标i读取nums[i]上。
      * 所以要记录数组中某个数然后要去做比较时，直接记录这个值，比记录下标效率高
+     *
      * @param nums
      * @return
      */
@@ -192,18 +193,18 @@ public class ArrayQuestions {
      * @return
      */
     public static int[] plusOne(int[] digits) {
-        if (digits == null) {
-            return null;
-        }
         int value, carry = 1;// 给最低位进位作+1用途
         for (int i = digits.length - 1; i >= 0; i--) {
             value = digits[i] + carry;
-            if (value >= 10) {
-                digits[i] = value - 10;
+            if (value == 10) {
+                // 考虑情况如199+1
+                digits[i] = 0;
                 carry = 1;
             } else {
+                // 考虑情况如129+1，运算到十位时，不产生进位，可以直接结束
                 digits[i] = value;
                 carry = 0;
+                break;
             }
         }
         if (carry > 0) {
@@ -211,6 +212,33 @@ public class ArrayQuestions {
             int[] tmp = new int[digits.length + 1];
             tmp[0] = 1;
             System.arraycopy(digits, 0, tmp, 1, digits.length);
+            digits = tmp;
+        }
+        return digits;
+    }
+
+    public static int[] plusOne2(int[] digits) {
+        int carry = 0;// 记录进位的次数
+        for (int i = digits.length - 1; i >= 0; i--) {
+            if (digits[i] == 9) {
+                // 考虑情况如199+1
+                digits[i] = 0;
+                carry++;
+            } else {
+                // 这里不必再继续遍历了，因为只要一个数+1之后，如果没有进位的话，高位是不会变的
+                // 考虑情况如129+1，运算到十位时，不产生进位，可以直接结束
+                // 对于最低位来说，这个1来自`+1`这个行为，对于其他位来说，这个1是由于低位给的进位
+                digits[i] = digits[i] + 1;
+                break;
+            }
+        }
+        if (carry == digits.length) {
+            //仍有进位，考虑情况如999+1
+            int[] tmp = new int[digits.length + 1];
+            tmp[0] = 1;
+            for (int i = 1, len = tmp.length; i < len; i++) {
+                tmp[i] = 0;
+            }
             digits = tmp;
         }
         return digits;
