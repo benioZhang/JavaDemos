@@ -292,6 +292,47 @@ public class ArrayQuestions {
         return result;
     }
 
+    public static int[] findDiagonalOrder2(int[][] matrix) {
+        if (matrix.length == 0 || matrix[0].length == 0) {
+            return new int[0];
+        }
+        final int row = matrix.length, col = matrix[0].length;
+        int[] result = new int[row * col];
+        // 横纵坐标用(x,y)表示
+        int x = 0, y = 0;
+        // 右上方向时，(x,y)的变化
+        int[] rightTop = {-1, 1};
+        // 左下方向时，(x,y)的变化
+        int[] leftBottom = {1, -1};
+        // 当前方向
+        int[] direction = rightTop;
+        for (int i = 0, len = result.length; i < len; i++) {
+            result[i] = matrix[x][y];
+            x = x + direction[0];
+            y = y + direction[1];
+
+            // 右上方向碰到边界，修正坐标，转向左下
+            if (y > col - 1) {
+                y = col - 1;
+                x = x - rightTop[0] + 1; // 恢复原来的x，并且向下移
+                direction = leftBottom;
+            } else if (x < 0) {
+                x = 0;
+                direction = leftBottom;
+            }
+            // 左下方向碰到边界，修正坐标，转向右上
+            if (x > row - 1) {
+                x = row - 1;
+                y = y - leftBottom[1] + 1; // 恢复原来的y，并且向右移
+                direction = rightTop;
+            } else if (y < 0) {
+                y = 0;
+                direction = rightTop;
+            }
+        }
+        return result;
+    }
+
     /**
      * https://leetcode-cn.com/problems/spiral-matrix/description/
      * Q:螺旋矩阵

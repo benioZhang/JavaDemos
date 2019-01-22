@@ -83,24 +83,30 @@ public class ArrayQuestionsTest {
 
         matrix = new int[][]{};
         Assert.assertArrayEquals(new int[0], ArrayQuestions.findDiagonalOrder(matrix));
+        Assert.assertArrayEquals(new int[0], ArrayQuestions.findDiagonalOrder2(matrix));
 
         matrix = new int[][]{{1, 2, 3}};//1*3
         Assert.assertArrayEquals(new int[]{1, 2, 3}, ArrayQuestions.findDiagonalOrder(matrix));
+        Assert.assertArrayEquals(new int[]{1, 2, 3}, ArrayQuestions.findDiagonalOrder2(matrix));
 
         matrix = new int[][]{{1}, {2}, {3}};//3*1
         Assert.assertArrayEquals(new int[]{1, 2, 3}, ArrayQuestions.findDiagonalOrder(matrix));
+        Assert.assertArrayEquals(new int[]{1, 2, 3}, ArrayQuestions.findDiagonalOrder2(matrix));
 
         matrix = new int[][]{{1, 2}, {3, 4}};//2*2
         Assert.assertArrayEquals(new int[]{1, 2, 3, 4}, ArrayQuestions.findDiagonalOrder(matrix));
+        Assert.assertArrayEquals(new int[]{1, 2, 3, 4}, ArrayQuestions.findDiagonalOrder2(matrix));
 
         matrix = new int[][]{{1, 2, 3}, {4, 5, 6}};//2*3
         Assert.assertArrayEquals(new int[]{1, 2, 4, 5, 3, 6}, ArrayQuestions.findDiagonalOrder(matrix));
 
         matrix = new int[][]{{1, 2}, {3, 4}, {5, 6}};//3*2
         Assert.assertArrayEquals(new int[]{1, 2, 3, 5, 4, 6}, ArrayQuestions.findDiagonalOrder(matrix));
+        Assert.assertArrayEquals(new int[]{1, 2, 3, 5, 4, 6}, ArrayQuestions.findDiagonalOrder2(matrix));
 
         matrix = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};// 3*3
         Assert.assertArrayEquals(new int[]{1, 2, 4, 7, 5, 3, 6, 8, 9}, ArrayQuestions.findDiagonalOrder(matrix));
+        Assert.assertArrayEquals(new int[]{1, 2, 4, 7, 5, 3, 6, 8, 9}, ArrayQuestions.findDiagonalOrder2(matrix));
     }
 
     @Test
