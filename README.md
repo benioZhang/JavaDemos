@@ -3,6 +3,7 @@
 
 ### leetcode
 * [20-有效的括号](md/leetcode/20-有效的括号.md)
+* [27-移除元素](md/leetcode/27-移除元素.md)
 * [28-实现strStr()](md/leetcode/28-实现strStr().md)
 * [54-螺旋矩阵](md/leetcode/54-螺旋矩阵.md)
 * [66-加一](md/leetcode/66-加一.md)
@@ -15,6 +16,7 @@
 * [232-用栈实现队列](md/leetcode/232-用栈实现队列.md)
 * [344-反转字符串](md/leetcode/344-反转字符串.md)
 * [394-字符串解码](md/leetcode/394-字符串解码.md)
+* [485-最大连续1的个数](md/leetcode/485-最大连续1的个数.md)
 * [498-对角线遍历](md/leetcode/498-对角线遍历.md)
 * [561-数组拆分-I](md/leetcode/561-数组拆分-I.md)
 * [622-设计循环队列](md/leetcode/622-设计循环队列.md)
