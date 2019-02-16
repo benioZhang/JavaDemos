@@ -298,4 +298,20 @@ public class ArrayQuestionsTest {
         ArrayQuestions.moveZeroes(nums);
         Assert.assertArrayEquals(new int[]{1, 3, 12, 0, 0}, nums);
     }
+
+    @Test
+    public void moveZeroes2() {
+        int[] nums;
+        nums = new int[]{0, 0, 0};
+        ArrayQuestions.moveZeroes2(nums);
+        Assert.assertArrayEquals(new int[]{0, 0, 0}, nums);
+
+        nums = new int[]{1, 1, 1};
+        ArrayQuestions.moveZeroes2(nums);
+        Assert.assertArrayEquals(new int[]{1, 1, 1}, nums);
+
+        nums = new int[]{0, 1, 0, 3, 12};
+        ArrayQuestions.moveZeroes2(nums);
+        Assert.assertArrayEquals(new int[]{1, 3, 12, 0, 0}, nums);
+    }
 }

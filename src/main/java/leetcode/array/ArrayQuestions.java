@@ -889,19 +889,32 @@ public class ArrayQuestions {
      * @param nums
      */
     public static void moveZeroes(int[] nums) {
-        int index = 0;
+        int j = 0;
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] != 0 && index != i) {
-                nums[index++] = nums[i];
-                nums[i] = 0;
+            if (nums[i] != 0) {
+                nums[j++] = nums[i];
             }
         }
-/*        if (index == 0) {
+        if (j == 0) {
             // 所有元素均为0
             return;
         }
-        for (int i = index; i < nums.length; i++) {
+        for (int i = j; i < nums.length; i++) {
             nums[i] = 0;
-        }*/
+        }
+    }
+
+    public static void moveZeroes2(int[] nums) {
+        int j = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                // 不是同一个元素，则复制到nums[j]，并将nums[i]赋为0
+                if (j != i) {
+                    nums[j] = nums[i];
+                    nums[i] = 0;
+                }
+                j++;
+            }
+        }
     }
 }
