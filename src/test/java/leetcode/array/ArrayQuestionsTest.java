@@ -247,6 +247,13 @@ public class ArrayQuestionsTest {
         Assert.assertEquals(Arrays.asList(1, 2, 1), ArrayQuestions.getRow(2));
         Assert.assertEquals(Arrays.asList(1, 3, 3, 1), ArrayQuestions.getRow(3));
         Assert.assertEquals(Arrays.asList(1, 4, 6, 4, 1), ArrayQuestions.getRow(4));
+        Assert.assertEquals(Arrays.asList(1, 5, 10, 10, 5, 1), ArrayQuestions.getRow(5));
+        Assert.assertEquals(Arrays.asList(1), ArrayQuestions.getRow2(0));
+        Assert.assertEquals(Arrays.asList(1, 1), ArrayQuestions.getRow2(1));
+        Assert.assertEquals(Arrays.asList(1, 2, 1), ArrayQuestions.getRow2(2));
+        Assert.assertEquals(Arrays.asList(1, 3, 3, 1), ArrayQuestions.getRow2(3));
+        Assert.assertEquals(Arrays.asList(1, 4, 6, 4, 1), ArrayQuestions.getRow2(4));
+        Assert.assertEquals(Arrays.asList(1, 5, 10, 10, 5, 1), ArrayQuestions.getRow2(5));
     }
 
     @Test

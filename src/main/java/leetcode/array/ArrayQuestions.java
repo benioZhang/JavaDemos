@@ -814,13 +814,26 @@ public class ArrayQuestions {
     public static List<Integer> getRow(int rowIndex) {
         List<Integer> result = new ArrayList<>(rowIndex + 1);
         for (int i = 0; i <= rowIndex; i++) {
-            for (int j = i; j >= 0; j--) {// 这里需要从后边开始遍历，否则会覆盖前面的值
-                if (j == 0 || j == i) {
-                    if (j >= result.size()) {
-                        result.add(j, 1);
-                    }
+            result.add(1);
+            for (int j = i - 1; j > 0; j--) {// 这里需要从后边开始遍历，否则会覆盖前面的值
+                result.set(j, result.get(j - 1) + result.get(j));
+            }
+        }
+        return result;
+    }
+
+    public static List<Integer> getRow2(int rowIndex) {
+        List<Integer> result = new ArrayList<>(rowIndex + 1);
+        for (int i = 0; i <= rowIndex; i++) {
+            result.add(1);
+            for (int j = i - 1, mid = (i - 1) / 2; j > mid; j--) {
+                if (j == i - j) {
+                    // 中间位置，数值为上一行的两倍
+                    result.set(j, result.get(j) * 2);
                 } else {
+                    // 因为左右是对称的，所以可以同时赋值
                     result.set(j, result.get(j - 1) + result.get(j));
+                    result.set(i - j, result.get(j));
                 }
             }
         }
