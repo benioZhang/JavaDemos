@@ -90,7 +90,7 @@ public class LinkedListProblems {
             lengthB++;
             node = node.next;
         }
-        // 将较长链表头指针移动delta-1次
+        // 将较长链表头指针移动delta次
         final int delta = Math.abs(lengthA - lengthB);
         if (lengthA > lengthB) {
             for (int i = 0; i < delta; i++) {
