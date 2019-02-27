@@ -2,6 +2,7 @@
 记录日常Java和Kotlin的笔记
 
 ### leetcode
+* [19-删除链表的倒数第N个节点](md/leetcode/19-删除链表的倒数第N个节点.md)
 * [20-有效的括号](md/leetcode/20-有效的括号.md)
 * [26-删除排序数组中的重复项](md/leetcode/26-删除排序数组中的重复项.md)
 * [27-移除元素](md/leetcode/27-移除元素.md)

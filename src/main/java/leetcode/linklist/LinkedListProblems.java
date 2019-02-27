@@ -155,6 +155,27 @@ public class LinkedListProblems {
         return head;
     }
 
+    public static ListNode removeNthFromEnd2(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        int length  = 0;
+        ListNode p = head;
+        // 计算长度
+        while (p != null) {
+            length++;
+            p = p.next;
+        }
+        length -= n;
+        p = dummy;
+        // p指向倒数第(length - n)个节点
+        while (length > 0) {
+            length--;
+            p = p.next;
+        }
+        p.next = p.next.next;
+        return dummy.next;
+    }
+
     /**
      * https://leetcode-cn.com/problems/reverse-linked-list/description/
      * Q:反转一个单链表。

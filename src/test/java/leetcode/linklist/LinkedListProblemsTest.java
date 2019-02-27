@@ -81,8 +81,9 @@ public class LinkedListProblemsTest {
         Assert.assertEquals(Arrays.asList(1, 2, 3, 4), getLinkedListValue(list2));
 
         list1 = createLinkedList(5);// 1->2->3->4->5
-        list2 = LinkedListProblems.removeNthFromEnd(list1, 5);
-        Assert.assertEquals(list1.next, list2);
+        ListNode head = list1.next;
+        list2 = LinkedListProblems.removeNthFromEnd2(list1, 5);
+        Assert.assertEquals(head, list2);
         Assert.assertEquals(Arrays.asList(2, 3, 4, 5), getLinkedListValue(list2));
 
         list1 = createLinkedList(5);// 1->2->3->4->5
@@ -92,6 +93,36 @@ public class LinkedListProblemsTest {
 
         list1 = createLinkedList(2);// 1->2
         list2 = LinkedListProblems.removeNthFromEnd(list1, 1);
+        Assert.assertEquals(list1, list2);
+        Assert.assertEquals(Arrays.asList(1), getLinkedListValue(list2));
+    }
+
+    @Test
+    public void removeNthFromEnd2() {
+        ListNode list1, list2;
+        list1 = createLinkedList(1);// 1
+        list2 = LinkedListProblems.removeNthFromEnd2(list1, 1);
+        Assert.assertEquals(null, list2);
+        Assert.assertEquals(Collections.emptyList(), getLinkedListValue(list2));
+
+        list1 = createLinkedList(5);// 1->2->3->4->5
+        list2 = LinkedListProblems.removeNthFromEnd2(list1, 1);
+        Assert.assertEquals(list1, list2);
+        Assert.assertEquals(Arrays.asList(1, 2, 3, 4), getLinkedListValue(list2));
+
+        list1 = createLinkedList(5);// 1->2->3->4->5
+        ListNode head = list1.next;
+        list2 = LinkedListProblems.removeNthFromEnd2(list1, 5);
+        Assert.assertEquals(head, list2);
+        Assert.assertEquals(Arrays.asList(2, 3, 4, 5), getLinkedListValue(list2));
+
+        list1 = createLinkedList(5);// 1->2->3->4->5
+        list2 = LinkedListProblems.removeNthFromEnd2(list1, 2);
+        Assert.assertEquals(list1, list2);
+        Assert.assertEquals(Arrays.asList(1, 2, 3, 5), getLinkedListValue(list2));
+
+        list1 = createLinkedList(2);// 1->2
+        list2 = LinkedListProblems.removeNthFromEnd2(list1, 1);
         Assert.assertEquals(list1, list2);
         Assert.assertEquals(Arrays.asList(1), getLinkedListValue(list2));
     }
