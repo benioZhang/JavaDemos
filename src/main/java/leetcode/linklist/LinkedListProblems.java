@@ -158,7 +158,7 @@ public class LinkedListProblems {
     public static ListNode removeNthFromEnd2(ListNode head, int n) {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
-        int length  = 0;
+        int length = 0;
         ListNode p = head;
         // 计算长度
         while (p != null) {
@@ -194,6 +194,7 @@ public class LinkedListProblems {
         if (head == null) {
             return null;
         }
+        // p为反转后的链表的头节点，q为辅助节点，head一直指向原链表的头节点
         ListNode p = head, q;
         while (head.next != null) {
             q = p;
@@ -202,6 +203,14 @@ public class LinkedListProblems {
             p.next = q;
         }
         return p;
+    }
+
+    public static ListNode reverseList2(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode newHead = reverseList2(head.next);
+        head.next.next = head;
+        head.next = null;
+        return newHead;
     }
 
     /**

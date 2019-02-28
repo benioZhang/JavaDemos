@@ -147,6 +147,25 @@ public class LinkedListProblemsTest {
     }
 
     @Test
+    public void reverseList2() {
+        ListNode list, node;
+        Assert.assertNull(LinkedListProblems.reverseList2(null));
+
+        list = createLinkedList(1);// 1
+        Assert.assertEquals(list, LinkedListProblems.reverseList2(list));
+
+        list = createLinkedList(2);// 1->2
+        node = LinkedListProblems.reverseList2(list);
+        Assert.assertEquals(list, node.next);
+        Assert.assertEquals(Arrays.asList(2, 1), getLinkedListValue(node));
+
+        list = createLinkedList(4);// 1->2->3->4
+        node = LinkedListProblems.reverseList2(list);
+        Assert.assertEquals(list, node.next.next.next);
+        Assert.assertEquals(Arrays.asList(4, 3, 2, 1), getLinkedListValue(node));
+    }
+
+    @Test
     public void removeElements() {
         ListNode list, node;
         list = new ListNode(1);
