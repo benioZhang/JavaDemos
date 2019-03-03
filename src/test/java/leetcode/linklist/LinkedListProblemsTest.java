@@ -190,6 +190,30 @@ public class LinkedListProblemsTest {
     }
 
     @Test
+    public void removeElements2() {
+        ListNode list, node;
+        list = new ListNode(1);
+        list.next = new ListNode(1);
+        Assert.assertNull(null, LinkedListProblems.removeElements2(list, 1));
+
+        list = new ListNode(1);
+        node = list.next = new ListNode(2);
+        list.next.next = new ListNode(1);
+        Assert.assertEquals(node, LinkedListProblems.removeElements2(list, 1));
+        Assert.assertEquals(Arrays.asList(2), getLinkedListValue(node));
+
+        list = new ListNode(1);
+        list.next = new ListNode(2);
+        list.next.next = new ListNode(6);
+        list.next.next.next = new ListNode(3);
+        list.next.next.next.next = new ListNode(4);
+        list.next.next.next.next.next = new ListNode(5);
+        list.next.next.next.next.next.next = new ListNode(6);
+        Assert.assertEquals(list, LinkedListProblems.removeElements2(list, 6));
+        Assert.assertEquals(Arrays.asList(1, 2, 3, 4, 5), getLinkedListValue(list));
+    }
+
+    @Test
     public void oddEvenList() {
         ListNode list;
         list = new ListNode(1);

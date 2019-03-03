@@ -247,6 +247,21 @@ public class LinkedListProblems {
         return head;
     }
 
+    public static ListNode removeElements2(ListNode head, int val) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode p = head, q = dummy;
+        while (p != null) {
+            if (p.val == val) {
+                q.next = p.next;
+            } else {
+                q = p;
+            }
+            p = p.next;
+        }
+        return dummy.next;
+    }
+
     /**
      * https://leetcode-cn.com/problems/odd-even-linked-list/
      * Q:奇偶链表
