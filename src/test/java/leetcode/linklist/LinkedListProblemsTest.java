@@ -286,6 +286,36 @@ public class LinkedListProblemsTest {
     }
 
     @Test
+    public void mergeTwoLists2() {
+        ListNode list1, list2, node;
+        node = LinkedListProblems.mergeTwoLists2(null, null);
+        Assert.assertNull(node);
+
+        node = list1 = new ListNode(1);// 1->2->4
+        node = node.next = new ListNode(2);
+        node = node.next = new ListNode(4);
+        node = LinkedListProblems.mergeTwoLists2(list1, null);
+        Assert.assertEquals(node, list1);
+        node = list2 = new ListNode(1);// 1->3->4
+        node = node.next = new ListNode(3);
+        node = node.next = new ListNode(4);
+        node = LinkedListProblems.mergeTwoLists2(list1, list2);
+        Assert.assertEquals(node, list1);
+        Assert.assertEquals(Arrays.asList(1, 1, 2, 3, 4, 4), getLinkedListValue(node));
+
+        node = list1 = new ListNode(1);// 1->2->4->5
+        node = node.next = new ListNode(2);
+        node = node.next = new ListNode(4);
+        node = node.next = new ListNode(5);
+        node = list2 = new ListNode(1);// 1->2->3
+        node = node.next = new ListNode(2);
+        node = node.next = new ListNode(3);
+        node = LinkedListProblems.mergeTwoLists2(list1, list2);
+        Assert.assertEquals(node, list1);
+        Assert.assertEquals(Arrays.asList(1, 1, 2, 2, 3, 4, 5), getLinkedListValue(node));
+    }
+
+    @Test
     public void addTwoNumbers() {
         ListNode list1, list2, node;
         list1 = new ListNode(1);
