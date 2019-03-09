@@ -4,6 +4,7 @@
 ### leetcode
 * [19-删除链表的倒数第N个节点](md/leetcode/19-删除链表的倒数第N个节点.md)
 * [20-有效的括号](md/leetcode/20-有效的括号.md)
+* [21-合并两个有序链表](md/leetcode/21-合并两个有序链表.md)
 * [26-删除排序数组中的重复项](md/leetcode/26-删除排序数组中的重复项.md)
 * [27-移除元素](md/leetcode/27-移除元素.md)
 * [28-实现strStr()](md/leetcode/28-实现strStr().md)
