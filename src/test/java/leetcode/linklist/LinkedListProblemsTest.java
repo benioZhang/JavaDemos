@@ -362,6 +362,52 @@ public class LinkedListProblemsTest {
     }
 
     @Test
+    public void addTwoNumbers2() {
+        ListNode list1, list2, node;
+        list1 = new ListNode(1);
+        list2 = new ListNode(9);
+        list2.next = new ListNode(9);
+        node = LinkedListProblems.addTwoNumbers2(list1, list2);
+        Assert.assertEquals(Arrays.asList(0, 0, 1), getLinkedListValue(node));
+
+        list1 = new ListNode(2);
+        list2 = new ListNode(8);
+        list2.next = new ListNode(9);
+        list2.next.next = new ListNode(9);
+        list2.next.next.next = new ListNode(9);
+        node = LinkedListProblems.addTwoNumbers2(list1, list2);
+        Assert.assertEquals(Arrays.asList(0, 0, 0, 0, 1), getLinkedListValue(node));
+
+        node = list1 = new ListNode(2);
+        node = node.next = new ListNode(4);
+        node = node.next = new ListNode(3);
+        node = list2 = new ListNode(5);
+        node = node.next = new ListNode(6);
+        node = node.next = new ListNode(4);
+        node = LinkedListProblems.addTwoNumbers2(list1, list2);
+        Assert.assertEquals(Arrays.asList(7, 0, 8), getLinkedListValue(node));
+
+        node = list1 = new ListNode(2);
+        node = node.next = new ListNode(4);
+        node = node.next = new ListNode(3);
+        node = list2 = new ListNode(5);
+        node = node.next = new ListNode(6);
+        node = node.next = new ListNode(9);
+        node = LinkedListProblems.addTwoNumbers2(list1, list2);
+        Assert.assertEquals(Arrays.asList(7, 0, 3, 1), getLinkedListValue(node));
+
+        node = list1 = new ListNode(1);
+        node = node.next = new ListNode(9);
+        node = node.next = new ListNode(3);
+        node = node.next = new ListNode(4);
+        node = list2 = new ListNode(9);
+        node = node.next = new ListNode(9);
+        node = node.next = new ListNode(9);
+        node = LinkedListProblems.addTwoNumbers2(list1, list2);
+        Assert.assertEquals(Arrays.asList(0, 9, 3, 5), getLinkedListValue(node));
+    }
+
+    @Test
     public void flatten() {
         Node list1, list2, list3, node;
         list1 = createNodeList(6, 1);

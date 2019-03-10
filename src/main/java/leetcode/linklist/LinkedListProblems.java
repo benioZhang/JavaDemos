@@ -469,6 +469,29 @@ public class LinkedListProblems {
         return head;
     }
 
+    public static ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0), p = dummy;
+        int value, carry = 0;
+        while (l1 != null || l2 != null) {
+            // 计算当前位的值 = 进位 + l1.val + l2.val
+            value = carry + (l1 != null ? l1.val : 0) + (l2 != null ? l2.val : 0);
+            // 计算进位
+            carry = value / 10;
+            p.next = new ListNode(value % 10);
+            p = p.next;
+            if (l1 != null) {
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                l2 = l2.next;
+            }
+        }
+        if (carry > 0) {
+            p.next = new ListNode(carry);
+        }
+        return dummy.next;
+    }
+
     /**
      * https://leetcode-cn.com/problems/flatten-a-multilevel-doubly-linked-list/description/
      * Q:您将获得一个双向链表，除了下一个和前一个指针之外，它还有一个子指针，可能指向单独的双向链表。这些子列表可能有一个或多个自己的子项，依此类推，生成多级数据结构，如下面的示例所示。
