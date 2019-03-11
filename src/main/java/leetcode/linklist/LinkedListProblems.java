@@ -657,4 +657,43 @@ public class LinkedListProblems {
         }
         return head;
     }
+
+    public static ListNode rotateRight2(ListNode head, int k) {
+        if (head == null) {
+            return null;
+        }
+        // 计算链表长度
+        ListNode fast = head;
+        int len = 0;
+        while (fast != null) {
+            fast = fast.next;
+            len++;
+        }
+
+        // 移动的次数
+        k = k % len;
+        if (k == 0) {
+            return head;
+        }
+
+        // 移动快指针
+        fast = head;
+        int i = k;
+        while (i > 0) {
+            fast = fast.next;
+            i--;
+        }
+
+        // 同时移动快慢指针
+        ListNode slow = head;
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        fast.next = head;
+        head = slow.next;
+        slow.next = null;
+        return head;
+    }
 }

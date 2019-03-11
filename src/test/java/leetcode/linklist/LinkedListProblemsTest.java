@@ -487,4 +487,16 @@ public class LinkedListProblemsTest {
         head = LinkedListProblems.rotateRight(head, 2);
         Assert.assertEquals(Arrays.asList(4, 5, 1, 2, 3), getLinkedListValue(head));
     }
+
+    @Test
+    public void rotateRight2() {
+        ListNode head, head2;
+        head = createLinkedList(2);//1->2
+        head2 = LinkedListProblems.rotateRight2(head, 5);
+        Assert.assertEquals(Arrays.asList(2, 1), getLinkedListValue(head2));
+
+        head = createLinkedList(5);// 1->2->3->4->5
+        head = LinkedListProblems.rotateRight2(head, 2);
+        Assert.assertEquals(Arrays.asList(4, 5, 1, 2, 3), getLinkedListValue(head));
+    }
 }
