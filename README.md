@@ -9,6 +9,7 @@
 * [27-移除元素](md/leetcode/27-移除元素.md)
 * [28-实现strStr()](md/leetcode/28-实现strStr().md)
 * [54-螺旋矩阵](md/leetcode/54-螺旋矩阵.md)
+* [61-旋转链表](md/leetcode/61-旋转链表.md)
 * [66-加一](md/leetcode/66-加一.md)
 * [67-二进制求和](md/leetcode/67-二进制求和.md)
 * [118-杨辉三角](md/leetcode/118-杨辉三角.md)
