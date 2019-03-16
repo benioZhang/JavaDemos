@@ -514,9 +514,6 @@ public class LinkedListProblems {
      * @return
      */
     public static Node flatten(Node head) {
-        if (head == null) {
-            return null;
-        }
         Node p = head;//p为主链表遍历指针
         Node q;// q为子链表遍历指针
         while (p != null) {
@@ -524,9 +521,11 @@ public class LinkedListProblems {
             // 子链表中可能仍存在子链表，但是插入到主链表后会交给主链表处理
             if (p.child != null) {
                 q = p.child;
+                // 遍历到子链表末尾
                 while (q.next != null) {
                     q = q.next;
                 }
+                // 插入到主链表
                 q.next = p.next;
                 if (q.next != null) {
                     q.next.prev = q;
