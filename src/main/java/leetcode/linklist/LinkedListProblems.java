@@ -558,7 +558,7 @@ public class LinkedListProblems {
         if (head == null) {
             return null;
         }
-        RandomListNode p = head, q, head2;
+        RandomListNode p = head, q;
         //复制原始链表，A->B变成A->A'->B->B'
         while (p != null) {
             q = new RandomListNode(p.label);
@@ -566,7 +566,7 @@ public class LinkedListProblems {
             p.next = q;
             p = q.next;
         }
-        // 复制random指针
+        // 复制拷贝节点的random指针
         p = head;
         while (p != null) {
             if (p.random != null) {
@@ -577,8 +577,8 @@ public class LinkedListProblems {
         }
         // 拆分新旧链表
         p = head;
-        head2 = q = head.next;
-        while (p != null && q != null) {
+        head = q = head.next;
+        while (q != null) {
             p.next = q.next;
             if (q.next != null) {
                 q.next = q.next.next;
@@ -586,7 +586,7 @@ public class LinkedListProblems {
             p = p.next;
             q = q.next;
         }
-        return head2;
+        return head;
     }
 
     /**

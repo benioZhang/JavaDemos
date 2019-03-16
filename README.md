@@ -2,6 +2,7 @@
 记录日常Java和Kotlin的笔记
 
 ### leetcode
+* [2-两数相加](md/leetcode/2-两数相加.md)
 * [19-删除链表的倒数第N个节点](md/leetcode/19-删除链表的倒数第N个节点.md)
 * [20-有效的括号](md/leetcode/20-有效的括号.md)
 * [21-合并两个有序链表](md/leetcode/21-合并两个有序链表.md)
@@ -14,6 +15,7 @@
 * [67-二进制求和](md/leetcode/67-二进制求和.md)
 * [118-杨辉三角](md/leetcode/118-杨辉三角.md)
 * [119-杨辉三角II](md/leetcode/119-杨辉三角II.md)
+* [138-复制带随机指针的链表](md/leetcode/138-复制带随机指针的链表.md)
 * [141-环形链表](md/leetcode/141-环形链表.md)
 * [142-环形链表II](md/leetcode/142-环形链表II.md)
 * [150-逆波兰表达式求值](md/leetcode/150-逆波兰表达式求值.md)
