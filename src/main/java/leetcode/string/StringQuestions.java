@@ -123,6 +123,25 @@ public class StringQuestions {
         return strs[0].substring(0, j);
     }
 
+    public static String longestCommonPrefix2(String[] strs) {
+        if (strs == null || strs.length == 0) {
+            return "";
+        }
+        String str = strs[0];
+        char c;
+        // 遍历公共前缀
+        for (int i = 0, len = str.length(); i < len; i++) {
+            c = str.charAt(i);
+            // 与数组中其它字符对比
+            for (int j = 1; j < strs.length; j++) {
+                if (i == strs[j].length() || strs[j].charAt(i) != c) {
+                    return str.substring(0, i);
+                }
+            }
+        }
+        return strs[0];
+    }
+
     /**
      * https://leetcode-cn.com/problems/reverse-string/description/
      * Q: 编写一个函数，其作用是将输入的字符串反转过来。

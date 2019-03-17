@@ -25,6 +25,11 @@ public class StringQuestionsTest {
         Assert.assertEquals("flower", StringQuestions.longestCommonPrefix(new String[]{"flower"}));
         Assert.assertEquals("fl", StringQuestions.longestCommonPrefix(new String[]{"flower", "flow", "flight"}));
         Assert.assertEquals("", StringQuestions.longestCommonPrefix(new String[]{"dog", "racecar", "car"}));
+
+        Assert.assertEquals("", StringQuestions.longestCommonPrefix2(new String[]{"", "b"}));
+        Assert.assertEquals("flower", StringQuestions.longestCommonPrefix2(new String[]{"flower"}));
+        Assert.assertEquals("fl", StringQuestions.longestCommonPrefix2(new String[]{"flower", "flow", "flight"}));
+        Assert.assertEquals("", StringQuestions.longestCommonPrefix2(new String[]{"dog", "racecar", "car"}));
     }
 
     @Test

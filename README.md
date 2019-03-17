@@ -3,6 +3,7 @@
 
 ### leetcode
 * [2-两数相加](md/leetcode/2-两数相加.md)
+* [14-最长公共前缀](md/leetcode/14-最长公共前缀.md)
 * [19-删除链表的倒数第N个节点](md/leetcode/19-删除链表的倒数第N个节点.md)
 * [20-有效的括号](md/leetcode/20-有效的括号.md)
 * [21-合并两个有序链表](md/leetcode/21-合并两个有序链表.md)
