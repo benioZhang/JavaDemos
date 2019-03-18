@@ -192,6 +192,9 @@ public class StringQuestions {
      * @return
      */
     public static String reverseWords(String s) {
+        if (s == null) {
+            return null;
+        }
         String[] arr = s.split(" ");
         StringBuilder sb = new StringBuilder(s.length());
         for (int i = arr.length - 1; i >= 0; i--) {
