@@ -45,7 +45,7 @@ public class StringQuestionsTest {
     }
 
     @Test
-    public void reverseWords2() {
-        Assert.assertEquals("s'teL ekat edoCteeL tsetnoc", StringQuestions.reverseWords2("Let's take LeetCode contest"));
+    public void reverseWordsIII() {
+        Assert.assertEquals("s'teL ekat edoCteeL tsetnoc", StringQuestions.reverseWordsIII("Let's take LeetCode contest"));
     }
 }

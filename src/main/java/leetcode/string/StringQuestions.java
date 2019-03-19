@@ -222,20 +222,23 @@ public class StringQuestions {
      * @param s
      * @return
      */
-    public static String reverseWords2(String s) {
-        if (s == null || s.isEmpty()) {
-            return s;
+    public static String reverseWordsIII(String s) {
+        if (s == null) {
+            return null;
         }
-
         char[] chars = s.toCharArray();
         int start = 0, end;
-        while (start <= chars.length) {
-            end = s.indexOf(" ", start);
+        while (start < chars.length) {
+            // 从start位置开始找空格
+            end = s.indexOf(' ', start);
             if (end < 0) {
+                // 反转最后一个单词
                 reverseChars(chars, start, chars.length - 1);
                 break;
             }
+            // 反转单词
             reverseChars(chars, start, end - 1);
+            // 记录下一个单词开始位置
             start = end + 1;
         }
         return new String(chars);
