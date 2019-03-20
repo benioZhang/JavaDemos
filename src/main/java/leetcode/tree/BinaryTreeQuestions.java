@@ -15,20 +15,25 @@ public class BinaryTreeQuestions {
      * @return
      */
     public static List<Integer> preorderTraversal(TreeNode root) {
-        if (root == null) {
-            return Collections.emptyList();
-        }
         List<Integer> result = new ArrayList<>();
-        result.add(root.val);//先根
-        List<Integer> left = preorderTraversal(root.left);// 遍历左
-        if (!left.isEmpty()) {
-            result.addAll(left);
-        }
-        List<Integer> right = preorderTraversal(root.right);// 遍历右
-        if (!right.isEmpty()) {
-            result.addAll(right);
-        }
+        preorderTraversal(root, result);
         return result;
+    }
+
+    public static void preorderTraversal(TreeNode root, List<Integer> result) {
+        if (root == null) {
+            return;
+        }
+        // 先根
+        result.add(root.val);
+        // 遍历左
+        if (root.left != null) {
+            preorderTraversal(root.left, result);
+        }
+        // 遍历右
+        if (root.right != null) {
+            preorderTraversal(root.right, result);
+        }
     }
 
     /**
