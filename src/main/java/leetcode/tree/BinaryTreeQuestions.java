@@ -143,11 +143,8 @@ public class BinaryTreeQuestions {
      * @return
      */
     public static List<Integer> inorderTraversal2(TreeNode root) {
-        if (root == null) {
-            return Collections.emptyList();
-        }
         List<Integer> result = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
+        Deque<TreeNode> stack = new LinkedList<>();
         TreeNode node = root;
         while (node != null || stack.size() > 0) {
             if (node != null) {
