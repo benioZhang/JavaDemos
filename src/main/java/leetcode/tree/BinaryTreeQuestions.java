@@ -151,7 +151,7 @@ public class BinaryTreeQuestions {
                 stack.push(node); // 将根节点入栈
                 node = node.left; // 继续遍历左子树
             } else {
-                // 左子树遍历完毕 或者 右子树为null
+                // 左子树遍历完毕
                 node = stack.pop();// 将根节点出栈
                 result.add(node.val);// 遍历根
                 node = node.right; // 遍历右子树
