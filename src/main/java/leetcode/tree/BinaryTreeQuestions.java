@@ -170,23 +170,21 @@ public class BinaryTreeQuestions {
      * @return
      */
     public static List<Integer> postorderTraversal(TreeNode root) {
-        if (root == null) {
-            return Collections.emptyList();
-        }
         List<Integer> result = new ArrayList<>();
+        postorderTraversal(root, result);
+        return result;
+    }
+
+    public static void postorderTraversal(TreeNode root, List<Integer> result) {
+        if (root == null) {
+            return;
+        }
         // 遍历左子树
-        List<Integer> left = postorderTraversal(root.left);
-        if (!left.isEmpty()) {
-            result.addAll(left);
-        }
+        postorderTraversal(root.left, result);
         // 遍历右子树
-        List<Integer> right = postorderTraversal(root.right);
-        if (!right.isEmpty()) {
-            result.addAll(right);
-        }
+        postorderTraversal(root.right, result);
         // 遍历根
         result.add(root.val);
-        return result;
     }
 
     /**
