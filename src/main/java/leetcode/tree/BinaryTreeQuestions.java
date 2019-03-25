@@ -204,16 +204,13 @@ public class BinaryTreeQuestions {
      * @return
      */
     public static List<Integer> postorderTraversal2(TreeNode root) {
-        if (root == null) {
-            return Collections.emptyList();
-        }
         List<Integer> result = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
+        Deque<TreeNode> stack = new LinkedList<>();
         TreeNode node = root, lastVisit = null;
         while (node != null || stack.size() > 0) {
             if (node != null) {
-                stack.push(node);
-                node = node.left;
+                stack.push(node); // 将根节点入栈
+                node = node.left; // 继续遍历左子树
             } else {
                 //查看当前栈顶元素
                 node = stack.peek();
