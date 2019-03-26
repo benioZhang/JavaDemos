@@ -217,9 +217,8 @@ public class BinaryTreeQuestions {
                 //如果其右子树也为空，或者右子树已经访问
                 //则可以直接输出当前节点的值
                 if (node.right == null || lastVisit == node.right) {
-                    stack.pop();
                     result.add(node.val);
-                    lastVisit = node;
+                    lastVisit = stack.pop();
                     node = null;
                 } else {
                     //继续遍历右子树
