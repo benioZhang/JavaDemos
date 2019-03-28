@@ -270,15 +270,17 @@ public class BinaryTreeQuestions {
         if (root == null) {
             return Collections.emptyList();
         }
-        Queue<TreeNode> queue = new LinkedList<>();// 保留当前层的结点
-        queue.offer(root);
+        Queue<TreeNode> queue = new LinkedList<>(); // 保存要遍历的节点
+        queue.offer(root); // 添加根节点
         List<List<Integer>> result = new ArrayList<>();
-        List<Integer> levelValues;
+        List<Integer> levelValues; // 记录每一层的值
         TreeNode node;
-        while (!queue.isEmpty()) {
+        // 队列中没有遍历的节点，则遍历结束
+        while (queue.size() > 0) {
+            // 每一层的节点数等于当前队列的大小
             levelValues = new ArrayList<>(queue.size());
             result.add(levelValues);
-            // 遍历该层，并将该层的子结点入队
+            // 遍历某一层，访问该层所有节点，并将该层的子结点入队
             for (int i = queue.size(); i > 0; i--) {
                 node = queue.poll();
                 levelValues.add(node.val);
@@ -291,6 +293,33 @@ public class BinaryTreeQuestions {
             }
         }
         return result;
+    }
+
+    public static List<List<Integer>> levelOrder2(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        levelOrder(root, 0, result);
+        return result;
+    }
+
+    public static void levelOrder(TreeNode root, int level, List<List<Integer>> result) {
+        if (root == null) {
+            return;
+        }
+        // 记录每一层的值
+        List<Integer> levelValues;
+        // 如果当前访问的层数大于等于 result 的大小，则表示是第一次访问该层
+        if (level >= result.size()) {
+            levelValues = new ArrayList<>();
+            result.add(levelValues);
+        } else {
+            levelValues = result.get(level);
+        }
+        // 访问根
+        levelValues.add(root.val);
+        // 对左子树层次遍历
+        levelOrder(root.left, level + 1, result);
+        // 对右子树层次遍历
+        levelOrder(root.right, level + 1, result);
     }
 
     /**

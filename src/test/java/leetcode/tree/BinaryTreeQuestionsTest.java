@@ -5,8 +5,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
-
 public class BinaryTreeQuestionsTest {
 
     @Test
@@ -119,6 +117,8 @@ public class BinaryTreeQuestionsTest {
         root.right.right = new TreeNode(6);
         Assert.assertEquals(Arrays.asList(Arrays.asList(1), Arrays.asList(2, 3), Arrays.asList(4, 5, 6)),
                 BinaryTreeQuestions.levelOrder(root));
+        Assert.assertEquals(Arrays.asList(Arrays.asList(1), Arrays.asList(2, 3), Arrays.asList(4, 5, 6)),
+                BinaryTreeQuestions.levelOrder2(root));
 
         root = new TreeNode(3);
         root.left = new TreeNode(9);
@@ -127,6 +127,8 @@ public class BinaryTreeQuestionsTest {
         root.right.right = new TreeNode(7);
         Assert.assertEquals(Arrays.asList(Arrays.asList(3), Arrays.asList(9, 20), Arrays.asList(15, 7)),
                 BinaryTreeQuestions.levelOrder(root));
+        Assert.assertEquals(Arrays.asList(Arrays.asList(3), Arrays.asList(9, 20), Arrays.asList(15, 7)),
+                BinaryTreeQuestions.levelOrder2(root));
     }
 
     @Test
