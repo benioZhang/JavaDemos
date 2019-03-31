@@ -301,6 +301,13 @@ public class BinaryTreeQuestions {
         return result;
     }
 
+    /**
+     * 访问第 level 层的 root节点
+     *
+     * @param root
+     * @param level
+     * @param result
+     */
     public static void levelOrder(TreeNode root, int level, List<List<Integer>> result) {
         if (root == null) {
             return;
@@ -317,9 +324,13 @@ public class BinaryTreeQuestions {
         // 访问根
         levelValues.add(root.val);
         // 对左子树层次遍历
-        levelOrder(root.left, level + 1, result);
+        if (root.left != null) {
+            levelOrder(root.left, level + 1, result);
+        }
         // 对右子树层次遍历
-        levelOrder(root.right, level + 1, result);
+        if (root.right != null) {
+            levelOrder(root.right, level + 1, result);
+        }
     }
 
     /**
