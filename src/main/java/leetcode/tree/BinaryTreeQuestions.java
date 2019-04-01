@@ -349,12 +349,38 @@ public class BinaryTreeQuestions {
         if (root == null) {
             return 0;
         }
-        if (root.left == null && root.right == null) {
-            return 1;
-        }
         int left = maxDepth(root.left);
         int right = maxDepth(root.right);
         return Math.max(left, right) + 1;
+    }
+
+    /**
+     * 使用 DFS 策略访问每个结点，同时在每次访问时更新最大深度
+     */
+    public static int maxDepth2(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        Queue<TreeNode> queue = new LinkedList<>(); // 保存要遍历的节点
+        queue.offer(root); // 添加根节点
+        int maxDepth = 0;
+        TreeNode node;
+        // 队列中没有遍历的节点，则遍历结束
+        while (queue.size() > 0) {
+            // 每一层的节点数等于当前队列的大小
+            // 遍历某一层，将该层的子结点入队
+            for (int i = queue.size(); i > 0; i--) {
+                node = queue.poll();
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+            maxDepth++;
+        }
+        return maxDepth;
     }
 
     /**

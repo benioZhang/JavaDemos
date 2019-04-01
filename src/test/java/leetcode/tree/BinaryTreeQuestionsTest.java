@@ -139,6 +139,7 @@ public class BinaryTreeQuestionsTest {
         root.right.left = new TreeNode(3);
         root.right.left.right = new TreeNode(4);
         Assert.assertEquals(4, BinaryTreeQuestions.maxDepth(root));
+        Assert.assertEquals(4, BinaryTreeQuestions.maxDepth2(root));
 
         root = new TreeNode(3);
         root.left = new TreeNode(9);
@@ -146,6 +147,7 @@ public class BinaryTreeQuestionsTest {
         root.right.left = new TreeNode(15);
         root.right.right = new TreeNode(7);
         Assert.assertEquals(3, BinaryTreeQuestions.maxDepth(root));
+        Assert.assertEquals(3, BinaryTreeQuestions.maxDepth2(root));
     }
 
     @Test
