@@ -178,6 +178,7 @@ public class BinaryTreeQuestionsTest {
         root = new TreeNode(1);
         root.left = new TreeNode(2);
         Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum(root, 1));
+        Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum2(root, 1));
 
         root = new TreeNode(1);
         root.left = new TreeNode(2);
@@ -187,6 +188,8 @@ public class BinaryTreeQuestionsTest {
         root.right.right = new TreeNode(6);
         Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum(root, 8));
         Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum(root, 11));
+        Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum2(root, 8));
+        Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum2(root, 11));
 
         root = new TreeNode(5);
         root.left = new TreeNode(4);
@@ -199,5 +202,7 @@ public class BinaryTreeQuestionsTest {
         root.right.right.right = new TreeNode(1);
         Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum(root, 22));
         Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum(root, 23));
+        Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum2(root, 22));
+        Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum2(root, 23));
     }
 }

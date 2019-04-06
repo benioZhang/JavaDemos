@@ -96,12 +96,11 @@ public class BinaryTreeQuestions {
         while (node != null || stack.size() > 0) {
             if (node != null) {
                 result.add(node.val); // 先根
-                if (node.right != null) {
-                    stack.push(node.right); // 将右子树入栈
-                }
+                stack.push(node); // 将根入栈
                 node = node.left; // 遍历左子树
             } else {
-                node = stack.pop(); // 将右子树出栈, 遍历右子树
+                node = stack.pop(); // 将根出栈, 遍历右子树
+                node = node.right;
             }
         }
         return result;
@@ -473,5 +472,38 @@ public class BinaryTreeQuestions {
             return true;
         }
         return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
+    }
+
+    public static boolean hasPathSum2(TreeNode root, int sum) {
+        if (root == null) {
+            return false;
+        }
+        Deque<TreeNode> stack = new LinkedList<>();
+        Deque<Integer> sumStack = new LinkedList<>();
+        stack.push(root);
+        sumStack.push(sum);
+
+        TreeNode node = root;
+        int curSum = sum;
+        while (stack.size() > 0) {
+            node = stack.pop();
+            curSum = sumStack.pop();
+            // 找到值为curSum的叶子节点，则返回true
+            if (node.left == null && node.right == null && node.val == curSum) {
+                return true;
+            }
+
+            // 将左子树和剩余的sum入栈
+            if (node.left != null) {
+                stack.push(node.left);
+                sumStack.push(curSum - node.val);
+            }
+            // 将右子树和剩余的sum入栈
+            if (node.right != null) {
+                stack.push(node.right);
+                sumStack.push(curSum - node.val);
+            }
+        }
+        return false;
     }
 }
