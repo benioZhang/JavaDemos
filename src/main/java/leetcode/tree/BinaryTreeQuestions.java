@@ -588,4 +588,35 @@ public class BinaryTreeQuestions {
         }
         return false;
     }
+
+    public static boolean hasPathSum6(TreeNode root, int sum) {
+        Deque<TreeNode> stack = new LinkedList<>();
+        TreeNode node = root, lastVisit = null;
+        int curSum = 0; // 根节点到某个节点的路径上所有节点的和
+        while (node != null || stack.size() > 0) {
+            if (node != null) {
+                curSum += node.val; // 计算路径上的节点和
+                stack.push(node); // 将根节点入栈
+                node = node.left; // 继续遍历左子树
+            } else {
+                //查看当前栈顶元素
+                node = stack.peek();
+                //如果其右子树也为空，或者右子树已经访问
+                //则可以直接输出当前节点的值
+                if (node.right == null || lastVisit == node.right) {
+                    // 找到curSum等于sum的叶子节点，则返回true
+                    if (node.left == null && node.right == null && curSum == sum) {
+                        return true;
+                    }
+                    curSum -= node.val; // 恢复路径上的节点和
+                    lastVisit = stack.pop(); // 节点出栈
+                    node = null;
+                } else {
+                    //继续遍历右子树
+                    node = node.right;
+                }
+            }
+        }
+        return false;
+    }
 }

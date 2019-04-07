@@ -178,7 +178,15 @@ public class BinaryTreeQuestionsTest {
         root = new TreeNode(1);
         root.left = new TreeNode(2);
         Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum(root, 1));
+        Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum(root, 3));
         Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum2(root, 1));
+        Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum2(root, 3));
+        Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum3(root, 1));
+        Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum3(root, 3));
+        Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum4(root, 1));
+        Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum4(root, 3));
+        Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum5(root, 1));
+        Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum5(root, 3));
 
         root = new TreeNode(1);
         root.left = new TreeNode(2);
@@ -190,6 +198,12 @@ public class BinaryTreeQuestionsTest {
         Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum(root, 11));
         Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum2(root, 8));
         Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum2(root, 11));
+        Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum3(root, 8));
+        Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum3(root, 11));
+        Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum4(root, 8));
+        Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum4(root, 11));
+        Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum5(root, 8));
+        Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum5(root, 11));
 
         root = new TreeNode(5);
         root.left = new TreeNode(4);
@@ -204,5 +218,22 @@ public class BinaryTreeQuestionsTest {
         Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum(root, 23));
         Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum2(root, 22));
         Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum2(root, 23));
+        Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum3(root, 22));
+        Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum3(root, 23));
+        Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum4(root, 22));
+        Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum4(root, 23));
+        Assert.assertEquals(true, BinaryTreeQuestions.hasPathSum5(root, 22));
+        Assert.assertEquals(false, BinaryTreeQuestions.hasPathSum5(root, 23));
+
+        root = new TreeNode(2);
+        root.left = new TreeNode(-1);
+        root.left.right = new TreeNode(-5);
+        root.left.right.left = new TreeNode(7);
+        root.left.right.right = new TreeNode(0);
+        root.left.right.left.right = new TreeNode(-5);
+        root.left.right.right.right = new TreeNode(-1);
+        root.left.right.left.right.right = new TreeNode(-4);
+        root.left.right.right.right.left = new TreeNode(-5);
+        Assert.assertTrue(BinaryTreeQuestions.hasPathSum6(root, -10));
     }
 }
