@@ -506,4 +506,86 @@ public class BinaryTreeQuestions {
         }
         return false;
     }
+
+    public static boolean hasPathSum3(TreeNode root, int sum) {
+        Deque<TreeNode> stack = new LinkedList<>();
+        Deque<Integer> sumStack = new LinkedList<>();
+        TreeNode node = root;
+        int curSum = 0; // 根节点到某个节点的路径上所有节点的和
+        while (node != null || stack.size() > 0) {
+            if (node != null) {
+                // 计算节点和
+                curSum = curSum + node.val;
+                if (node.left == null && node.right == null && sum == curSum) {
+                    // 找到curSum等于sum的叶子节点，则返回true
+                    return true;
+                }
+                stack.push(node); // 将根节点进栈
+                sumStack.push(curSum); // 将curSum进栈
+                node = node.left; // 继续遍历左子树
+            } else {
+                node = stack.pop(); // 将根节点出栈
+                node = node.right; // 遍历右子树
+                curSum = sumStack.pop();// 恢复当时的curSum
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasPathSum4(TreeNode root, int sum) {
+        Deque<TreeNode> stack = new LinkedList<>();
+        Deque<Integer> sumStack = new LinkedList<>();
+        TreeNode node = root;
+        int curSum = 0; // 根节点到某个节点的路径上所有节点的和
+        while (node != null || stack.size() > 0) {
+            if (node != null) {
+                // 计算节点和
+                curSum = curSum + node.val;
+                if (node.right != null) {
+                    stack.push(node.right); // 将右子树进栈
+                    sumStack.push(curSum); // 将curSum进栈
+                } else if (node.left == null && sum == curSum) {
+                    // 找到curSum等于sum的叶子节点，则返回true
+                    return true;
+                }
+                node = node.left; // 继续遍历左子树
+            } else {
+                node = stack.pop(); // 将右子树出栈, 遍历右子树
+                curSum = sumStack.pop();// 恢复当时的curSum
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasPathSum5(TreeNode root, int sum) {
+        if (root == null) {
+            return false;
+        }
+        Queue<TreeNode> queue = new LinkedList<>(); // 保存要遍历的节点
+        Queue<Integer> sumQueue = new LinkedList<>();
+        queue.offer(root); // 添加根节点
+        sumQueue.offer(root.val); // 添加根节点
+        TreeNode node;
+        int curSum; // 根节点到某个节点的路径上所有节点的和
+        // 队列中没有遍历的节点，则遍历结束
+        while (queue.size() > 0) {
+            // 访问节点和对应的节点和
+            node = queue.poll();
+            curSum = sumQueue.poll();
+            // 找到curSum等于sum的叶子节点，则返回true
+            if (node.left == null && node.right == null && sum == curSum) {
+                return true;
+            }
+            // 将子结点和对应的节点和入队
+            if (node.left != null) {
+                queue.offer(node.left);
+                sumQueue.offer(curSum + node.left.val);
+            }
+            if (node.right != null) {
+                queue.offer(node.right);
+                sumQueue.offer(curSum + node.right.val);
+            }
+        }
+        return false;
+    }
 }
