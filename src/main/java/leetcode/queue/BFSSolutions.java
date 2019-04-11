@@ -264,4 +264,34 @@ public class BFSSolutions {
         }
         return -1;
     }
+
+    /**
+     * 动态规划
+     * 定义一个函数f(n)表示我们要求的解。f(n)的求解过程为：
+     * f(n) = 1 + min{
+     * f(n-1^2), f(n-2^2), f(n-3^2), f(n-4^2), ... , f(n-k^2) //(k为满足k^2<=n的最大的k)
+     * }
+     */
+    public static int numSquares3(int n) {
+        int[] results = new int[n + 1];
+        numSquares(n, results);
+        return results[n];
+    }
+
+    public static int numSquares(int n, int[] results) {
+        // 已经计算过了，直接返回
+        if (results.length > n && results[n] != 0) {
+            return results[n];
+        }
+        int min, sqrt;
+        for (int i = 1; i <= n; i++) {
+            sqrt = (int) Math.sqrt(i);
+            min = Integer.MAX_VALUE;
+            for (int j = 1; j <= sqrt; j++) {
+                min = Math.min(min, numSquares(i - j * j, results));
+            }
+            results[i] = min + 1;
+        }
+        return results[n];
+    }
 }
