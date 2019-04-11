@@ -1,6 +1,6 @@
 package leetcode.linklist;
 
-public class LinkedListProblems {
+public class LinkedListSolutions {
 
     /**
      * https://leetcode-cn.com/problems/linked-list-cycle/description/

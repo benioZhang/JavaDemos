@@ -63,7 +63,7 @@ import java.util.*;
 /**
  * 广度优先搜索（BFS）是一种遍历或搜索数据结构（如树或图）的算法。
  */
-public class BFSQuestions {
+public class BFSSolutions {
 
     /**
      * https://leetcode-cn.com/problems/number-of-islands/description/

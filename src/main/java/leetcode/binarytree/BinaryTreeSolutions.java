@@ -1,8 +1,8 @@
-package leetcode.tree;
+package leetcode.binarytree;
 
 import java.util.*;
 
-public class BinaryTreeQuestions {
+public class BinaryTreeSolutions {
 
     /**
      * https://leetcode-cn.com/problems/binary-tree-preorder-traversal/

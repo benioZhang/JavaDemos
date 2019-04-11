@@ -3,7 +3,7 @@ package leetcode.stack;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class DFSQuestionsTest {
+public class DFSSolutionsTest {
     @Test
     public void numIslands() {
         char[][] grid = {
@@ -13,7 +13,7 @@ public class DFSQuestionsTest {
                 {'0', '0', '0', '0', '0'},
                 {'0', '0', '0', '0', '1'}
         };
-        Assert.assertEquals(3, DFSQuestions.numIslands(grid));
+        Assert.assertEquals(3, DFSSolutions.numIslands(grid));
 
         char[][] grid2 = {
                 {'1', '1', '1', '1', '0'},
@@ -21,7 +21,7 @@ public class DFSQuestionsTest {
                 {'1', '1', '0', '0', '0'},
                 {'0', '0', '0', '0', '0'}
         };
-        Assert.assertEquals(1, DFSQuestions.numIslands(grid2));
+        Assert.assertEquals(1, DFSSolutions.numIslands(grid2));
 
         char[][] grid3 = {
                 {'1', '1', '0', '0', '0'},
@@ -29,6 +29,6 @@ public class DFSQuestionsTest {
                 {'0', '0', '1', '0', '0'},
                 {'0', '0', '0', '1', '1'}
         };
-        Assert.assertEquals(3, DFSQuestions.numIslands(grid3));
+        Assert.assertEquals(3, DFSSolutions.numIslands(grid3));
     }
 }

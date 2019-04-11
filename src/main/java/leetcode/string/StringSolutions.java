@@ -1,6 +1,6 @@
 package leetcode.string;
 
-public class StringQuestions {
+public class StringSolutions {
     /**
      * https://leetcode-cn.com/problems/add-binary/description/
      * Q:二进制求和

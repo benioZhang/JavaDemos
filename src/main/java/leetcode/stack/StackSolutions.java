@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class StackQuestions {
+public class StackSolutions {
 
     /**
      * https://leetcode-cn.com/problems/valid-parentheses/submissions/

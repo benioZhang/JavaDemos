@@ -1,6 +1,6 @@
 package leetcode.stack;
 
-public class DFSQuestions {
+public class DFSSolutions {
     /**
      * https://leetcode-cn.com/problems/number-of-islands/description/
      * Q:岛屿的个数

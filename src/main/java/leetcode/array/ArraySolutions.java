@@ -2,7 +2,7 @@ package leetcode.array;
 
 import java.util.*;
 
-public class ArrayQuestions {
+public class ArraySolutions {
 
     /**
      * https://leetcode-cn.com/problems/find-pivot-index/description/
