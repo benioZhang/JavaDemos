@@ -38,6 +38,7 @@
 * [225-用队列实现栈](md/leetcode/225-用队列实现栈.md)
 * [232-用栈实现队列](md/leetcode/232-用栈实现队列.md)
 * [234-回文链表](md/leetcode/234-回文链表.md)
+* [279-完全平方数](md/leetcode/279-完全平方数.md)
 * [283-移动零](md/leetcode/283-移动零.md)
 * [328-奇偶链表](md/leetcode/328-奇偶链表.md)
 * [344-反转字符串](md/leetcode/344-反转字符串.md)
