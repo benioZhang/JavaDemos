@@ -242,7 +242,6 @@ public class BFSSolutions {
         Queue<Integer> queue = new LinkedList<>();
         int step = 0;
         queue.add(n);
-        // BFS
         while (!queue.isEmpty()) {
             step = step + 1;
             int size = queue.size();
@@ -259,6 +258,37 @@ public class BFSSolutions {
                     // 计算cur减去完全平方数，如果没出现过，则入队
                     int left = cur - j * j;
                     queue.add(left);
+                }
+            }
+        }
+        return -1;
+    }
+
+    public static int numSquares2(int n) {
+        Queue<Integer> queue = new LinkedList<>();
+        boolean[] visited = new boolean[n + 1];
+        int step = 0;
+        queue.add(n);
+        visited[n] = true;
+        while (!queue.isEmpty()) {
+            step = step + 1;
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                int cur = queue.poll();
+                // 计算节点的平方根，取整。如cur=12则取平方根3
+                int sqrt = (int) Math.sqrt(cur);
+                // 如果是平方数，则直接返回step
+                if (cur == sqrt * sqrt) {
+                    return step;
+                }
+                // 12-3*3=3, 12-2*2=8, 12-1*1=11，下面分别将3，8，11入队
+                for (int j = sqrt; j >= 1; j--) {
+                    // 计算cur减去完全平方数，如果没出现过，则入队
+                    int left = cur - j * j;
+                    if (!visited[left]) {
+                        visited[left] = true;
+                        queue.add(left);
+                    }
                 }
             }
         }

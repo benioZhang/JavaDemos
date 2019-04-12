@@ -77,5 +77,13 @@ public class BFSSolutionsTest {
         Assert.assertEquals(1, BFSSolutions.numSquares(4));
         Assert.assertEquals(3, BFSSolutions.numSquares(12));
         Assert.assertEquals(2, BFSSolutions.numSquares(13));
+
+        Assert.assertEquals(1, BFSSolutions.numSquares2(4));
+        Assert.assertEquals(3, BFSSolutions.numSquares2(12));
+        Assert.assertEquals(2, BFSSolutions.numSquares2(13));
+
+        Assert.assertEquals(1, BFSSolutions.numSquares3(4));
+        Assert.assertEquals(3, BFSSolutions.numSquares3(12));
+        Assert.assertEquals(2, BFSSolutions.numSquares3(13));
     }
 }
