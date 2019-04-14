@@ -173,7 +173,7 @@ public class BFSSolutions {
      * @return
      */
     public static int openLock(String[] deadends, String target) {
-        Set<String> visited = new LinkedHashSet<>(deadends.length);
+        Set<String> visited = new HashSet<>(deadends.length);
         Collections.addAll(visited, deadends);
         if (visited.contains("0000")) {
             return -1;
