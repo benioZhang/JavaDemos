@@ -98,12 +98,10 @@ public class BFSSolutions {
             return 0;
         }
         int count = 0;
-        final int row = grid.length;
-        final int col = grid[0].length;
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
+        for (int i = 0, row = grid.length; i < row; i++) {
+            for (int j = 0, col = grid[0].length; j < col; j++) {
                 if (grid[i][j] == '1') {
-                    merge(grid, i, j);
+                    mark(grid, i, j);
                     count++;
                 }
             }
@@ -111,22 +109,20 @@ public class BFSSolutions {
         return count;
     }
 
-    // 套用BFS模版
-    private static void merge(char[][] grid, int i, int j) {
+    // 标记出(i,j)所在的岛屿范围
+    private static void mark(char[][] grid, int i, int j) {
         final int row = grid.length;
         final int col = grid[0].length;
         Queue<int[]> queue = new LinkedList<>();
         queue.offer(new int[]{i, j});
         grid[i][j] = '*';// 标记该节点已经添加过
         int[] node;
-        // BFS
         while (!queue.isEmpty()) {
-            // iterate the nodes which are already in the queue
             for (int k = 0, length = queue.size(); k < length; k++) {
                 node = queue.poll();
                 i = node[0];
                 j = node[1];
-                // 向四周搜索岛屿，需注意要对已添加的节点做标记，否则会出现重复添加的情况
+                // 遍历邻接点，判断其是否已遍历。需注意要对添加的节点做标记，否则会出现重复添加的情况
                 if (i > 0 && grid[i - 1][j] == '1') {
                     grid[i - 1][j] = '*';
                     queue.offer(new int[]{i - 1, j});
