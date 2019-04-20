@@ -1,5 +1,37 @@
 package leetcode.stack;
 
+import java.util.LinkedList;
+
+/*模板 - 递归
+boolean DFS(Node cur, Node target, Set<Node> visited) {
+        return true if cur is target;
+        for (next : each neighbor of cur) {
+        if (next is not in visited) {
+        add next to visted;
+        return true if DFS(next, target, visited) == true;
+        }
+        }
+        return false;
+        }
+
+boolean DFS(int root, int target) {
+        Set<Node> visited;
+        Stack<Node> s;
+        add root to s;
+        while (s is not empty) {
+        Node cur = the top element in s;
+        return true if cur is target;
+        for (Node next : the neighbors of cur) {
+        if (next is not in visited) {
+        add next to s;
+        add next to visited;
+        }
+        }
+        remove cur from s;
+        }
+        return false;
+        }
+ */
 public class DFSSolutions {
     /**
      * https://leetcode-cn.com/problems/number-of-islands/description/
@@ -65,4 +97,107 @@ public class DFSSolutions {
         merge(grid, i, j + 1);
     }
 
+    /**
+     * https://leetcode-cn.com/problems/target-sum/
+     * Q: 494. 目标和
+     * 给定一个非负整数数组，a1, a2, ..., an, 和一个目标数，S。现在你有两个符号 + 和 -。对于数组中的任意一个整数，你都可以从 + 或 -中选择一个符号添加在前面。
+     * <p>
+     * 返回可以使最终数组和为目标数 S 的所有添加符号的方法数。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入: nums: [1, 1, 1, 1, 1], S: 3
+     * 输出: 5
+     * 解释:
+     * <p>
+     * -1+1+1+1+1 = 3
+     * +1-1+1+1+1 = 3
+     * +1+1-1+1+1 = 3
+     * +1+1+1-1+1 = 3
+     * +1+1+1+1-1 = 3
+     * <p>
+     * 一共有5种方法让最终目标和为3。
+     * 注意:
+     * <p>
+     * 数组的长度不会超过20，并且数组中的值全为正数。
+     * 初始的数组的和不会超过1000。
+     * 保证返回的最终结果为32位整数。
+     */
+    public static int findTargetSumWays(int[] nums, int S) {
+        boolean[] visited = new boolean[(int) Math.pow(2, nums.length)];
+        // 记录数组中每个元素的符号
+        LinkedList<Integer> stack = new LinkedList<>();
+        visited[0] = true;
+        stack.add(0);
+
+        int count = 0;
+        while (stack.size() > 0) {
+            int cur = stack.pop();
+            // 找到数组和为 S ，方法数加一
+            if (getSum(nums, cur) == S) {
+                count++;
+            }
+            // 将邻接点添加到栈中
+            for (int i = 0, len = nums.length; i < len; i++) {
+                // 每一次将cur的其中一位置为1
+                int next = cur | (1 << i);
+                if (!visited[next]) {
+                    stack.push(next);
+                    visited[next] = true;
+                }
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 如 nums =[1,2,3]，那么各个元素前面添加的符号组合就有 2^3=8
+     * 所以只需要遍历这8次就可以知道有多少种组合的和为S了
+     */
+    public static int findTargetSumWays2(int[] nums, int S) {
+        int count = 0;
+        int len = (int) Math.pow(2, nums.length);
+        for (int i = 0; i < len; i++) {
+            int sum = getSum(nums, i);
+            if (sum == S) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int findTargetSumWays3(int[] nums, int S) {
+        int count = 0;
+        int len = (int) Math.pow(2, nums.length - 1);
+        // 因为 getSum(nums, i) 与 getSum(nums, nums.length - 1 - i) 互为相反数，所以可以只算一半
+        // 特别注意的是，如果S==0的话，计数是加2
+        int step = S == 0 ? 2 : 1;
+        for (int i = 0; i < len; i++) {
+            int sum = getSum(nums, i);
+            if (sum == S || sum == -S) {
+                count = count + step;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * symbol的二进制表示nums数组上各个元素前面添加的符号
+     * `0`为`+`，`1`为`-`。nums与symbol运算后的和
+     * 如 nums =[1,2,3]
+     * 当symbol = 000 时，sum = +1+2+3 = 6
+     * 当symbol = 001 时，sum = -1+2+3 = 4
+     * 当symbol = 010 时，sum = +1-2+3 = 2
+     * 当symbol = 100 时，sum = +1+2-3 = 0
+     */
+    public static int getSum(int[] nums, int symbol) {
+        int sum = 0;
+        for (int i = 0, len = nums.length; i < len; i++) {
+            if (nums[i] != 0) {
+                // 获取第i位的符号，0为+，1为-
+                sum += (symbol & (1 << i)) == 0 ? nums[i] : -nums[i];
+            }
+        }
+        return sum;
+    }
 }
