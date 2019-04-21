@@ -200,4 +200,43 @@ public class DFSSolutions {
         }
         return sum;
     }
+
+    public static int findTargetSumWays4(int[] nums, int S) {
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+        }
+        // 最大的和sum比S小，或者 sum和S 奇偶性不一致
+        if (Math.abs(S) > sum || (sum + S) % 2 != 0) {
+            return 0;
+        }
+        int step = S == 0 ? 2 : 1;
+        int count = sum == S || sum == -S ? step : 0;
+        int len = (int) Math.pow(2, nums.length - 1);
+        for (int i = 1; i < len; i++) {
+            int s = getSum(nums, i, sum);
+            if (s == S || s == -S) {
+                count = count + step;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * sum为nums所有元素的和。利用sum，再重新计算那些变动的位置的和，
+     * 即可快速得出所求sum
+     */
+    public static int getSum(int[] nums, int symbol, int sum) {
+        // 前0~invalid位无效，需要重新计算
+        int invalid = Math.min(symbol >> 1, nums.length - 1);
+        for (int i = 0; i <= invalid; i++) {
+            // 获取第i位的符号，0为+，1为-
+            // 如果第i位符号为+，则无需重新计算与该元素的和
+            // 如果第i位符号为-，要先减去该元素，再加上-nums[i]。即需要减去2*nums[i]
+            if (nums[i] != 0 && (symbol & (1 << i)) != 0) {
+                sum = sum - 2 * nums[i];
+            }
+        }
+        return sum;
+    }
 }
