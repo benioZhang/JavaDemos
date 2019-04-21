@@ -53,6 +53,15 @@ public class DFSSolutionsTest {
         Assert.assertEquals(-2, DFSSolutions.getSum(nums, 5, sum));
         Assert.assertEquals(-4, DFSSolutions.getSum(nums, 6, sum));
         Assert.assertEquals(-6, DFSSolutions.getSum(nums, 7, sum));
+
+        sum = 6;
+        int sum2 = sum;
+        sum2 = DFSSolutions.getSum(nums, 0, sum2, 0);
+        Assert.assertEquals(6, sum2);
+        sum2 = DFSSolutions.getSum(nums, 0, sum2, 1);
+        Assert.assertEquals(4, sum2);
+        sum2 = DFSSolutions.getSum(nums, 1, sum2, 2);
+        Assert.assertEquals(2, sum2);
     }
 
     @Test

@@ -195,7 +195,7 @@ public class DFSSolutions {
         for (int i = 0, len = nums.length; i < len; i++) {
             if (nums[i] != 0) {
                 // 获取第i位的符号，0为+，1为-
-                sum += (symbol & (1 << i)) == 0 ? nums[i] : -nums[i];
+                sum += (symbol >> i & 1) == 0 ? nums[i] : -nums[i];
             }
         }
         return sum;
@@ -214,8 +214,9 @@ public class DFSSolutions {
         int count = sum == S || sum == -S ? step : 0;
         int len = (int) Math.pow(2, nums.length - 1);
         for (int i = 1; i < len; i++) {
-            int s = getSum(nums, i, sum);
-            if (s == S || s == -S) {
+            // 通过上一步的symbol和sum，快速求出这一步的sum
+            sum = getSum(nums, i - 1, sum, i);
+            if (sum == S || sum == -S) {
                 count = count + step;
             }
         }
@@ -223,7 +224,7 @@ public class DFSSolutions {
     }
 
     /**
-     * sum为nums所有元素的和。利用sum，再重新计算那些变动的位置的和，
+     * sum为nums所有元素的和，对应的symbol=0。利用sum，再重新计算那些变动的位置的和，
      * 即可快速得出所求sum
      */
     public static int getSum(int[] nums, int symbol, int sum) {
@@ -233,8 +234,32 @@ public class DFSSolutions {
             // 获取第i位的符号，0为+，1为-
             // 如果第i位符号为+，则无需重新计算与该元素的和
             // 如果第i位符号为-，要先减去该元素，再加上-nums[i]。即需要减去2*nums[i]
-            if (nums[i] != 0 && (symbol & (1 << i)) != 0) {
-                sum = sum - 2 * nums[i];
+            if (nums[i] != 0 && (symbol >> i & 1) != 0) {
+                sum = sum - (nums[i] << 1);
+            }
+        }
+        return sum;
+    }
+
+    /**
+     * 已知sum为nums与symbol运算后的和。现求nums与newSymbol运算后的和
+     */
+    public static int getSum(int[] nums, int symbol, int sum, int newSymbol) {
+        // 前0~invalid位无效，需要重新计算
+        final int diff = symbol ^ newSymbol;
+        final int invalid = Math.min(diff >> 1, nums.length - 1);
+        for (int i = 0; i <= invalid; i++) {
+            // 获取第i位的符号，0为相同，1为不同，需重新计算与该元素的和
+            if (nums[i] != 0 && (diff >> i & 1) != 0) {
+                if ((symbol >> i & 1) == 0) {
+                    // symbol第i位为0，newSymbol第i位为1
+                    // sum要先减去该元素，再减去nums[i]。即需要减去2*nums[i]
+                    sum = sum - (nums[i] << 1);
+                } else {
+                    // symbol第i位为1，newSymbol第i位为0
+                    // sum要先加上nums[i]，再加上-nums[i]。即需要加上2*nums[i]
+                    sum = sum + (nums[i] << 1);
+                }
             }
         }
         return sum;
