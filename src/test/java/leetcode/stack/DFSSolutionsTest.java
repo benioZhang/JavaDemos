@@ -72,35 +72,41 @@ public class DFSSolutionsTest {
         Assert.assertEquals(5, DFSSolutions.findTargetSumWays2(nums, 3));
         Assert.assertEquals(5, DFSSolutions.findTargetSumWays3(nums, 3));
         Assert.assertEquals(5, DFSSolutions.findTargetSumWays4(nums, 3));
+        Assert.assertEquals(5, DFSSolutions.findTargetSumWays5(nums, 3));
 
         nums = new int[]{1, 2, 1};
         Assert.assertEquals(2, DFSSolutions.findTargetSumWays(nums, 0));
         Assert.assertEquals(2, DFSSolutions.findTargetSumWays2(nums, 0));
         Assert.assertEquals(2, DFSSolutions.findTargetSumWays3(nums, 0));
         Assert.assertEquals(2, DFSSolutions.findTargetSumWays4(nums, 0));
+        Assert.assertEquals(2, DFSSolutions.findTargetSumWays5(nums, 0));
 
         nums = new int[]{1000};
         Assert.assertEquals(1, DFSSolutions.findTargetSumWays(nums, -1000));
         Assert.assertEquals(1, DFSSolutions.findTargetSumWays2(nums, -1000));
         Assert.assertEquals(1, DFSSolutions.findTargetSumWays3(nums, -1000));
         Assert.assertEquals(1, DFSSolutions.findTargetSumWays4(nums, -1000));
+        Assert.assertEquals(1, DFSSolutions.findTargetSumWays5(nums, -1000));
 
         nums = new int[]{1, 0, 2, 3};
         Assert.assertEquals(4, DFSSolutions.findTargetSumWays(nums, 0));
         Assert.assertEquals(4, DFSSolutions.findTargetSumWays2(nums, 0));
         Assert.assertEquals(4, DFSSolutions.findTargetSumWays3(nums, 0));
         Assert.assertEquals(4, DFSSolutions.findTargetSumWays4(nums, 0));
+        Assert.assertEquals(4, DFSSolutions.findTargetSumWays5(nums, 0));
 
         nums = new int[]{1, 2, 7, 9, 981};
         Assert.assertEquals(0, DFSSolutions.findTargetSumWays(nums, 1000000000));
         Assert.assertEquals(0, DFSSolutions.findTargetSumWays2(nums, 1000000000));
         Assert.assertEquals(0, DFSSolutions.findTargetSumWays3(nums, 1000000000));
         Assert.assertEquals(0, DFSSolutions.findTargetSumWays4(nums, 1000000000));
+        Assert.assertEquals(0, DFSSolutions.findTargetSumWays5(nums, 1000000000));
 
         nums = new int[]{9, 7, 0, 3, 9, 8, 6, 5, 7, 6};
         Assert.assertEquals(40, DFSSolutions.findTargetSumWays(nums, 2));
         Assert.assertEquals(40, DFSSolutions.findTargetSumWays2(nums, 2));
         Assert.assertEquals(40, DFSSolutions.findTargetSumWays3(nums, 2));
         Assert.assertEquals(40, DFSSolutions.findTargetSumWays4(nums, 2));
+        Assert.assertEquals(40, DFSSolutions.findTargetSumWays5(nums, 2));
     }
 }

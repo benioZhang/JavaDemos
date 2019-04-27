@@ -267,4 +267,21 @@ public class DFSSolutions {
         }
         return sum;
     }
+
+    public static int findTargetSumWays5(int[] nums, int S) {
+        return findTargetSumWays(nums, 0, S);
+    }
+
+    /**
+     * 返回：nums[index~nums.length-1]的数组和为target的所有添加符号的方法数
+     */
+    private static int findTargetSumWays(int[] nums, int index, int target) {
+        if (index == nums.length) {
+            // S与所有元素运算后为0，记为1种方法
+            return target == 0 ? 1 : 0;
+        }
+        // nums[index+1~nums.length-1]数组和为target-nums[index]或者target+nums[index]的方法数
+        return findTargetSumWays(nums, index + 1, target + nums[index])
+                + findTargetSumWays(nums, index + 1, target - nums[index]);
+    }
 }
