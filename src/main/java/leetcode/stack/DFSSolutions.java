@@ -277,7 +277,7 @@ public class DFSSolutions {
      */
     private static int findTargetSumWays(int[] nums, int index, int target) {
         if (index == nums.length) {
-            // S与所有元素运算后为0，记为1种方法
+            // 与nums[index~nums.length-1]运算后target为0，记为1种方法
             return target == 0 ? 1 : 0;
         }
         // nums[index+1~nums.length-1]数组和为target-nums[index]或者target+nums[index]的方法数
