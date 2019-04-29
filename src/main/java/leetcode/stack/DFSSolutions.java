@@ -1,6 +1,6 @@
 package leetcode.stack;
 
-import java.util.LinkedList;
+import java.util.*;
 
 /*模板 - 递归
 boolean DFS(Node cur, Node target, Set<Node> visited) {
@@ -283,5 +283,50 @@ public class DFSSolutions {
         // nums[index+1~nums.length-1]数组和为target-nums[index]或者target+nums[index]的方法数
         return findTargetSumWays(nums, index + 1, target + nums[index])
                 + findTargetSumWays(nums, index + 1, target - nums[index]);
+    }
+
+    public static Node cloneGraph(Node node) {
+        if (node == null) {
+            return null;
+        }
+        Set<Node> visited = new HashSet<>();
+        Deque<Node> stack = new LinkedList<>();
+        stack.push(node);
+        visited.add(node);
+        Node cur, copy;
+        // clone node
+        // 记录每个节点与克隆节点的对应关系
+        Map<Node, Node> map = new HashMap<>();
+        while (!stack.isEmpty()) {
+            cur = stack.pop();
+            // 复制节点
+            copy = new Node();
+            copy.val = cur.val;
+            // 保存节点与克隆节点的对应关系
+            map.put(cur, copy);
+            if (cur.neighbors != null) {
+                for (Node n : cur.neighbors) {
+                    if (!visited.contains(n)) {
+                        visited.add(n);
+                        stack.push(n);
+                    }
+                }
+            }
+        }
+
+        // clone neighbours
+        for (Map.Entry<Node, Node> e : map.entrySet()) {
+            cur = e.getKey();
+            copy = e.getValue();
+            if (cur.neighbors != null) {
+                // 复制邻节点
+                copy.neighbors = new ArrayList<>(cur.neighbors.size());
+                for (Node n : cur.neighbors) {
+                    copy.neighbors.add(map.get(n));
+                }
+            }
+        }
+        // 返回克隆节点
+        return map.get(node);
     }
 }

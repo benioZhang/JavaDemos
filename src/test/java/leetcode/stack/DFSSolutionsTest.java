@@ -3,6 +3,8 @@ package leetcode.stack;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public class DFSSolutionsTest {
     @Test
     public void numIslands() {
@@ -108,5 +110,52 @@ public class DFSSolutionsTest {
         Assert.assertEquals(40, DFSSolutions.findTargetSumWays3(nums, 2));
         Assert.assertEquals(40, DFSSolutions.findTargetSumWays4(nums, 2));
         Assert.assertEquals(40, DFSSolutions.findTargetSumWays5(nums, 2));
+    }
+
+    @Test
+    public void cloneGraph() {
+        Node node1, node2, node3, node4;
+        node1 = new Node();
+        node1.val = 1;
+        node2 = new Node();
+        node2.val = 2;
+        node3 = new Node();
+        node3.val = 3;
+        node4 = new Node();
+        node4.val = 4;
+
+        node1.neighbors = Arrays.asList(node2, node4);
+        node2.neighbors = Arrays.asList(node1, node3);
+        node3.neighbors = Arrays.asList(node2, node4);
+        node4.neighbors = Arrays.asList(node1, node3);
+
+        Node _node1, _node2, _node3, _node4;
+        _node1 = DFSSolutions.cloneGraph(node1);
+        _node2 = _node1.neighbors.get(0);
+        _node3 = _node2.neighbors.get(1);
+        _node4 = _node1.neighbors.get(1);
+
+        deepEquals(node1, _node1);
+        deepEquals(node2, _node2);
+        deepEquals(node3, _node3);
+        deepEquals(node4, _node4);
+    }
+
+    private static void deepEquals(Node a, Node b) {
+        // 比较节点
+        Assert.assertNotEquals(a, b);
+        Assert.assertEquals(a.val, b.val);
+
+        // 比较邻节点
+        if (a.neighbors == null) {
+            Assert.assertNull(b.neighbors);
+            return;
+        }
+        Assert.assertNotNull(b.neighbors);
+        Assert.assertEquals(a.neighbors.size(), b.neighbors.size());
+        for (int i = 0; i < a.neighbors.size(); i++) {
+            Assert.assertNotEquals(a.neighbors.get(i), b.neighbors.get(i));
+            Assert.assertEquals(a.neighbors.get(i).val, b.neighbors.get(i).val);
+        }
     }
 }
