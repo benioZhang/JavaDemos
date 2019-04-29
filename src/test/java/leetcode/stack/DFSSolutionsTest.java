@@ -139,6 +139,16 @@ public class DFSSolutionsTest {
         deepEquals(node2, _node2);
         deepEquals(node3, _node3);
         deepEquals(node4, _node4);
+
+        _node1 = DFSSolutions.cloneGraph2(node1);
+        _node2 = _node1.neighbors.get(0);
+        _node3 = _node2.neighbors.get(1);
+        _node4 = _node1.neighbors.get(1);
+
+        deepEquals(node1, _node1);
+        deepEquals(node2, _node2);
+        deepEquals(node3, _node3);
+        deepEquals(node4, _node4);
     }
 
     private static void deepEquals(Node a, Node b) {
@@ -147,10 +157,6 @@ public class DFSSolutionsTest {
         Assert.assertEquals(a.val, b.val);
 
         // 比较邻节点
-        if (a.neighbors == null) {
-            Assert.assertNull(b.neighbors);
-            return;
-        }
         Assert.assertNotNull(b.neighbors);
         Assert.assertEquals(a.neighbors.size(), b.neighbors.size());
         for (int i = 0; i < a.neighbors.size(); i++) {

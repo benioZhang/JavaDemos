@@ -304,12 +304,10 @@ public class DFSSolutions {
             copy.val = cur.val;
             // 保存节点与克隆节点的对应关系
             map.put(cur, copy);
-            if (cur.neighbors != null) {
-                for (Node n : cur.neighbors) {
-                    if (!visited.contains(n)) {
-                        visited.add(n);
-                        stack.push(n);
-                    }
+            for (Node n : cur.neighbors) {
+                if (!visited.contains(n)) {
+                    visited.add(n);
+                    stack.push(n);
                 }
             }
         }
@@ -318,15 +316,41 @@ public class DFSSolutions {
         for (Map.Entry<Node, Node> e : map.entrySet()) {
             cur = e.getKey();
             copy = e.getValue();
-            if (cur.neighbors != null) {
-                // 复制邻节点
-                copy.neighbors = new ArrayList<>(cur.neighbors.size());
-                for (Node n : cur.neighbors) {
-                    copy.neighbors.add(map.get(n));
-                }
+            // 复制邻节点
+            copy.neighbors = new ArrayList<>(cur.neighbors.size());
+            for (Node n : cur.neighbors) {
+                copy.neighbors.add(map.get(n));
             }
         }
         // 返回克隆节点
         return map.get(node);
+    }
+
+    public static Node cloneGraph2(Node node) {
+        if (node == null) {
+            return null;
+        }
+        // 记录每个节点与克隆节点的对应关系
+        Map<Node, Node> map = new HashMap<>();
+        return cloneGraph(node, map);
+    }
+
+    private static Node cloneGraph(final Node node, final Map<Node, Node> map) {
+        final List<Node> neighbors = new ArrayList<>(node.neighbors.size());
+        final Node copy = new Node(node.val, neighbors);
+        // 保存节点与克隆节点的对应关系
+        map.put(node, copy);
+        Node n;
+        for (Node nei : node.neighbors) {
+            // 判断nei是否已经克隆
+            n = map.get(nei);
+            if (n != null) {
+                neighbors.add(n);
+            } else {
+                // 递归克隆nei
+                neighbors.add(cloneGraph(nei, map));
+            }
+        }
+        return copy;
     }
 }
