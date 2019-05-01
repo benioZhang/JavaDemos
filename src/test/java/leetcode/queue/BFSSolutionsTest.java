@@ -102,6 +102,7 @@ public class BFSSolutionsTest {
         };
         Assert.assertArrayEquals(result, BFSSolutions.updateMatrix(matrix));
         Assert.assertArrayEquals(result, BFSSolutions.updateMatrix2(matrix));
+        Assert.assertArrayEquals(result, BFSSolutions.updateMatrix3(matrix));
 
         matrix = new int[][]{
                 {0, 0, 0},
@@ -115,6 +116,7 @@ public class BFSSolutionsTest {
         };
         Assert.assertArrayEquals(result, BFSSolutions.updateMatrix(matrix));
         Assert.assertArrayEquals(result, BFSSolutions.updateMatrix2(matrix));
+        Assert.assertArrayEquals(result, BFSSolutions.updateMatrix3(matrix));
 
         matrix = new int[][]{
                 {0, 1, 0},
@@ -128,6 +130,7 @@ public class BFSSolutionsTest {
         };
         Assert.assertArrayEquals(result, BFSSolutions.updateMatrix(matrix));
         Assert.assertArrayEquals(result, BFSSolutions.updateMatrix2(matrix));
+        Assert.assertArrayEquals(result, BFSSolutions.updateMatrix3(matrix));
 
         matrix = new int[][]{
                 {0, 1, 0, 1, 1},
@@ -146,5 +149,6 @@ public class BFSSolutionsTest {
         };
         Assert.assertArrayEquals(result, BFSSolutions.updateMatrix(matrix));
         Assert.assertArrayEquals(result, BFSSolutions.updateMatrix2(matrix));
+        Assert.assertArrayEquals(result, BFSSolutions.updateMatrix3(matrix));
     }
 }

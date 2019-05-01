@@ -417,7 +417,7 @@ public class BFSSolutions {
             i = cur >> 16; // 获取高16位
             j = cur & 0xffff; // 获取低16位
             // 如果matrix[i - 1][j]距离0的距离大于matrix[i][j] + 1
-            // 则更新matrix[i - 1][j]，并将(i - 1,j)加入队列进行BFS
+            // 则更新result[i - 1][j]，并将(i - 1,j)加入队列进行BFS
             // 因为matrix[i - 1][j]还有可能有更小的值
             if (i > 0 && result[i - 1][j] > result[i][j] + 1) {
                 result[i - 1][j] = result[i][j] + 1;
@@ -441,5 +441,47 @@ public class BFSSolutions {
 
     private static int combine(int i, int j) {
         return (i << 16) | j;
+    }
+
+    // 此方法会改变matrix内元素的值
+    // 将所有 0 元素作为 BFS 第一层
+    public static int[][] updateMatrix3(int[][] matrix) {
+        final int row = matrix.length;
+        final int col = matrix[0].length;
+        Queue<Integer> queue = new LinkedList<>();
+        int i, j;
+        // 将所有 0 元素作为 BFS 第一层
+        for (i = 0; i < row; i++) {
+            for (j = 0; j < col; j++) {
+                if (matrix[i][j] == 0) {
+                    // 高16位存放i，低16位存放j
+                    queue.add((i << 16) | j);
+                } else {
+                    // 设置一个不可能的值，如果这里设置Integer.MAX_VALUE的话，注意下面的运算可能会溢出
+                    matrix[i][j] = Integer.MAX_VALUE;
+                }
+            }
+        }
+
+        int[] xDirection = {-1, 0, 1, 0};
+        int[] yDirection = {0, -1, 0, 1};
+        int cur, m, n;
+        while (queue.size() > 0) {
+            cur = queue.poll();
+            i = cur >> 16; // 获取高16位
+            j = cur & 0xffff; // 获取低16位
+            for (int k = 0; k < 4; k++) {
+                m = i + xDirection[k];
+                n = j + yDirection[k];
+                // 如果matrix[m][n]距离0的距离大于matrix[i][j] + 1
+                // 则更新matrix[m][n]，并将(m,n)加入队列进行BFS
+                // 因为matrix[m][n]还有可能有更小的值
+                if (m >= 0 && m < row && n >= 0 && n < col && matrix[m][n] - 1 > matrix[i][j]) {
+                    matrix[m][n] = matrix[i][j] + 1;
+                    queue.offer((m << 16) | n);
+                }
+            }
+        }
+        return matrix;
     }
 }
