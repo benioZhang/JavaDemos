@@ -391,4 +391,55 @@ public class BFSSolutions {
         }
         return false;
     }
+
+    public static int[][] updateMatrix2(int[][] matrix) {
+        final int row = matrix.length;
+        final int col = matrix[0].length;
+        int[][] result = new int[row][col];
+        Queue<Integer> queue = new LinkedList<>();
+        int i, j;
+        for (i = 0; i < row; i++) {
+            for (j = 0; j < col; j++) {
+                if (matrix[i][j] == 0) {
+                    // 将所有 0 元素作为 BFS 第一层
+                    // 高16位存放i，低16位存放j
+                    queue.add(combine(i, j));
+                } else {
+                    // 设置一个不可能的值，如果这里设置Integer.MAX_VALUE的话，注意下面的运算可能会溢出
+                    result[i][j] = row + col;
+                }
+            }
+        }
+
+        int cur;
+        while (queue.size() > 0) {
+            cur = queue.poll();
+            i = cur >> 16; // 获取高16位
+            j = cur & 0xffff; // 获取低16位
+            // 如果matrix[i - 1][j]距离0的距离大于matrix[i][j] + 1
+            // 则更新matrix[i - 1][j]，并将(i - 1,j)加入队列进行BFS
+            // 因为matrix[i - 1][j]还有可能有更小的值
+            if (i > 0 && result[i - 1][j] > result[i][j] + 1) {
+                result[i - 1][j] = result[i][j] + 1;
+                queue.offer(combine(i - 1, j));
+            }
+            if (i + 1 < row && result[i + 1][j] > result[i][j] + 1) {
+                result[i + 1][j] = result[i][j] + 1;
+                queue.offer(combine(i + 1, j));
+            }
+            if (j > 0 && result[i][j - 1] > result[i][j] + 1) {
+                result[i][j - 1] = result[i][j] + 1;
+                queue.offer(combine(i, j - 1));
+            }
+            if (j + 1 < col && result[i][j + 1] > result[i][j] + 1) {
+                result[i][j + 1] = result[i][j] + 1;
+                queue.offer(combine(i, j + 1));
+            }
+        }
+        return result;
+    }
+
+    private static int combine(int i, int j) {
+        return (i << 16) | j;
+    }
 }

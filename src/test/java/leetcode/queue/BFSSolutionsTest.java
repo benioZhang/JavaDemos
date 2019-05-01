@@ -101,6 +101,7 @@ public class BFSSolutionsTest {
                 {0, 0, 0}
         };
         Assert.assertArrayEquals(result, BFSSolutions.updateMatrix(matrix));
+        Assert.assertArrayEquals(result, BFSSolutions.updateMatrix2(matrix));
 
         matrix = new int[][]{
                 {0, 0, 0},
@@ -113,5 +114,37 @@ public class BFSSolutionsTest {
                 {1, 2, 1}
         };
         Assert.assertArrayEquals(result, BFSSolutions.updateMatrix(matrix));
+        Assert.assertArrayEquals(result, BFSSolutions.updateMatrix2(matrix));
+
+        matrix = new int[][]{
+                {0, 1, 0},
+                {0, 1, 0},
+                {0, 1, 0}
+        };
+        result = new int[][]{
+                {0, 1, 0},
+                {0, 1, 0},
+                {0, 1, 0}
+        };
+        Assert.assertArrayEquals(result, BFSSolutions.updateMatrix(matrix));
+        Assert.assertArrayEquals(result, BFSSolutions.updateMatrix2(matrix));
+
+        matrix = new int[][]{
+                {0, 1, 0, 1, 1},
+                {1, 1, 0, 0, 1},
+                {0, 0, 0, 1, 0},
+                {1, 0, 1, 1, 1},
+                {1, 0, 0, 0, 1}
+        };
+
+        result = new int[][]{
+                {0, 1, 0, 1, 2},
+                {1, 1, 0, 0, 1},
+                {0, 0, 0, 1, 0},
+                {1, 0, 1, 1, 1},
+                {1, 0, 0, 0, 1}
+        };
+        Assert.assertArrayEquals(result, BFSSolutions.updateMatrix(matrix));
+        Assert.assertArrayEquals(result, BFSSolutions.updateMatrix2(matrix));
     }
 }
