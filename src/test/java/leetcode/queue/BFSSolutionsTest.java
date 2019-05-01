@@ -86,4 +86,32 @@ public class BFSSolutionsTest {
         Assert.assertEquals(3, BFSSolutions.numSquares3(12));
         Assert.assertEquals(2, BFSSolutions.numSquares3(13));
     }
+
+    @Test
+    public void updateMatrix() {
+        int[][] matrix, result;
+        matrix = new int[][]{
+                {0, 0, 0},
+                {0, 1, 0},
+                {0, 0, 0}
+        };
+        result = new int[][]{
+                {0, 0, 0},
+                {0, 1, 0},
+                {0, 0, 0}
+        };
+        Assert.assertArrayEquals(result, BFSSolutions.updateMatrix(matrix));
+
+        matrix = new int[][]{
+                {0, 0, 0},
+                {0, 1, 0},
+                {1, 1, 1}
+        };
+        result = new int[][]{
+                {0, 0, 0},
+                {0, 1, 0},
+                {1, 2, 1}
+        };
+        Assert.assertArrayEquals(result, BFSSolutions.updateMatrix(matrix));
+    }
 }

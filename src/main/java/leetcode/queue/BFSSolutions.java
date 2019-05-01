@@ -320,4 +320,75 @@ public class BFSSolutions {
         }
         return results[n];
     }
+
+    /**
+     * https://leetcode-cn.com/problems/01-matrix/
+     * 542. 01 矩阵
+     */
+    public static int[][] updateMatrix(int[][] matrix) {
+        final int row = matrix.length;
+        final int col = matrix[0].length;
+        int[][] result = new int[row][col];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                result[i][j] = getDistance(matrix, i, j);
+            }
+        }
+        return result;
+    }
+
+    // 计算matrix[i][j]到最近的 0 的距离
+    public static int getDistance(int[][] matrix, int i, int j) {
+        if (matrix[i][j] == 0) {
+            return 0;
+        }
+        final int row = matrix.length;
+        final int col = matrix[0].length;
+        Queue<Integer> queue = new LinkedList<>();
+        Set<Integer> used = new HashSet<>();
+        int step = -1;
+        // 高16位存放i，低16位存放j
+        int combine = (i << 16) | j;
+        queue.offer(combine);
+        used.add(combine);
+        while (queue.size() > 0) {
+            step++;
+            for (int k = 0, size = queue.size(); k < size; k++) {
+                combine = queue.poll();
+                i = combine >> 16; // 获取高16位
+                j = combine & 0xffff; // 获取低16位
+                if (matrix[i][j] == 0) {
+                    return step;
+                }
+                // 左
+                if (i > 0) {
+                    addToQueue(queue, used, i - 1, j);
+                }
+                // 右
+                if (i + 1 < row) {
+                    addToQueue(queue, used, i + 1, j);
+                }
+                // 上
+                if (j > 0) {
+                    addToQueue(queue, used, i, j - 1);
+                }
+                // 下
+                if (j + 1 < col) {
+                    addToQueue(queue, used, i, j + 1);
+                }
+            }
+        }
+        return step;
+    }
+
+    private static boolean addToQueue(Queue<Integer> queue, Set<Integer> used, int i, int j) {
+        // 高16位存放i，低16位存放j
+        int combine = (i << 16) | j;
+        if (!used.contains(combine)) {
+            used.add(combine);
+            queue.offer(combine);
+            return true;
+        }
+        return false;
+    }
 }
