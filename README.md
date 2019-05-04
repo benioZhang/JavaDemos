@@ -49,6 +49,7 @@
 * [485-最大连续1的个数](md/leetcode/485-最大连续1的个数.md)
 * [494-目标和](md/leetcode/494-目标和.md)
 * [498-对角线遍历](md/leetcode/498-对角线遍历.md)
+* [542-01矩阵](md/leetcode/542-01矩阵.md)
 * [557-反转字符串中的单词III](md/leetcode/557-反转字符串中的单词III.md)
 * [561-数组拆分-I](md/leetcode/561-数组拆分-I.md)
 * [622-设计循环队列](md/leetcode/622-设计循环队列.md)
