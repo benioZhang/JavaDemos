@@ -164,4 +164,76 @@ public class DFSSolutionsTest {
             Assert.assertEquals(a.neighbors.get(i).val, b.neighbors.get(i).val);
         }
     }
+
+    @Test
+    public void floodFill() {
+        int[][] image, result;
+        image = new int[][]{
+                {1, 1, 1},
+                {1, 1, 0},
+                {1, 0, 1},
+        };
+        result = new int[][]{
+                {2, 2, 2},
+                {2, 2, 0},
+                {2, 0, 1},
+        };
+        Assert.assertArrayEquals(result, DFSSolutions.floodFill(image, 1, 1, 2));
+
+        image = new int[][]{
+                {0, 0, 0},
+                {0, 0, 0},
+        };
+        result = new int[][]{
+                {2, 2, 2},
+                {2, 2, 2},
+        };
+        Assert.assertArrayEquals(result, DFSSolutions.floodFill(image, 0, 0, 2));
+
+        image = new int[][]{
+                {0, 0, 0},
+                {0, 1, 1},
+        };
+        result = new int[][]{
+                {0, 0, 0},
+                {0, 1, 1},
+        };
+        Assert.assertArrayEquals(result, DFSSolutions.floodFill(image, 1, 1, 1));
+    }
+
+    @Test
+    public void floodFill2() {
+        int[][] image, result;
+        image = new int[][]{
+                {1, 1, 1},
+                {1, 1, 0},
+                {1, 0, 1},
+        };
+        result = new int[][]{
+                {2, 2, 2},
+                {2, 2, 0},
+                {2, 0, 1},
+        };
+        Assert.assertArrayEquals(result, DFSSolutions.floodFill2(image, 1, 1, 2));
+
+        image = new int[][]{
+                {0, 0, 0},
+                {0, 0, 0},
+        };
+        result = new int[][]{
+                {2, 2, 2},
+                {2, 2, 2},
+        };
+        Assert.assertArrayEquals(result, DFSSolutions.floodFill2(image, 0, 0, 2));
+
+        image = new int[][]{
+                {0, 0, 0},
+                {0, 1, 1},
+        };
+        result = new int[][]{
+                {0, 0, 0},
+                {0, 1, 1},
+        };
+        Assert.assertArrayEquals(result, DFSSolutions.floodFill2(image, 1, 1, 1));
+    }
 }

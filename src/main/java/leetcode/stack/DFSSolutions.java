@@ -357,4 +357,69 @@ public class DFSSolutions {
         }
         return copy;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/flood-fill/submissions/
+     * 733. 图像渲染
+     */
+    public static int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        final int oldColor = image[sr][sc];
+        if (oldColor == newColor) {
+            return image;
+        }
+        floodFillDFS(image, sr, sc, oldColor, newColor);
+        return image;
+    }
+
+    private static void floodFillDFS(int[][] image, int i, int j, int oldColor, int newColor) {
+        // 判断像素值与初始坐标是否相同
+        if (oldColor != image[i][j]) {
+            return;
+        }
+        image[i][j] = newColor; // 重新上色
+        if (i > 0) {
+            floodFillDFS(image, i - 1, j, oldColor, newColor);
+        }
+        if (j > 0) {
+            floodFillDFS(image, i, j - 1, oldColor, newColor);
+        }
+        if (i + 1 < image.length) {
+            floodFillDFS(image, i + 1, j, oldColor, newColor);
+        }
+        if (j + 1 < image[0].length) {
+            floodFillDFS(image, i, j + 1, oldColor, newColor);
+        }
+    }
+
+    public static int[][] floodFill2(int[][] image, int sr, int sc, int newColor) {
+        final int oldColor = image[sr][sc];
+        if (oldColor == newColor) {
+            return image;
+        }
+        int i = sr, j = sc;
+        Deque<Integer> stack = new LinkedList<>();
+        // 高16位存放i，低16位存放j
+        stack.push((i << 16) | j);
+        int[] xDirection = {-1, 0, 1, 0};
+        int[] yDirection = {0, -1, 0, 1};
+        final int row = image.length;
+        final int col = image[0].length;
+        int cur, m, n;
+        while (stack.size() > 0) {
+            cur = stack.pop();
+            i = cur >> 16; // 获取高16位
+            j = cur & 0xffff; // 获取低16位
+            image[i][j] = newColor; // 重新上色
+            for (int k = 0; k < 4; k++) {
+                m = i + xDirection[k];
+                n = j + yDirection[k];
+                // 坐标符合条件，像素值与初始坐标相同，视为相连像素点
+                if (m >= 0 && m < row && n >= 0 && n < col
+                        && image[m][n] == oldColor) {
+                    stack.push((m << 16) | n);
+                }
+            }
+        }
+        return image;
+    }
 }
