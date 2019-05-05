@@ -151,4 +151,40 @@ public class BFSSolutionsTest {
         Assert.assertArrayEquals(result, BFSSolutions.updateMatrix2(matrix));
         Assert.assertArrayEquals(result, BFSSolutions.updateMatrix3(matrix));
     }
+
+    @Test
+    public void floodFill() {
+        int[][] image, result;
+        image = new int[][]{
+                {1, 1, 1},
+                {1, 1, 0},
+                {1, 0, 1},
+        };
+        result = new int[][]{
+                {2, 2, 2},
+                {2, 2, 0},
+                {2, 0, 1},
+        };
+        Assert.assertArrayEquals(result, BFSSolutions.floodFill(image, 1, 1, 2));
+
+        image = new int[][]{
+                {0, 0, 0},
+                {0, 0, 0},
+        };
+        result = new int[][]{
+                {2, 2, 2},
+                {2, 2, 2},
+        };
+        Assert.assertArrayEquals(result, BFSSolutions.floodFill(image, 0, 0, 2));
+
+        image = new int[][]{
+                {0, 0, 0},
+                {0, 1, 1},
+        };
+        result = new int[][]{
+                {0, 0, 0},
+                {0, 1, 1},
+        };
+        Assert.assertArrayEquals(result, BFSSolutions.floodFill(image, 1, 1, 1));
+    }
 }

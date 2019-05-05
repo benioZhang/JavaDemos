@@ -484,4 +484,40 @@ public class BFSSolutions {
         }
         return matrix;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/flood-fill/submissions/
+     * 733. 图像渲染
+     */
+    public static int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        final int oldColor = image[sr][sc];
+        if (oldColor == newColor) {
+            return image;
+        }
+        int i = sr, j = sc;
+        Queue<Integer> queue = new LinkedList<>();
+        // 高16位存放i，低16位存放j
+        queue.add((i << 16) | j);
+        int[] xDirection = {-1, 0, 1, 0};
+        int[] yDirection = {0, -1, 0, 1};
+        final int row = image.length;
+        final int col = image[0].length;
+        int cur, m, n;
+        while (queue.size() > 0) {
+            cur = queue.poll();
+            i = cur >> 16; // 获取高16位
+            j = cur & 0xffff; // 获取低16位
+            image[i][j] = newColor; // 重新上色
+            for (int k = 0; k < 4; k++) {
+                m = i + xDirection[k];
+                n = j + yDirection[k];
+                // 坐标符合条件，像素值与初始坐标相同，视为相连像素点
+                if (m >= 0 && m < row && n >= 0 && n < col
+                        && image[m][n] == oldColor) {
+                    queue.offer((m << 16) | n);
+                }
+            }
+        }
+        return image;
+    }
 }
