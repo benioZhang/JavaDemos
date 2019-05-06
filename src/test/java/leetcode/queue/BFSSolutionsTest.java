@@ -3,6 +3,10 @@ package leetcode.queue;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class BFSSolutionsTest {
     @Test
     public void numIslands() throws Exception {
@@ -186,5 +190,24 @@ public class BFSSolutionsTest {
                 {0, 1, 1},
         };
         Assert.assertArrayEquals(result, BFSSolutions.floodFill(image, 1, 1, 1));
+    }
+
+    @Test
+    public void canVisitAllRooms() {
+        List<List<Integer>> rooms;
+
+        rooms = new ArrayList<>();
+        rooms.add(Arrays.asList(1));
+        rooms.add(Arrays.asList(2));
+        rooms.add(Arrays.asList(3));
+        rooms.add(new ArrayList<>());
+        Assert.assertEquals(true, BFSSolutions.canVisitAllRooms(rooms));
+
+        rooms = new ArrayList<>();
+        rooms.add(Arrays.asList(1, 3));
+        rooms.add(Arrays.asList(3, 0, 1));
+        rooms.add(Arrays.asList(2));
+        rooms.add(Arrays.asList(0));
+        Assert.assertEquals(false, BFSSolutions.canVisitAllRooms(rooms));
     }
 }

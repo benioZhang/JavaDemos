@@ -520,4 +520,42 @@ public class BFSSolutions {
         }
         return image;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/keys-and-rooms/
+     * 841. 钥匙和房间
+     * <p>
+     * 每间房为一个节点，钥匙视为节点与节点的边。
+     * 问题可视为，求是否有节点与其他节点都不相连
+     */
+    public static boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        boolean[] visited = new boolean[rooms.size()];
+        Queue<Integer> queue = new LinkedList<>();
+        // 当前房间和下一个房间的下标
+        int curRoom = 0, nextRoom;
+        queue.offer(curRoom);
+        visited[curRoom] = true;
+        // 已访问的房间总数
+        int visitedRoomCount = 1;
+        List<Integer> keys;
+        while (queue.size() > 0) {
+            for (int i = 0, size = queue.size(); i < size; i++) {
+                // 获取当前正在访问的房间
+                curRoom = queue.poll();
+                // 获取房间的钥匙列表
+                keys = rooms.get(curRoom);
+                for (int j = 0; j < keys.size(); j++) {
+                    // 可以访问的下一个房间
+                    nextRoom = keys.get(j);
+                    if (!visited[nextRoom]) {
+                        visited[nextRoom] = true;
+                        queue.offer(nextRoom);
+                        visitedRoomCount++;
+                    }
+                }
+            }
+        }
+        // 如果有一间房未被访问，则直接返回false
+        return visitedRoomCount == rooms.size();
+    }
 }
