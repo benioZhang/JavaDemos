@@ -3,7 +3,9 @@ package leetcode.stack;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class DFSSolutionsTest {
     @Test
@@ -235,5 +237,26 @@ public class DFSSolutionsTest {
                 {0, 1, 1},
         };
         Assert.assertArrayEquals(result, DFSSolutions.floodFill2(image, 1, 1, 1));
+    }
+
+    @Test
+    public void canVisitAllRooms() {
+        List<List<Integer>> rooms;
+
+        rooms = new ArrayList<>();
+        rooms.add(Arrays.asList(1));
+        rooms.add(Arrays.asList(2));
+        rooms.add(Arrays.asList(3));
+        rooms.add(new ArrayList<>());
+        Assert.assertEquals(true, DFSSolutions.canVisitAllRooms(rooms));
+        Assert.assertEquals(true, DFSSolutions.canVisitAllRooms2(rooms));
+
+        rooms = new ArrayList<>();
+        rooms.add(Arrays.asList(1, 3));
+        rooms.add(Arrays.asList(3, 0, 1));
+        rooms.add(Arrays.asList(2));
+        rooms.add(Arrays.asList(0));
+        Assert.assertEquals(false, DFSSolutions.canVisitAllRooms(rooms));
+        Assert.assertEquals(false, DFSSolutions.canVisitAllRooms2(rooms));
     }
 }

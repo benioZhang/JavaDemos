@@ -422,4 +422,63 @@ public class DFSSolutions {
         }
         return image;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/keys-and-rooms/
+     * 841. 钥匙和房间
+     * <p>
+     * 每间房为一个节点，钥匙视为节点与节点的边。
+     * 问题可视为，求是否有节点与其他节点都不相连
+     */
+    public static boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        boolean[] visited = new boolean[rooms.size()];
+        canVisitAllRooms(rooms, 0, visited);
+        for (boolean v : visited) {
+            // 如果有一间房未被访问，则直接返回false
+            if (!v) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // 对房间m进行DFS
+    private static void canVisitAllRooms(List<List<Integer>> rooms, int m, boolean[] visited) {
+        // 标记该房间已经被访问
+        visited[m] = true;
+        List<Integer> keys = rooms.get(m);
+        for (int key : keys) {
+            if (!visited[key]) {
+                canVisitAllRooms(rooms, key, visited);
+            }
+        }
+    }
+
+    public static boolean canVisitAllRooms2(List<List<Integer>> rooms) {
+        boolean[] visited = new boolean[rooms.size()];
+        Deque<Integer> stack = new LinkedList<>();
+        // 当前房间和下一个房间的下标
+        int curRoom = 0, nextRoom;
+        stack.push(curRoom);
+        visited[curRoom] = true;
+        // 已访问的房间总数
+        int visitedRoomCount = 1;
+        List<Integer> keys;
+        while (stack.size() > 0) {
+            // 获取当前正在访问的房间
+            curRoom = stack.pop();
+            // 获取房间的钥匙列表
+            keys = rooms.get(curRoom);
+            for (int i = 0; i < keys.size(); i++) {
+                nextRoom = keys.get(i);
+                if (!visited[nextRoom]) {
+                    visited[nextRoom] = true;
+                    stack.add(nextRoom);
+                    visitedRoomCount++;
+                }
+            }
+        }
+        // 判断是否有未访问的房间
+        return visitedRoomCount == rooms.size();
+    }
 }
