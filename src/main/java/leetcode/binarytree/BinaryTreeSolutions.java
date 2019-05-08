@@ -354,7 +354,7 @@ public class BinaryTreeSolutions {
     }
 
     /**
-     * 使用 DFS 策略访问每个结点，同时在每次访问时更新最大深度
+     * 使用 BFS 策略访问每个结点，同时在每次访问时更新最大深度
      */
     public static int maxDepth2(TreeNode root) {
         if (root == null) {
@@ -618,5 +618,41 @@ public class BinaryTreeSolutions {
             }
         }
         return false;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/comments/
+     * 106. 从中序与后序遍历序列构造二叉树
+     */
+    public static TreeNode buildTree(int[] inorder, int[] postorder) {
+        return buildTree(inorder, 0, inorder.length - 1, postorder, 0, postorder.length - 1);
+    }
+
+    /**
+     * 根据inorder[iStart..iEnd]和postorder[pStart..pEnd]构造二叉树
+     */
+    public static TreeNode buildTree(int[] inorder, int iStart, int iEnd, int[] postorder, int pStart, int pEnd) {
+        if (iStart > iEnd || pStart > pEnd) {
+            return null;
+        }
+        // 后序遍历序列的最后一个元素必为根
+        int rootVal = postorder[pEnd];
+        TreeNode root = new TreeNode(rootVal);
+        // 在中序遍历序列中找到根（题目已假设树中没有重复的元素）
+        // 因为中序遍历的顺序是[左，根，右]，所以根左边的就是左子树，右边的就是右子树
+        int index = iStart;
+        while (index <= iEnd && inorder[index] != rootVal) {
+            index++;
+        }
+        // 递归构造左子树
+        // 在中序遍历中，inorder[iStart, index - 1]为左子树的部分
+        // 在后序遍历中，postorder[pStart, pStart + (index - 1 - iStart)]为左子树的部分
+        // (index - 1 - iStart)为中序遍历中，左子树节点的个数
+        root.left = buildTree(inorder, iStart, index - 1, postorder, pStart, pStart + (index - 1 - iStart));
+        // 递归构造右子树
+        // 在中序遍历中，inorder[index + 1, iEnd]为右子树的部分
+        // 在后序遍历中，postorder[pStart + (index - iStart), pEnd - 1]为左子树的部分
+        root.right = buildTree(inorder, index + 1, iEnd, postorder, pStart + (index - iStart), pEnd - 1);
+        return root;
     }
 }
