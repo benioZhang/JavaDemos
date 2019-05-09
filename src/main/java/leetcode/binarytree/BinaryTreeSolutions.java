@@ -638,6 +638,10 @@ public class BinaryTreeSolutions {
         // 后序遍历序列的最后一个元素必为根
         int rootVal = postorder[pEnd];
         TreeNode root = new TreeNode(rootVal);
+        // 树只有一个节点，直接返回
+        if (iStart == iEnd || pStart == pEnd) {
+            return root;
+        }
         // 在中序遍历序列中找到根（题目已假设树中没有重复的元素）
         // 因为中序遍历的顺序是[左，根，右]，所以根左边的就是左子树，右边的就是右子树
         int index = iStart;
