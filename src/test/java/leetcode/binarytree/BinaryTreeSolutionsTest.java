@@ -250,4 +250,18 @@ public class BinaryTreeSolutionsTest {
         Assert.assertEquals(15, root.right.left.val);
         Assert.assertEquals(7, root.right.right.val);
     }
+
+    @Test
+    public void buildTree2() {
+        int[] inorder, postorder;
+        inorder = new int[]{9, 3, 15, 20, 7};
+        postorder = new int[]{9, 15, 7, 20, 3};
+
+        TreeNode root = BinaryTreeSolutions.buildTree2(inorder, postorder);
+        Assert.assertEquals(3, root.val);
+        Assert.assertEquals(9, root.left.val);
+        Assert.assertEquals(20, root.right.val);
+        Assert.assertEquals(15, root.right.left.val);
+        Assert.assertEquals(7, root.right.right.val);
+    }
 }

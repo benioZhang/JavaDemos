@@ -655,4 +655,34 @@ public class BinaryTreeSolutions {
         root.right = buildTree(inorder, index + 1, iEnd, postorder, pStart + (index - iStart), pEnd - 1);
         return root;
     }
+
+    public static TreeNode buildTree2(int[] inorder, int[] postorder) {
+        return buildTree(inorder, 0, postorder, 0, postorder.length);
+    }
+
+    /**
+     * 根据inorder[iStart..iStart+len-1]和postorder[pStart..pStart+len-1]构造二叉树
+     */
+    public static TreeNode buildTree(int[] inorder, int iStart, int[] postorder, int pStart, int len) {
+        if (len == 0) {
+            return null;
+        }
+        // 后序遍历序列的最后一个元素必为根
+        int rootVal = postorder[pStart + len - 1];
+        TreeNode root = new TreeNode(rootVal);
+        if (len == 1) {
+            return root;
+        }
+        // 在中序遍历序列中找到根（题目已假设树中没有重复的元素）
+        // 因为中序遍历的顺序是[左，根，右]，所以根左边的就是左子树，右边的就是右子树
+        int index = iStart;
+        while (index <= iStart + len - 1 && inorder[index] != rootVal) {
+            index++;
+        }
+        // 递归构造左子树
+        root.left = buildTree(inorder, iStart, postorder, pStart, index - iStart);
+        // 递归构造右子树
+        root.right = buildTree(inorder, index + 1, postorder, pStart + (index - iStart), len - 1 - (index - iStart));
+        return root;
+    }
 }
