@@ -444,13 +444,14 @@ public class DFSSolutions {
 
     // 对房间m进行DFS
     private static void canVisitAllRooms(List<List<Integer>> rooms, int m, boolean[] visited) {
+        if (visited[m]) {
+            return;
+        }
         // 标记该房间已经被访问
         visited[m] = true;
         List<Integer> keys = rooms.get(m);
         for (int key : keys) {
-            if (!visited[key]) {
-                canVisitAllRooms(rooms, key, visited);
-            }
+            canVisitAllRooms(rooms, key, visited);
         }
     }
 
