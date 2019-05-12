@@ -651,7 +651,7 @@ public class BinaryTreeSolutions {
         // 递归构造左子树
         // 在中序遍历中，inorder[iStart, index - 1]为左子树的部分
         // 在后序遍历中，postorder[pStart, pStart + (index - 1 - iStart)]为左子树的部分
-        // (index - 1 - iStart)为中序遍历中，左子树节点的个数
+        // (index - iStart)为中序遍历中，左子树节点的个数
         root.left = buildTree(inorder, iStart, index - 1, postorder, pStart, pStart + (index - 1 - iStart));
         // 递归构造右子树
         // 在中序遍历中，inorder[index + 1, iEnd]为右子树的部分
@@ -687,6 +687,39 @@ public class BinaryTreeSolutions {
         root.left = buildTree(inorder, iStart, postorder, pStart, index - iStart);
         // 递归构造右子树
         root.right = buildTree(inorder, index + 1, postorder, pStart + (index - iStart), len - 1 - (index - iStart));
+        return root;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+     * 105. 从前序与中序遍历序列构造二叉树
+     */
+    public static TreeNode buildTreeII(int[] preorder, int[] inorder) {
+        return buildTreeII(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
+    }
+
+    private static TreeNode buildTreeII(int[] preorder, int pStart, int pEnd, int[] inorder, int iStart, int iEnd) {
+        if (pStart > pEnd || iStart > iEnd) {
+            return null;
+        }
+        // 前序遍历序列的第一个元素必为根
+        int rootVal = preorder[pStart];
+        TreeNode root = new TreeNode(rootVal);
+        // 树只有一个节点，直接返回
+        if (pStart == pEnd || iStart == iEnd) {
+            return root;
+        }
+        // 在中序遍历序列中找到根（题目已假设树中没有重复的元素）
+        // 因为中序遍历的顺序是[左，根，右]，所以根左边的就是左子树，右边的就是右子树
+        int index = iStart;
+        while (index <= iEnd && inorder[index] != rootVal) {
+            index++;
+        }
+        // 递归构造左子树
+        // (index - iStart)为中序遍历中，左子树节点的个数
+        root.left = buildTreeII(preorder, pStart + 1, pStart + (index - iStart), inorder, iStart, index - 1);
+        // 递归构造右子树
+        root.right = buildTreeII(preorder, pStart + (index - iStart) + 1, pEnd, inorder, index + 1, iEnd);
         return root;
     }
 }
