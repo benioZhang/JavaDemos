@@ -278,4 +278,92 @@ public class BinaryTreeSolutionsTest {
         Assert.assertEquals(15, root.right.left.val);
         Assert.assertEquals(7, root.right.right.val);
     }
+
+    @Test
+    public void connect() {
+        Node root;
+        root = new Node(1);
+        root.left = new Node(2);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right = new Node(3);
+        root.right.left = new Node(6);
+        root.right.right = new Node(7);
+
+        Assert.assertEquals(null, BinaryTreeSolutions.connect(null));
+        BinaryTreeSolutions.connect(root);
+        Assert.assertEquals(null, root.next);
+        Assert.assertEquals(root.right, root.left.next);
+        Assert.assertEquals(null, root.right.next);
+        Assert.assertEquals(root.left.right, root.left.left.next);
+        Assert.assertEquals(root.right.left, root.left.right.next);
+        Assert.assertEquals(root.right.right, root.right.left.next);
+        Assert.assertEquals(null, root.right.right.next);
+    }
+
+    @Test
+    public void connect2() {
+        Node root;
+        root = new Node(1);
+        root.left = new Node(2);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right = new Node(3);
+        root.right.left = new Node(6);
+        root.right.right = new Node(7);
+
+        Assert.assertEquals(null, BinaryTreeSolutions.connect2(null));
+        BinaryTreeSolutions.connect2(root);
+        Assert.assertEquals(null, root.next);
+        Assert.assertEquals(root.right, root.left.next);
+        Assert.assertEquals(null, root.right.next);
+        Assert.assertEquals(root.left.right, root.left.left.next);
+        Assert.assertEquals(root.right.left, root.left.right.next);
+        Assert.assertEquals(root.right.right, root.right.left.next);
+        Assert.assertEquals(null, root.right.right.next);
+    }
+
+    @Test
+    public void connect3() {
+        Node root;
+        root = new Node(1);
+        root.left = new Node(2);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right = new Node(3);
+        root.right.left = new Node(6);
+        root.right.right = new Node(7);
+
+        Assert.assertEquals(null, BinaryTreeSolutions.connect3(null));
+        BinaryTreeSolutions.connect3(root);
+        Assert.assertEquals(null, root.next);
+        Assert.assertEquals(root.right, root.left.next);
+        Assert.assertEquals(null, root.right.next);
+        Assert.assertEquals(root.left.right, root.left.left.next);
+        Assert.assertEquals(root.right.left, root.left.right.next);
+        Assert.assertEquals(root.right.right, root.right.left.next);
+        Assert.assertEquals(null, root.right.right.next);
+    }
+
+    @Test
+    public void connect4() {
+        Node root;
+        root = new Node(1);
+        root.left = new Node(2);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right = new Node(3);
+        root.right.left = new Node(6);
+        root.right.right = new Node(7);
+
+        Assert.assertEquals(null, BinaryTreeSolutions.connect4(null));
+        BinaryTreeSolutions.connect4(root);
+        Assert.assertEquals(null, root.next);
+        Assert.assertEquals(root.right, root.left.next);
+        Assert.assertEquals(null, root.right.next);
+        Assert.assertEquals(root.left.right, root.left.left.next);
+        Assert.assertEquals(root.right.left, root.left.right.next);
+        Assert.assertEquals(root.right.right, root.right.left.next);
+        Assert.assertEquals(null, root.right.right.next);
+    }
 }

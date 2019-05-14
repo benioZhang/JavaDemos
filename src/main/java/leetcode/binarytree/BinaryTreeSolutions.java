@@ -722,4 +722,82 @@ public class BinaryTreeSolutions {
         root.right = buildTreeII(preorder, pStart + (index - iStart) + 1, pEnd, inorder, index + 1, iEnd);
         return root;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/
+     * 116. 填充每个节点的下一个右侧节点指针
+     */
+    public static Node connect(Node root) {
+        return connect(root, null);
+    }
+
+    /**
+     * 填充node, node.left, node.right的右侧节点指针
+     *
+     * @param node
+     * @param next node的右侧节点指针
+     */
+    private static Node connect(Node node, Node next) {
+        if (node == null) {
+            return null;
+        }
+        node.next = next;
+        connect(node.left, node.right);
+        connect(node.right, next != null ? next.left : null);
+        return node;
+    }
+
+    public static Node connect2(Node root) {
+        if (root == null || root.left == null && root.right == null) {
+            return root;
+        }
+        // 赋值root子节点的右侧节点指针
+        root.left.next = root.right;
+        root.right.next = root.next != null ? root.next.left : null;
+        // 赋值root子节点的子节点的右侧节点指针
+        connect2(root.left);
+        connect2(root.right);
+        return root;
+    }
+
+    public static Node connect3(Node root) {
+        if (root == null) {
+            return null;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
+        Node node;
+        while (queue.size() > 0) {
+            node = queue.poll();
+            // 这里不用赋值node.next，因为上一层的时候已经赋值了
+            if (node.left != null) { // 每个父节点都有两个子节点，所以只判断left或者right就可以了
+                node.left.next = node.right;
+                node.right.next = node.next != null ? node.next.left : null;
+                queue.offer(node.left);
+                queue.offer(node.right);
+            }
+        }
+        return root;
+    }
+
+    public static Node connect4(Node root) {
+        if (root == null) {
+            return null;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
+        Node node;
+        while (queue.size() > 0) {
+            for (int i = 0, size = queue.size(); i < size; i++) {
+                node = queue.poll();
+                // 每一层的node出队之后，node.next就是队头。需要判断是否为本层的节点
+                node.next = i == size - 1 ? null : queue.peek();
+                if (node.left != null) { // 每个父节点都有两个子节点，所以只判断left或者right就可以了
+                    queue.offer(node.left);
+                    queue.offer(node.right);
+                }
+            }
+        }
+        return root;
+    }
 }
