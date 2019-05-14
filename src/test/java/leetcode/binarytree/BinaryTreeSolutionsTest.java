@@ -366,4 +366,58 @@ public class BinaryTreeSolutionsTest {
         Assert.assertEquals(root.right.right, root.right.left.next);
         Assert.assertEquals(null, root.right.right.next);
     }
+
+    @Test
+    public void connectII() {
+        Assert.assertEquals(null, BinaryTreeSolutions.connectII(null));
+
+        Node root;
+        root = new Node(1);
+        root.left = new Node(2);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right = new Node(3);
+        root.right.right = new Node(7);
+
+        BinaryTreeSolutions.connectII(root);
+        Assert.assertEquals(null, root.next);
+        Assert.assertEquals(root.right, root.left.next);
+        Assert.assertEquals(null, root.right.next);
+        Assert.assertEquals(root.left.right, root.left.left.next);
+        Assert.assertEquals(root.right.right, root.left.right.next);
+        Assert.assertEquals(null, root.right.right.next);
+
+        root = new Node(1);
+        root.left = new Node(2);
+        root.left.left = new Node(4);
+        root.right = new Node(3);
+        root.right.right = new Node(5);
+
+        BinaryTreeSolutions.connectII(root);
+        Assert.assertEquals(null, root.next);
+        Assert.assertEquals(root.right, root.left.next);
+        Assert.assertEquals(null, root.right.next);
+        Assert.assertEquals(root.right.right, root.left.left.next);
+        Assert.assertEquals(null, root.right.right.next);
+
+        root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right.right = new Node(6);
+        root.left.left.left = new Node(7);
+        root.right.right.right = new Node(8);
+
+        BinaryTreeSolutions.connectII(root);
+        Assert.assertEquals(null, root.next);
+        Assert.assertEquals(root.right, root.left.next);
+        Assert.assertEquals(null, root.right.next);
+        Assert.assertEquals(root.left.right, root.left.left.next);
+        Assert.assertEquals(root.right.right, root.left.right.next);
+        Assert.assertEquals(null, root.right.right.next);
+        Assert.assertEquals(root.right.right.right, root.left.left.left.next);
+        Assert.assertEquals(null, root.right.right.right.next);
+
+    }
 }

@@ -728,7 +728,8 @@ public class BinaryTreeSolutions {
      * 116. 填充每个节点的下一个右侧节点指针
      */
     public static Node connect(Node root) {
-        return connect(root, null);
+        connect(root, null);
+        return root;
     }
 
     /**
@@ -737,14 +738,13 @@ public class BinaryTreeSolutions {
      * @param node
      * @param next node的右侧节点指针
      */
-    private static Node connect(Node node, Node next) {
+    private static void connect(Node node, Node next) {
         if (node == null) {
-            return null;
+            return;
         }
         node.next = next;
         connect(node.left, node.right);
         connect(node.right, next != null ? next.left : null);
-        return node;
     }
 
     public static Node connect2(Node root) {
@@ -799,5 +799,55 @@ public class BinaryTreeSolutions {
             }
         }
         return root;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii/
+     * 117. 填充每个节点的下一个右侧节点指针 II
+     */
+    public static Node connectII(Node root) {
+        connectII(root, null);
+        return root;
+    }
+
+    /**
+     * 填充node, node.left, node.right的右侧节点指针
+     *
+     * @param node
+     * @param next node的右侧节点指针
+     */
+    private static void connectII(Node node, Node next) {
+        if (node == null) {
+            return;
+        }
+        node.next = next;
+        // 先确保 root.right 下的节点的已完全连接，因 root.left 下的节点的连接
+        // 需要 root.left.next 下的节点的信息，若 root.right 下的节点未完全连
+        // 接（即先对 root.left 递归），则 root.left.next 下的信息链不完整，将
+        // 返回错误的信息。可能出现的错误情况如下图所示。此时，底层最左边节点将无
+        // 法获得正确的 next 信息：
+        //                  o root
+        //                 / \
+        //     root.left  o - o  root.right
+        //               /   / \
+        //              o - o   o
+        //             /       / \
+        //            o       o   o
+        connectII(node.right, findNext(next));
+        connectII(node.left, node.right != null ? node.right : findNext(next));
+    }
+
+    // 根据当前节点的next节点，找到当前节点子节点的next节点
+    private static Node findNext(Node next) {
+        while (next != null) {
+            if (next.left != null) {
+                return next.left;
+            }
+            if (next.right != null) {
+                return next.right;
+            }
+            next = next.next;
+        }
+        return null;
     }
 }
