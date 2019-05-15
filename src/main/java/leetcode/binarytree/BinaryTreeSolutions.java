@@ -833,8 +833,12 @@ public class BinaryTreeSolutions {
         //              o - o   o
         //             /       / \
         //            o       o   o
-        connectII(node.right, findNext(next));
-        connectII(node.left, node.right != null ? node.right : findNext(next));
+        if (node.right != null) {
+            connectII(node.right, findNext(next));
+        }
+        if (node.left != null) {
+            connectII(node.left, node.right != null ? node.right : findNext(next));
+        }
     }
 
     // 根据当前节点的next节点，找到当前节点子节点的next节点
@@ -849,5 +853,28 @@ public class BinaryTreeSolutions {
             next = next.next;
         }
         return null;
+    }
+
+    public static Node connectII2(Node root) {
+        if (root == null) {
+            return null;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
+        Node node;
+        while (queue.size() > 0) {
+            for (int i = 0, size = queue.size(); i < size; i++) {
+                // 每一层的node出队之后，node.next就是队头。需要判断是否为本层的节点
+                node = queue.poll();
+                node.next = i == size - 1 ? null : queue.peek();
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+        }
+        return root;
     }
 }
