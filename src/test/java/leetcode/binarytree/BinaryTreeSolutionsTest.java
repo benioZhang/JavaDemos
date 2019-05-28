@@ -472,4 +472,35 @@ public class BinaryTreeSolutionsTest {
         Assert.assertEquals(root.right.right.right, root.left.left.left.next);
         Assert.assertEquals(null, root.right.right.right.next);
     }
+
+    @Test
+    public void lowestCommonAncestor() {
+        TreeNode root, p, q;
+
+        root = new TreeNode(3);
+        root.left = new TreeNode(5);
+        root.right = new TreeNode(1);
+        root.left.left = new TreeNode(6);
+        root.left.right = new TreeNode(2);
+        root.right.left = new TreeNode(0);
+        root.right.right = new TreeNode(8);
+        root.left.right.left = new TreeNode(7);
+        root.left.right.right = new TreeNode(4);
+
+        // p = 5, q = 1
+        p = root.left;
+        q = root.right;
+        Assert.assertEquals(null, BinaryTreeSolutions.lowestCommonAncestor(null, p, q));
+        Assert.assertEquals(root, BinaryTreeSolutions.lowestCommonAncestor(root, p, q));
+
+        // p = 5, q = 4
+        p = root.left;
+        q = root.left.right.right;
+        Assert.assertEquals(p, BinaryTreeSolutions.lowestCommonAncestor(root, p, q));
+
+        // p = 6, q = 4
+        p = root.left.left;
+        q = root.left.right.right;
+        Assert.assertEquals(root.left, BinaryTreeSolutions.lowestCommonAncestor(root, p, q));
+    }
 }

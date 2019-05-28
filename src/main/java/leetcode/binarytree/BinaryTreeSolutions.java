@@ -877,4 +877,31 @@ public class BinaryTreeSolutions {
         }
         return root;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/
+     * 236. 二叉树的最近公共祖先
+     * 实质上是在二叉树中寻找p,q
+     */
+    public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        // p或q与root相等，则直接返回root
+        if (root == null || p == root || q == root) {
+            return root;
+        }
+        // 在root的子树下寻找p，q
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        // 如果p,q分别在root的左右子树中，则返回root
+        // 如果p,q均在root的左子树中，则返回root的左子树
+        // 如果p,q均在root的右子树中，则返回root的右子树
+        // 如果p,q均不在root中，则返回null
+        if (left != null && right != null) {
+            return root;
+        } else if (left != null) {
+            return left;
+        } else if (right != null) {
+            return right;
+        }
+        return null;
+    }
 }
