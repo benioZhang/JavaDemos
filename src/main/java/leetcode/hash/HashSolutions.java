@@ -12,10 +12,10 @@ public class HashSolutions {
     public static boolean containsDuplicate(int[] nums) {
         Set<Integer> set = new HashSet<>(nums.length);
         for (Integer n : nums) {
-            if (set.contains(n)) {
+            // 如果set不包含这个key，add()返回true
+            if (!set.add(n)) {
                 return true;
             }
-            set.add(n);
         }
         return false;
     }
