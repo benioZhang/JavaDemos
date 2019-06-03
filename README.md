@@ -57,6 +57,7 @@
 * [557-反转字符串中的单词III](md/leetcode/557-反转字符串中的单词III.md)
 * [561-数组拆分-I](md/leetcode/561-数组拆分-I.md)
 * [622-设计循环队列](md/leetcode/622-设计循环队列.md)
+* [705-设计哈希集合](md/leetcode/705-设计哈希集合.md)
 * [707-设计链表](md/leetcode/707-设计链表.md)
 * [724-寻找数组的中心索引](md/leetcode/724-寻找数组的中心索引.md)
 * [733-图像渲染](md/leetcode/733-图像渲染.md)
