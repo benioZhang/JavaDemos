@@ -20,4 +20,15 @@ public class HashSolutionsTest {
         Assert.assertTrue(HashSolutions.containsDuplicate2(nums));
     }
 
+    @Test
+    public void singleNumber() {
+        int[] nums;
+        nums = new int[]{2, 2, 1};
+        Assert.assertEquals(1, HashSolutions.singleNumber(nums));
+        Assert.assertEquals(1, HashSolutions.singleNumber2(nums));
+
+        nums = new int[]{4, 1, 2, 1, 2};
+        Assert.assertEquals(4, HashSolutions.singleNumber(nums));
+        Assert.assertEquals(4, HashSolutions.singleNumber2(nums));
+    }
 }
