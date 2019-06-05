@@ -31,4 +31,18 @@ public class HashSolutionsTest {
         Assert.assertEquals(4, HashSolutions.singleNumber(nums));
         Assert.assertEquals(4, HashSolutions.singleNumber2(nums));
     }
+
+    @Test
+    public void intersection() {
+        int[] nums1, nums2;
+        nums1 = new int[]{1, 2, 2, 1};
+        nums2 = new int[]{2, 2};
+        Assert.assertArrayEquals(new int[]{2}, HashSolutions.intersection(nums1, nums2));
+        Assert.assertArrayEquals(new int[]{2}, HashSolutions.intersection2(nums1, nums2));
+
+        nums1 = new int[]{4, 9, 5};
+        nums2 = new int[]{9, 4, 9, 8, 4};
+        Assert.assertArrayEquals(new int[]{9, 4}, HashSolutions.intersection(nums1, nums2));
+        Assert.assertArrayEquals(new int[]{4, 9}, HashSolutions.intersection2(nums1, nums2));
+    }
 }

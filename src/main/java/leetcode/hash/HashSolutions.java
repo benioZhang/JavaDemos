@@ -1,8 +1,6 @@
 package leetcode.hash;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class HashSolutions {
     /**
@@ -59,6 +57,55 @@ public class HashSolutions {
         for (int i = 0; i < nums.length; i++) {
             result = result ^ nums[i];
         }
+        return result;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/intersection-of-two-arrays/
+     * 349. 两个数组的交集
+     */
+    public static int[] intersection(int[] nums1, int[] nums2) {
+        // 将num1加入到HashSet中
+        Set<Integer> set = new HashSet<>(nums1.length);
+        for (int i = 0; i < nums1.length; i++) {
+            set.add(nums1[i]);
+        }
+        // 判断nums2的元素是否在num1中，存在则加入到intersection
+        Set<Integer> intersection = new HashSet<>(nums2.length);
+        for (Integer num : nums2) {
+            if (set.contains(num)) {
+                intersection.add(num);
+            }
+        }
+        int[] result = new int[intersection.size()];
+        int i = 0;
+        for (Integer num : intersection) {
+            result[i++] = num;
+        }
+        return result;
+    }
+
+    public static int[] intersection2(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        int[] intersection = new int[nums2.length];
+        int i = 0, j = 0, k = 0;
+        while (i < nums1.length && j < nums2.length) {
+            if (nums1[i] == nums2[j]) {
+                // 判断nums1[i]是否已添加到intersections中
+                if (k == 0 || intersection[k - 1] != nums1[i]) {
+                    intersection[k++] = nums1[i];
+                }
+                i++;
+                j++;
+            } else if (nums1[i] < nums2[j]) {
+                i++;
+            } else {
+                j++;
+            }
+        }
+        int[] result = new int[k];
+        System.arraycopy(intersection, 0, result, 0, result.length);
         return result;
     }
 }
