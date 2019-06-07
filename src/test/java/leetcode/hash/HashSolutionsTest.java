@@ -45,4 +45,10 @@ public class HashSolutionsTest {
         Assert.assertArrayEquals(new int[]{9, 4}, HashSolutions.intersection(nums1, nums2));
         Assert.assertArrayEquals(new int[]{4, 9}, HashSolutions.intersection2(nums1, nums2));
     }
+
+    @Test
+    public void isHappy() {
+        Assert.assertTrue(HashSolutions.isHappy(19));
+        Assert.assertFalse(HashSolutions.isHappy(4));
+    }
 }

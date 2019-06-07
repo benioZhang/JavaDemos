@@ -108,4 +108,30 @@ public class HashSolutions {
         System.arraycopy(intersection, 0, result, 0, result.length);
         return result;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/happy-number/
+     * 202. 快乐数
+     */
+    public static boolean isHappy(int n) {
+        Set<Integer> set = new HashSet<>();
+        set.add(n);
+        int sum, tmp;
+        while (n != 1) {
+            // 分拆n的每一位，并计算其每个位置上的数字的平方和
+            sum = 0;
+            while (n != 0) {
+                tmp = n % 10;
+                sum += tmp * tmp;
+                n = n / 10;
+            }
+            // 如果set中已经包含这个数，则说明无限循环了，则退出循环
+            // 如果set中不包含n，则继续循环计算
+            if (!set.add(sum)) {
+                return false;
+            }
+            n = sum;
+        }
+        return true;
+    }
 }
