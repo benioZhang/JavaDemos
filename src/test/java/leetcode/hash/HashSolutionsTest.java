@@ -51,4 +51,11 @@ public class HashSolutionsTest {
         Assert.assertTrue(HashSolutions.isHappy(19));
         Assert.assertFalse(HashSolutions.isHappy(4));
     }
+
+    @Test
+    public void twoSum() {
+        int[] nums;
+        nums = new int[]{2, 7, 11, 15};
+        Assert.assertArrayEquals(new int[]{0, 1}, HashSolutions.twoSum(nums, 9));
+    }
 }
