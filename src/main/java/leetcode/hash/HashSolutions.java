@@ -141,11 +141,12 @@ public class HashSolutions {
      */
     public static int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>(nums.length);
-        Integer delta;
+        Integer delta, value;
         for (int i = 0; i < nums.length; i++) {
             delta = target - nums[i];
-            if (map.containsKey(delta)) {
-                return new int[]{map.get(delta), i};
+            value = map.get(delta);
+            if (value != null) {
+                return new int[]{value, i};
             }
             map.put(nums[i], i);
         }
