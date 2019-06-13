@@ -58,4 +58,13 @@ public class HashSolutionsTest {
         nums = new int[]{2, 7, 11, 15};
         Assert.assertArrayEquals(new int[]{0, 1}, HashSolutions.twoSum(nums, 9));
     }
+
+    @Test
+    public void isIsomorphic() {
+        Assert.assertTrue(HashSolutions.isIsomorphic("egg", "add"));
+        Assert.assertFalse(HashSolutions.isIsomorphic("foo", "bar"));
+        Assert.assertTrue(HashSolutions.isIsomorphic("paper", "title"));
+        Assert.assertFalse(HashSolutions.isIsomorphic("ab", "aa"));
+        Assert.assertFalse(HashSolutions.isIsomorphic("aa", "ab"));
+    }
 }
