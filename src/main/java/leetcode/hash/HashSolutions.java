@@ -156,18 +156,34 @@ public class HashSolutions {
     /**
      * https://leetcode-cn.com/problems/isomorphic-strings/
      * 205. 同构字符串
-     * 在s中相同字符的位置，t中这些位置的字符都相同
+     * 在s中相同字符的位置与t中相同字符的位置相同
      */
     public static boolean isIsomorphic(String s, String t) {
-        if (s.length() != t.length()) {
-            return false;
-        }
         // 查找当前字符在字符串中出现的位置，如果是同构字符串，每个字符出现的位置是相同的
         for (int i = 0; i < s.length(); i++) {
             // 比较s[i]在s中出现的位置和t[i]在t中出现的位置，如果是同构字符串，两者相等
             if (s.indexOf(s.charAt(i)) != t.indexOf(t.charAt(i))) {
                 return false;
             }
+        }
+        return true;
+    }
+
+    public static boolean isIsomorphic2(String s, String t) {
+        // 在s中相同字符的位置与t中相同字符的位置相同
+        int[] sMap = new int[256];
+        int[] tMap = new int[256];
+        char sChar, tChar;
+        for (int i = 0; i < s.length(); i++) {
+            // 在s中相同字符的位置与t中相同字符的位置相同
+            sChar = s.charAt(i);
+            tChar = t.charAt(i);
+            if (sMap[sChar] != tMap[tChar]) {
+                return false;
+            }
+            // 此处加1是因为 0 为无效值，所以将所有index加1
+            sMap[sChar] = i + 1;
+            tMap[tChar] = i + 1;
         }
         return true;
     }

@@ -66,5 +66,11 @@ public class HashSolutionsTest {
         Assert.assertTrue(HashSolutions.isIsomorphic("paper", "title"));
         Assert.assertFalse(HashSolutions.isIsomorphic("ab", "aa"));
         Assert.assertFalse(HashSolutions.isIsomorphic("aa", "ab"));
+
+        Assert.assertTrue(HashSolutions.isIsomorphic2("egg", "add"));
+        Assert.assertFalse(HashSolutions.isIsomorphic2("foo", "bar"));
+        Assert.assertTrue(HashSolutions.isIsomorphic2("paper", "title"));
+        Assert.assertFalse(HashSolutions.isIsomorphic2("ab", "aa"));
+        Assert.assertFalse(HashSolutions.isIsomorphic2("aa", "ab"));
     }
 }
