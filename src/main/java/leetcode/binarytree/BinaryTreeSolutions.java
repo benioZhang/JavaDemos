@@ -904,4 +904,97 @@ public class BinaryTreeSolutions {
         }
         return null;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/
+     * 297. 二叉树的序列化与反序列化
+     */
+    // Encodes a tree to a single string.
+    public static String serialize(TreeNode root) {
+        if (root == null) {
+            return "[]";
+        }
+        LinkedList<TreeNode> queue = new LinkedList<>(); // 保存要遍历的节点
+        LinkedList<TreeNode> nodes = new LinkedList<>(); // 保存序列化的节点
+        queue.add(root); // 添加根节点
+        TreeNode node;
+        while (queue.size() > 0) {
+            node = queue.poll();
+            nodes.add(node);
+            if (node != null) {
+                queue.add(node.left);
+                queue.add(node.right);
+            }
+        }
+        // 移除末尾的null
+        while (nodes.peekLast() == null) {
+            nodes.removeLast();
+        }
+        // 生成字符串
+        StringBuilder sb = new StringBuilder(64);
+        sb.append('[');
+        for (int i = 0, size = nodes.size(); i < size; i++) {
+            node = nodes.remove();
+            if (node == null) {
+                sb.append("null");
+            } else {
+                sb.append(node.val);
+            }
+            if (i != size - 1) {
+                sb.append(',');
+            }
+        }
+        sb.append(']');
+        return sb.toString();
+    }
+
+    public static String serialize2(TreeNode root) {
+        if (root == null) {
+            return "[]";
+        }
+        List<TreeNode> nodes = new ArrayList<>(); // 保存序列化的节点
+        nodes.add(root); // 添加根节点
+        TreeNode node;
+        // 目前为止的节点个数
+        int count;
+        // 每一层的第一个节点和最后一个节点的下标
+        int start = 0, end = 0;
+        // 如果访问完一层后，子节点个数为0，证明已经二叉树已经遍历完毕
+        while (end - start >= 0) {
+            count = nodes.size();
+            for (int i = start; i <= end; i++) {
+                node = nodes.get(i);
+                if (node != null) {
+                    nodes.add(node.left);
+                    nodes.add(node.right);
+                }
+            }
+            start = end + 1;
+            // nodes.size() - count为这一层的子节点个数
+            end = end + nodes.size() - count;
+        }
+        // 移除末尾的null
+        for (int i = nodes.size() - 1; i >= 0; i--) {
+            if (nodes.get(i) != null) {
+                break;
+            }
+            nodes.remove(i);
+        }
+        // 生成字符串
+        StringBuilder sb = new StringBuilder(64);
+        sb.append('[');
+        for (int i = 0, size = nodes.size(); i < size; i++) {
+            node = nodes.get(i);
+            if (node == null) {
+                sb.append("null");
+            } else {
+                sb.append(node.val);
+            }
+            if (i != size - 1) {
+                sb.append(',');
+            }
+        }
+        sb.append(']');
+        return sb.toString();
+    }
 }

@@ -503,4 +503,34 @@ public class BinaryTreeSolutionsTest {
         q = root.left.right.right;
         Assert.assertEquals(root.left, BinaryTreeSolutions.lowestCommonAncestor(root, p, q));
     }
+
+    @Test
+    public void serialize() {
+        TreeNode root = null;
+        Assert.assertEquals("[]", BinaryTreeSolutions.serialize(root));
+        Assert.assertEquals("[]", BinaryTreeSolutions.serialize2(root));
+
+        root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.right.left = new TreeNode(4);
+        root.right.right = new TreeNode(5);
+        Assert.assertEquals("[1,2,3,null,null,4,5]", BinaryTreeSolutions.serialize(root));
+        Assert.assertEquals("[1,2,3,null,null,4,5]", BinaryTreeSolutions.serialize2(root));
+
+        root = new TreeNode(1);
+        root.right = new TreeNode(3);
+        root.right.left = new TreeNode(4);
+        root.right.right = new TreeNode(5);
+        Assert.assertEquals("[1,null,3,4,5]", BinaryTreeSolutions.serialize(root));
+        Assert.assertEquals("[1,null,3,4,5]", BinaryTreeSolutions.serialize2(root));
+
+        root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.left.left = new TreeNode(3);
+        root.left.left.left = new TreeNode(4);
+        root.left.left.left.left = new TreeNode(5);
+        Assert.assertEquals("[1,2,null,3,null,4,null,5]", BinaryTreeSolutions.serialize(root));
+        Assert.assertEquals("[1,2,null,3,null,4,null,5]", BinaryTreeSolutions.serialize2(root));
+    }
 }
