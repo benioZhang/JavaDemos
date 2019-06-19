@@ -187,4 +187,41 @@ public class HashSolutions {
         }
         return true;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/minimum-index-sum-of-two-lists/
+     * 599. 两个列表的最小索引总和
+     * A:
+     * 1. map保存list1中 value - index 的映射
+     * 2. 遍历list2，判断list2的元素是否在map中
+     * 3. 若list2的元素不在map中，则忽略
+     * 4. 若list2的元素在map中，则将该元素在list2中的下标与该元素在ist1中的下标相加，得出索引和
+     * 5. 如果当前索引和等于最小索引和，则将该元素添加到返回结果中
+     * 6. 如果当前索引和小于最小索引和，则当前返回结果无效。此时需清空返回结果列表，并将该元素添加到返回结果中，更新最小索引和
+     * 7. 如果当前索引和大于最小索引和，则忽略
+     * 8. 遍历list2结束后，返回维护的返回结果列表
+     */
+    public static String[] findRestaurant(String[] list1, String[] list2) {
+        Map<String, Integer> map = new HashMap<>(list1.length);
+        for (int i = 0; i < list1.length; i++) {
+            map.put(list1[i], i);
+        }
+        List<String> result = new ArrayList<>();
+        int min = Integer.MAX_VALUE, tmp;
+        Integer index;
+        for (int i = 0; i < list2.length; i++) {
+            index = map.get(list2[i]);
+            if (index != null) {
+                tmp = index + i;
+                if (tmp < min) {
+                    min = tmp;
+                    result.clear();
+                    result.add(list2[i]);
+                } else if (tmp == min) {
+                    result.add(list2[i]);
+                }
+            }
+        }
+        return result.toArray(new String[result.size()]);
+    }
 }

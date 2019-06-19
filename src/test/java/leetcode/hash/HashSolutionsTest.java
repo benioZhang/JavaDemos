@@ -73,4 +73,20 @@ public class HashSolutionsTest {
         Assert.assertFalse(HashSolutions.isIsomorphic2("ab", "aa"));
         Assert.assertFalse(HashSolutions.isIsomorphic2("aa", "ab"));
     }
+
+    @Test
+    public void findRestaurant() {
+        String[] list1, list2;
+        list1 = new String[]{"Shogun", "Tapioca Express", "Burger King", "KFC"};
+        list2 = new String[]{"Piatti", "The Grill at Torrey Pines", "Hungry Hunter Steakhouse", "Shogun"};
+        Assert.assertArrayEquals(new String[]{"Shogun"}, HashSolutions.findRestaurant(list1, list2));
+
+        list1 = new String[]{"Shogun", "Tapioca Express", "Burger King", "KFC"};
+        list2 = new String[]{"KFC", "Shogun", "Burger King"};
+        Assert.assertArrayEquals(new String[]{"Shogun"}, HashSolutions.findRestaurant(list1, list2));
+
+        list1 = new String[]{"Shogun", "Burger King", "Tapioca Express", "KFC"};
+        list2 = new String[]{"Burger King", "Shogun", "KFC"};
+        Assert.assertArrayEquals(new String[]{"Burger King", "Shogun"}, HashSolutions.findRestaurant(list1, list2));
+    }
 }
