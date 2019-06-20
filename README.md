@@ -2,6 +2,7 @@
 记录日常Java和Kotlin的笔记
 
 ### leetcode
+* [1-两数之和](md/leetcode/1-两数之和.md)
 * [2-两数相加](md/leetcode/2-两数相加.md)
 * [14-最长公共前缀](md/leetcode/14-最长公共前缀.md)
 * [19-删除链表的倒数第N个节点](md/leetcode/19-删除链表的倒数第N个节点.md)
