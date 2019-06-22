@@ -533,4 +533,47 @@ public class BinaryTreeSolutionsTest {
         Assert.assertEquals("[1,2,null,3,null,4,null,5]", BinaryTreeSolutions.serialize(root));
         Assert.assertEquals("[1,2,null,3,null,4,null,5]", BinaryTreeSolutions.serialize2(root));
     }
+
+    @Test
+    public void deserialize() {
+        TreeNode root;
+        root = BinaryTreeSolutions.deserialize("[]");
+        Assert.assertEquals(null, root);
+
+        root = BinaryTreeSolutions.deserialize("[1,2,3,null,null,4,5]");
+        Assert.assertEquals(1, root.val);
+        Assert.assertEquals(2, root.left.val);
+        Assert.assertEquals(3, root.right.val);
+        Assert.assertEquals(null, root.left.left);
+        Assert.assertEquals(null, root.left.right);
+        Assert.assertEquals(4, root.right.left.val);
+        Assert.assertEquals(5, root.right.right.val);
+
+        root = BinaryTreeSolutions.deserialize("[1,null,3,4,5]");
+        Assert.assertEquals(1, root.val);
+        Assert.assertEquals(null, root.left);
+        Assert.assertEquals(3, root.right.val);
+        Assert.assertEquals(4, root.right.left.val);
+        Assert.assertEquals(5, root.right.right.val);
+
+        root = BinaryTreeSolutions.deserialize("[1,2,null,3,null,4,null,5]");
+        Assert.assertEquals(1, root.val);
+        Assert.assertEquals(2, root.left.val);
+        Assert.assertEquals(null, root.right);
+        Assert.assertEquals(3, root.left.left.val);
+        Assert.assertEquals(null, root.left.right);
+        Assert.assertEquals(4, root.left.left.left.val);
+        Assert.assertEquals(null, root.left.left.right);
+        Assert.assertEquals(5, root.left.left.left.left.val);
+        Assert.assertEquals(null, root.left.left.left.right);
+
+        root = BinaryTreeSolutions.deserialize("[1,2]");
+        Assert.assertEquals(1, root.val);
+        Assert.assertEquals(2, root.left.val);
+
+        root = BinaryTreeSolutions.deserialize("[1,null,2]");
+        Assert.assertEquals(1, root.val);
+        Assert.assertEquals(null, root.left);
+        Assert.assertEquals(2, root.right.val);
+    }
 }

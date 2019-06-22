@@ -997,4 +997,39 @@ public class BinaryTreeSolutions {
         sb.append(']');
         return sb.toString();
     }
+
+    // Decodes your encoded data to tree.
+    public static TreeNode deserialize(String data) {
+        if ("[]".equals(data)) {
+            return null;
+        }
+        // 去除`[`,`]`，生成values数组
+        String[] values = data.substring(1, data.length() - 1).split(",");
+        Queue<TreeNode> queue = new LinkedList<>();
+        // 添加根节点
+        TreeNode root = new TreeNode(Integer.parseInt(values[0]));
+        queue.add(root);
+        int index = 0, len = values.length;
+        while (index < len) {
+            // 去除当前节点
+            TreeNode node = queue.poll();
+            // 判断index + 1后，是否越界
+            if (++index >= len) {
+                break;
+            }
+            if (!"null".equals(values[index])) {
+                node.left = new TreeNode(Integer.parseInt(values[index]));
+                queue.offer(node.left);
+            }
+            // 判断index + 1后，是否越界
+            if (++index >= len) {
+                break;
+            }
+            if (!"null".equals(values[index])) {
+                node.right = new TreeNode(Integer.parseInt(values[index]));
+                queue.offer(node.right);
+            }
+        }
+        return root;
+    }
 }
