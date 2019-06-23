@@ -244,4 +244,34 @@ public class HashSolutions {
         }
         return -1;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/intersection-of-two-arrays-ii/
+     * 350. 两个数组的交集 II
+     */
+    public static int[] intersect(int[] nums1, int[] nums2) {
+        // 将nums1加入到HashMap中，记录元素与其在nums1中出现次数的映射
+        Integer count;
+        Map<Integer, Integer> map = new HashMap<>(nums1.length);
+        for (Integer num : nums1) {
+            count = map.get(num);
+            count = count == null ? 1 : count + 1;
+            map.put(num, count);
+        }
+        // 判断nums2的元素在nums1出现的次数是否大于0，是则加入到intersection，并更新map中其出现的次数
+        List<Integer> intersection = new ArrayList<>(nums2.length);
+        for (Integer num : nums2) {
+            count = map.get(num);
+            if (count != null && count > 0) {
+                map.put(num, count - 1);
+                intersection.add(num);
+            }
+        }
+        int[] result = new int[intersection.size()];
+        int i = 0;
+        for (Integer num : intersection) {
+            result[i++] = num;
+        }
+        return result;
+    }
 }

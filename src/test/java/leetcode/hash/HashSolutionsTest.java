@@ -95,4 +95,21 @@ public class HashSolutionsTest {
         Assert.assertEquals(0, HashSolutions.firstUniqChar("leetcode"));
         Assert.assertEquals(2, HashSolutions.firstUniqChar("loveleetcode"));
     }
+
+    @Test
+    public void intersect() {
+        int[] nums1, nums2;
+        nums1 = new int[]{1, 2, 2, 1};
+        nums2 = new int[]{2, 2};
+        Assert.assertArrayEquals(new int[]{2, 2}, HashSolutions.intersect(nums1, nums2));
+
+        nums1 = new int[]{4, 9, 5};
+        nums2 = new int[]{9, 4, 9, 8, 4};
+        Assert.assertArrayEquals(new int[]{9, 4}, HashSolutions.intersect(nums1, nums2));
+
+        nums1 = new int[]{1, 2};
+        nums2 = new int[]{1, 1};
+        Assert.assertArrayEquals(new int[]{1}, HashSolutions.intersect(nums1, nums2));
+    }
+
 }
