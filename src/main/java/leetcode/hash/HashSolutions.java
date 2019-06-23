@@ -224,4 +224,24 @@ public class HashSolutions {
         }
         return result.toArray(new String[result.size()]);
     }
+
+    /**
+     * https://leetcode-cn.com/problems/first-unique-character-in-a-string/
+     * 387. 字符串中的第一个唯一字符
+     */
+    public static int firstUniqChar(String s) {
+        // 注意事项：您可以假定该字符串只包含小写字母。
+        int[] map = new int[26];
+        // 遍历s，得出每个字符出现的次数
+        for (int i = 0; i < s.length(); i++) {
+            map[s.charAt(i) - 'a']++;
+        }
+        // 遍历s，找出第一个出现一次的字符，返回其下标
+        for (int i = 0; i < s.length(); i++) {
+            if (map[s.charAt(i) - 'a'] == 1) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

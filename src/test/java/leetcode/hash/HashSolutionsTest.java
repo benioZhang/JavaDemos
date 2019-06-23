@@ -89,4 +89,10 @@ public class HashSolutionsTest {
         list2 = new String[]{"Burger King", "Shogun", "KFC"};
         Assert.assertArrayEquals(new String[]{"Burger King", "Shogun"}, HashSolutions.findRestaurant(list1, list2));
     }
+
+    @Test
+    public void firstUniqChar() {
+        Assert.assertEquals(0, HashSolutions.firstUniqChar("leetcode"));
+        Assert.assertEquals(2, HashSolutions.firstUniqChar("loveleetcode"));
+    }
 }
