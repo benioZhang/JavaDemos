@@ -115,4 +115,11 @@ public class HashSolutionsTest {
         Assert.assertArrayEquals(new int[]{1}, HashSolutions.intersect2(nums1, nums2));
     }
 
+    @Test
+    public void containsNearbyDuplicate() {
+        Assert.assertEquals(true, HashSolutions.containsNearbyDuplicate(new int[]{1, 2, 3, 1}, 3));
+        Assert.assertEquals(true, HashSolutions.containsNearbyDuplicate(new int[]{1, 0, 1, 1}, 1));
+        Assert.assertEquals(false, HashSolutions.containsNearbyDuplicate(new int[]{1, 2, 3, 1, 2, 3}, 2));
+        Assert.assertEquals(true, HashSolutions.containsNearbyDuplicate(new int[]{1, 1}, 2));
+    }
 }

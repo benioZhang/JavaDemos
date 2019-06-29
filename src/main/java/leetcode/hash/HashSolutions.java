@@ -295,4 +295,28 @@ public class HashSolutions {
         System.arraycopy(intersection, 0, result, 0, result.length);
         return result;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/contains-duplicate-ii/
+     * 219. 存在重复元素 II
+     */
+    public static boolean containsNearbyDuplicate(int[] nums, int k) {
+        // 记录元素与其下标的映射
+        Map<Integer, Integer> map = new HashMap<>(nums.length);
+        Integer index;
+        for (int i = 0; i < nums.length; i++) {
+            index = map.get(nums[i]);
+            // 获取前一个重复元素的下标，判断i - index是否最大为k
+            if (index != null && i - index <= k) {
+                return true;
+            }
+            // 两种情况需要更新元素与其下标的映射
+            // 1.map中不存在该元素与其下标的映射
+            // 2.前一个重复元素的下标与当前下标的差的绝对值大于k
+            // 这里说下第二种情况需要更新的原因
+            // 因为i - index > k，所以i之后的下标i'都不可能满足i' - index <= k。但是i与i'仍有可能满足该条件
+            map.put(nums[i], i);
+        }
+        return false;
+    }
 }
