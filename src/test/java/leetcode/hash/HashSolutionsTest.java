@@ -3,6 +3,10 @@ package leetcode.hash;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class HashSolutionsTest {
     @Test
     public void containsDuplicate() throws Exception {
@@ -122,4 +126,15 @@ public class HashSolutionsTest {
         Assert.assertEquals(false, HashSolutions.containsNearbyDuplicate(new int[]{1, 2, 3, 1, 2, 3}, 2));
         Assert.assertEquals(true, HashSolutions.containsNearbyDuplicate(new int[]{1, 1}, 2));
     }
+
+    @Test
+    public void groupAnagrams() {
+        String[] strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
+        List<List<String>> result = new ArrayList<>();
+        result.add(Arrays.asList("eat", "tea", "ate"));
+        result.add(Arrays.asList("bat"));
+        result.add(Arrays.asList("tan", "nat"));
+        Assert.assertEquals(result, HashSolutions.groupAnagrams(strs));
+    }
+
 }
