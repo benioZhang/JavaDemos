@@ -342,4 +342,97 @@ public class HashSolutions {
         return new ArrayList<>(map.values());
     }
 
+    /**
+     * https://leetcode-cn.com/problems/valid-sudoku/
+     * 36. 有效的数独
+     * box_index = (row / 3) * 3 + col / 3
+     */
+    public static boolean isValidSudoku(char[][] board) {
+        boolean[][] rows = new boolean[9][9];
+        boolean[][] cols = new boolean[9][9];
+        boolean[][] boxes = new boolean[9][9];
+        int num, boxIndex;
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                // '.'表示空白，忽略
+                if (board[i][j] != '.') {
+                    // 获取数字，数字范围 1-9
+                    num = board[i][j] - '1';
+                    boxIndex = (i / 3) * 3 + j / 3;
+                    // 如果该数字已经出现过，则返回false
+                    if (rows[i][num] || cols[j][num] || boxes[boxIndex][num]) {
+                        return false;
+                    }
+                    // 第i行，数字board[i][j]出现，标记为true
+                    rows[i][num] = true;
+                    // 第j列，数字board[i][j]出现，标记为true
+                    cols[j][num] = true;
+                    // 第((i / 3) * 3 + j / 3)个3x3宫，数字board[i][j]出现，标记为true
+                    boxes[boxIndex][num] = true;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 参考leetcode用时1ms的解答
+     * 利用位，记录数字是否出现过
+     */
+    public static boolean isValidSudoku2(char[][] board) {
+        // 用一维数组记录board中元素是否出现过
+        // 若rows[i]的二进制第j位为0，表示第i行值为j的元素没出现过
+        int[] rows = new int[9];
+        int[] cols = new int[9];
+        int[] boxes = new int[9];
+        int num, boxIndex;
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                // '.'表示空白，忽略
+                if (board[i][j] != '.') {
+                    // num的二进制只有第board[i][j]位为1
+                    num = 1 << (board[i][j] - '1');
+                    boxIndex = (i / 3) * 3 + j / 3;
+                    // 如果第board[i][j]位上，任何一个为1都返回false。
+                    if ((rows[i] & num) != 0 || (cols[j] & num) != 0 || (boxes[boxIndex] & num) != 0) {
+                        return false;
+                    }
+                    // 将rows，cols，boxes第board[i][j]位置为1
+                    rows[i] |= num;
+                    cols[j] |= num;
+                    boxes[boxIndex] |= num;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static boolean isValidSudoku3(char[][] board) {
+        // 表示正在访问行的所有元素出现的情况
+        int row = 0;
+        int[] cols = new int[9];
+        int[] boxes = new int[9];
+        int num, boxIndex;
+        for (int i = 0; i < 9; i++) {
+            // 重置该行
+            row = 0;
+            for (int j = 0; j < 9; j++) {
+                // '.'表示空白，忽略
+                if (board[i][j] != '.') {
+                    // num的二进制只有第board[i][j]位为1
+                    num = 1 << (board[i][j] - '1');
+                    boxIndex = (i / 3) * 3 + j / 3;
+                    // 如果第board[i][j]位上，任何一个为1都返回false。
+                    if ((row & num) != 0 || (cols[j] & num) != 0 || (boxes[boxIndex] & num) != 0) {
+                        return false;
+                    }
+                    // 将rows，cols，boxes第board[i][j]位置为1
+                    row |= num;
+                    cols[j] |= num;
+                    boxes[boxIndex] |= num;
+                }
+            }
+        }
+        return true;
+    }
 }

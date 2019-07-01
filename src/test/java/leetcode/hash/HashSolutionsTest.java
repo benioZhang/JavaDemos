@@ -137,4 +137,37 @@ public class HashSolutionsTest {
         Assert.assertEquals(result, HashSolutions.groupAnagrams(strs));
     }
 
+    @Test
+    public void isValidSudoku() {
+        char[][] board;
+        board = new char[][]{
+                {'5', '3', '.', '.', '7', '.', '.', '.', '.'},
+                {'6', '.', '.', '1', '9', '5', '.', '.', '.'},
+                {'.', '9', '8', '.', '.', '.', '.', '6', '.'},
+                {'8', '.', '.', '.', '6', '.', '.', '.', '3'},
+                {'4', '.', '.', '8', '.', '3', '.', '.', '1'},
+                {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
+                {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
+                {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
+                {'.', '.', '.', '.', '8', '.', '.', '7', '9'}
+        };
+        Assert.assertTrue(HashSolutions.isValidSudoku(board));
+        Assert.assertTrue(HashSolutions.isValidSudoku2(board));
+        Assert.assertTrue(HashSolutions.isValidSudoku3(board));
+
+        board = new char[][]{
+                {'8', '3', '.', '.', '7', '.', '.', '.', '.'},
+                {'6', '.', '.', '1', '9', '5', '.', '.', '.'},
+                {'.', '9', '8', '.', '.', '.', '.', '6', '.'},
+                {'8', '.', '.', '.', '6', '.', '.', '.', '3'},
+                {'4', '.', '.', '8', '.', '3', '.', '.', '1'},
+                {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
+                {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
+                {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
+                {'.', '.', '.', '.', '8', '.', '.', '7', '9'}
+        };
+        Assert.assertFalse(HashSolutions.isValidSudoku(board));
+        Assert.assertFalse(HashSolutions.isValidSudoku2(board));
+        Assert.assertFalse(HashSolutions.isValidSudoku3(board));
+    }
 }
