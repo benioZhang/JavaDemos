@@ -1,5 +1,7 @@
 package leetcode.hash;
 
+import leetcode.binarytree.TreeNode;
+
 import java.util.*;
 
 public class HashSolutions {
@@ -434,5 +436,34 @@ public class HashSolutions {
             }
         }
         return true;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/find-duplicate-subtrees/
+     * 652. 寻找重复的子树
+     */
+    public static List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+        List<TreeNode> result = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
+        findDuplicateSubtrees(root, map, result);
+        return result;
+    }
+
+    private static String findDuplicateSubtrees(TreeNode root, Map<String, Integer> map, List<TreeNode> result) {
+        if (root == null) {
+            return "#";
+        }
+        // 将树序列化，顺序：根，左子树，右子树
+        String str = String.valueOf(root.val) + ',' +
+                findDuplicateSubtrees(root.left, map, result) + ',' +
+                findDuplicateSubtrees(root.right, map, result);
+        Integer count = map.get(str);
+        count = count == null ? 1 : count + 1;
+        map.put(str, count);
+        // 同样的结构的树的出现次数为2时，将节点加入到返回结果中
+        if (count == 2) {
+            result.add(root);
+        }
+        return str;
     }
 }

@@ -1,11 +1,10 @@
 package leetcode.hash;
 
+import leetcode.binarytree.TreeNode;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class HashSolutionsTest {
     @Test
@@ -169,5 +168,21 @@ public class HashSolutionsTest {
         Assert.assertFalse(HashSolutions.isValidSudoku(board));
         Assert.assertFalse(HashSolutions.isValidSudoku2(board));
         Assert.assertFalse(HashSolutions.isValidSudoku3(board));
+    }
+
+    @Test
+    public void findDuplicateSubtrees() {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.right.left = new TreeNode(2);
+        root.right.right = new TreeNode(4);
+        root.right.left.left = new TreeNode(4);
+
+        List<TreeNode> result = new ArrayList<>();
+        result.add(root.right.left.left);
+        result.add(root.right.left);
+        Assert.assertEquals(result, HashSolutions.findDuplicateSubtrees(root));
     }
 }
