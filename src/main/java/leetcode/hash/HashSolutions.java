@@ -466,4 +466,67 @@ public class HashSolutions {
         }
         return str;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/jewels-and-stones/
+     * 771. 宝石与石头
+     */
+    public static int numJewelsInStones(String J, String S) {
+        Set<Character> set = new HashSet<>();
+        for (int i = 0, len = J.length(); i < len; i++) {
+            set.add(J.charAt(i));
+        }
+        int count = 0;
+        for (int i = 0, len = S.length(); i < len; i++) {
+            if (set.contains(S.charAt(i))) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int numJewelsInStones2(String J, String S) {
+        // low负责存储`a-z`类型的宝石
+        // high负责存储`A-Z`类型的宝石
+        int low = 0, high = 0;
+        char c;
+        for (int i = 0, len = J.length(); i < len; i++) {
+            c = J.charAt(i);
+            // 将代表该类型的宝石的位，置为1
+            if (c >= 'a') {
+                low |= 1 << c - 'a';
+            } else {
+                high |= 1 << c - 'A';
+            }
+        }
+        int count = 0;
+        for (int i = 0, len = S.length(); i < len; i++) {
+            c = S.charAt(i);
+            // 判断c是否为宝石
+            if (c >= 'a') {
+                if (((1 << c - 'a') & low) != 0) {
+                    count++;
+                }
+            } else {
+                if (((1 << c - 'A') & high) != 0) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    public static int numJewelsInStones3(String J, String S) {
+        boolean[] gems = new boolean['z' - 'A' + 1];
+        for (int i = 0, len = J.length(); i < len; i++) {
+            gems[J.charAt(i) - 'A'] = true;
+        }
+        int count = 0;
+        for (int i = 0, len = S.length(); i < len; i++) {
+            if (gems[S.charAt(i) - 'A']) {
+                count++;
+            }
+        }
+        return count;
+    }
 }

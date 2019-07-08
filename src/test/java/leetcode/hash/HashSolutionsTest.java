@@ -185,4 +185,18 @@ public class HashSolutionsTest {
         result.add(root.right.left);
         Assert.assertEquals(result, HashSolutions.findDuplicateSubtrees(root));
     }
+
+    @Test
+    public void numJewelsInStones() {
+        String J = "aA", S = "aAAbbbb";
+        Assert.assertEquals(3, HashSolutions.numJewelsInStones(J, S));
+        Assert.assertEquals(3, HashSolutions.numJewelsInStones2(J, S));
+        Assert.assertEquals(3, HashSolutions.numJewelsInStones3(J, S));
+
+        J = "z";
+        S = "ZZ";
+        Assert.assertEquals(0, HashSolutions.numJewelsInStones(J, S));
+        Assert.assertEquals(0, HashSolutions.numJewelsInStones2(J, S));
+        Assert.assertEquals(0, HashSolutions.numJewelsInStones3(J, S));
+    }
 }
