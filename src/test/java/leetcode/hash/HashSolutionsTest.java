@@ -205,5 +205,10 @@ public class HashSolutionsTest {
         Assert.assertEquals(3, HashSolutions.lengthOfLongestSubstring("abcabcbb"));
         Assert.assertEquals(1, HashSolutions.lengthOfLongestSubstring("bbbbb"));
         Assert.assertEquals(3, HashSolutions.lengthOfLongestSubstring("pwwkew"));
+
+        Assert.assertEquals(3, HashSolutions.lengthOfLongestSubstring2("abcabcbb"));
+        Assert.assertEquals(1, HashSolutions.lengthOfLongestSubstring2("bbbbb"));
+        Assert.assertEquals(3, HashSolutions.lengthOfLongestSubstring2("pwwkew"));
+        Assert.assertEquals(1, HashSolutions.lengthOfLongestSubstring2(" "));
     }
 }

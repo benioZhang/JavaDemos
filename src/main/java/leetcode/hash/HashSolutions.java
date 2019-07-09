@@ -552,4 +552,19 @@ public class HashSolutions {
         }
         return result;
     }
+
+    public static int lengthOfLongestSubstring2(String s) {
+        // 保存字符及其所在的下标+1
+        int[] index = new int[128];
+        // 维护一个滑动窗口[j,i]
+        int len = s.length(), result = 0;
+        for (int i = 0, j = 0; i < len; i++) {
+            // 取j与s.charAt(i)字符上一次出现的位置+1的较大值
+            j = Math.max(index[s.charAt(i)], j);
+            result = Math.max(result, i - j + 1);
+            // 这里加1，就不用像上面那种做法那样判断是否在滑动窗口内再加1了，牛皮
+            index[s.charAt(i)] = i + 1;
+        }
+        return result;
+    }
 }
