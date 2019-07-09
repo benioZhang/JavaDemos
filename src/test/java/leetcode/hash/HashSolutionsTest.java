@@ -199,4 +199,11 @@ public class HashSolutionsTest {
         Assert.assertEquals(0, HashSolutions.numJewelsInStones2(J, S));
         Assert.assertEquals(0, HashSolutions.numJewelsInStones3(J, S));
     }
+
+    @Test
+    public void lengthOfLongestSubstring() {
+        Assert.assertEquals(3, HashSolutions.lengthOfLongestSubstring("abcabcbb"));
+        Assert.assertEquals(1, HashSolutions.lengthOfLongestSubstring("bbbbb"));
+        Assert.assertEquals(3, HashSolutions.lengthOfLongestSubstring("pwwkew"));
+    }
 }

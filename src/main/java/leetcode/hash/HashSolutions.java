@@ -529,4 +529,27 @@ public class HashSolutions {
         }
         return count;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
+     * 3. 无重复字符的最长子串
+     */
+    public static int lengthOfLongestSubstring(String s) {
+        // 保存滑动窗口中的字符及其所在的下标
+        Map<Character, Integer> map = new HashMap<>();
+        // 维护一个滑动窗口[j,i]
+        int i = 0, j = i, len = s.length(), result = 0;
+        while (i < len) {
+            Character c = s.charAt(i);
+            Integer index = map.get(c);
+            // 判断字符是否在滑动窗口内
+            if (index != null && index >= j) {
+                j = index + 1;
+            }
+            result = Math.max(result, i - j + 1);
+            map.put(c, i);
+            i++;
+        }
+        return result;
+    }
 }
