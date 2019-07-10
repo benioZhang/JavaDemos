@@ -602,4 +602,29 @@ public class HashSolutions {
         }
         return result;
     }
+
+    public static int fourSumCount2(int[] A, int[] B, int[] C, int[] D) {
+        Integer sum, count;
+        // 记录A与B的组合和，与其出现的次数的映射
+        Map<Integer, Integer> map1 = new HashMap<>();
+        for (int i = 0; i < A.length; i++) {
+            for (int j = 0; j < B.length; j++) {
+                sum = A[i] + B[j];
+                count = map1.get(sum);
+                map1.put(sum, count == null ? 1 : count + 1);
+            }
+        }
+        int result = 0;
+        // 在C和D的组合和中查找和map1互为相反数的组合和
+        for (int i = 0; i < C.length; i++) {
+            for (int j = 0; j < D.length; j++) {
+                sum = C[i] + D[j];
+                count = map1.get(-sum);
+                if (count != null) {
+                    result += count;
+                }
+            }
+        }
+        return result;
+    }
 }
