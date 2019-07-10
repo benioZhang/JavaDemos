@@ -211,4 +211,20 @@ public class HashSolutionsTest {
         Assert.assertEquals(3, HashSolutions.lengthOfLongestSubstring2("pwwkew"));
         Assert.assertEquals(1, HashSolutions.lengthOfLongestSubstring2(" "));
     }
+
+    @Test
+    public void fourSumCount() {
+        int[] A, B, C, D;
+        A = new int[]{1, 2};
+        B = new int[]{-2, -1};
+        C = new int[]{-1, 2};
+        D = new int[]{0, 2};
+        Assert.assertEquals(2, HashSolutions.fourSumCount(A, B, C, D));
+
+        A = new int[]{1, 2};
+        B = new int[]{-2, -1};
+        C = new int[]{-1, 2};
+        D = new int[]{1, -2};
+        Assert.assertEquals(4, HashSolutions.fourSumCount(A, B, C, D));
+    }
 }

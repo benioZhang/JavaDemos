@@ -567,4 +567,39 @@ public class HashSolutions {
         }
         return result;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/4sum-ii/
+     * 454. 四数相加 II
+     */
+    public static int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
+        Integer sum, count;
+        // 记录A与B的组合和，与其出现的次数的映射
+        Map<Integer, Integer> map1 = new HashMap<>();
+        for (int i = 0; i < A.length; i++) {
+            for (int j = 0; j < B.length; j++) {
+                sum = A[i] + B[j];
+                count = map1.get(sum);
+                map1.put(sum, count == null ? 1 : count + 1);
+            }
+        }
+        // 记录C与D的组合和，与其出现的次数的映射
+        Map<Integer, Integer> map2 = new HashMap<>();
+        for (int i = 0; i < C.length; i++) {
+            for (int j = 0; j < D.length; j++) {
+                sum = C[i] + D[j];
+                count = map2.get(sum);
+                map2.put(sum, count == null ? 1 : count + 1);
+            }
+        }
+        int result = 0;
+        for (Map.Entry<Integer, Integer> e : map1.entrySet()) {
+            // 在map2中查找和map1互为相反数的组合和
+            sum = map2.get(-e.getKey());
+            if (sum != null) {
+                result += sum * e.getValue();
+            }
+        }
+        return result;
+    }
 }
