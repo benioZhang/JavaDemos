@@ -229,4 +229,16 @@ public class HashSolutionsTest {
         Assert.assertEquals(4, HashSolutions.fourSumCount(A, B, C, D));
         Assert.assertEquals(4, HashSolutions.fourSumCount2(A, B, C, D));
     }
+
+    @Test
+    public void topKFrequent() {
+        int[] nums;
+        nums = new int[]{1, 1, 1, 2, 2, 3};
+        Assert.assertEquals(Arrays.asList(1, 2), HashSolutions.topKFrequent(nums, 2));
+        Assert.assertEquals(Arrays.asList(1, 2), HashSolutions.topKFrequent2(nums, 2));
+
+        nums = new int[]{1};
+        Assert.assertEquals(Arrays.asList(1), HashSolutions.topKFrequent(nums, 1));
+        Assert.assertEquals(Arrays.asList(1), HashSolutions.topKFrequent2(nums, 1));
+    }
 }

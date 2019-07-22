@@ -627,4 +627,64 @@ public class HashSolutions {
         }
         return result;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/top-k-frequent-elements/
+     * 347. 前 K 个高频元素
+     */
+    public static List<Integer> topKFrequent(int[] nums, int k) {
+        // 记录元素及其出现的次数
+        final Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            Integer count = map.get(nums[i]);
+            map.put(nums[i], count == null ? 1 : count + 1);
+        }
+        // 维护k个数的优先队列
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                // 根据出现的次数排序
+                return map.get(o1) - map.get(o2);
+            }
+        });
+        for (Integer key : map.keySet()) {
+            priorityQueue.offer(key);
+            // 队列大小大于k，执行出队
+            if (priorityQueue.size() > k) {
+                priorityQueue.poll();
+            }
+        }
+        // 取出队列中元素，按照出现次数大小排序
+        LinkedList<Integer> result = new LinkedList<>();
+        while (priorityQueue.size() > 0) {
+            result.addFirst(priorityQueue.poll());
+        }
+        return result;
+    }
+
+    public static List<Integer> topKFrequent2(int[] nums, int k) {
+        // 记录元素及其出现的次数
+        final Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            Integer count = map.get(nums[i]);
+            map.put(nums[i], count == null ? 1 : count + 1);
+        }
+        // 以出现的次数为下标，填充桶的数据。使用List是因为有可能会出现相同次数的元素
+        List<Integer>[] arr = new List[nums.length + 1];
+        for (Integer key : map.keySet()) {
+            int count = map.get(key);
+            if (arr[count] == null) {
+                arr[count] = new ArrayList<>();
+            }
+            arr[count].add(key);
+        }
+        // 取出桶的元素
+        List<Integer> result = new ArrayList<>(k);
+        for (int i = arr.length - 1; i >= 0 && result.size() < k; i--) {
+            if (arr[i] != null) {
+                result.addAll(arr[i]);
+            }
+        }
+        return result;
+    }
 }
