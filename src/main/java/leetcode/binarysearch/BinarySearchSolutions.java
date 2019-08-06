@@ -22,4 +22,31 @@ public class BinarySearchSolutions {
         }
         return -1;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/sqrtx/
+     * 69. x 的平方根
+     */
+    public static int mySqrt(int x) {
+        if (x == 0 || x == 1) {
+            return x;
+        }
+        // x 的平方根的搜索区间：[1, x-1]
+        int left = 1, right = x - 1;
+        while (left <= right) {
+            // left+right会溢出
+            int mid = left + (right - left) / 2;
+            // 比较x与mid*mid时，mid*mid会溢出，所以使用x/mid与mid比较
+            int sqrt = x / mid;
+            if (mid == sqrt) {
+                return mid;
+            } else if (mid < sqrt) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        // 结束循环时，left>right，返回right
+        return right;
+    }
 }
