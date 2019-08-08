@@ -3,6 +3,8 @@ package leetcode.binarysearch;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.hamcrest.core.Is.is;
+
 public class BinarySearchSolutionsTest {
 
     @Test
@@ -26,5 +28,10 @@ public class BinarySearchSolutionsTest {
             System.out.println("i = " + i + ", expected = " + expected + ", actual = " + actual);
             Assert.assertEquals(expected, actual);
         }
+    }
+
+    @Test
+    public void guessNumber() {
+        Assert.assertThat(6, is(BinarySearchSolutions.guessNumber(10)));
     }
 }

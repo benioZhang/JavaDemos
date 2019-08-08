@@ -68,4 +68,40 @@ public class BinarySearchSolutions {
         // 结束循环时，left>right，返回right
         return right;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/guess-number-higher-or-lower/
+     * 374. 猜数字大小
+     */
+    public static int guessNumber(int n) {
+        int left = 0, right = n;
+        while (left <= right) {
+            int mid = left + ((right - left) >> 1);
+            int res = guess(mid);
+            if (res == 0) {
+                // 猜对了
+                return mid;
+            } else if (res < 0) {
+                // 猜大了
+                right = mid - 1;
+            } else {
+                // 猜小了
+                left = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    private static int guess(int n) {
+        // 这里预先定义了猜的数字，是为了模拟guess()
+        //-1 : 我的数字比较小
+        //1 : 我的数字比较大
+        //0 : 恭喜！你猜对了！
+        // 我的数字，指pick
+        int pick = 6;
+        if (n == pick) {
+            return 0;
+        }
+        return pick > n ? 1 : -1;
+    }
 }
