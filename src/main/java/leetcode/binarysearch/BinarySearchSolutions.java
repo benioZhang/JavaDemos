@@ -49,4 +49,23 @@ public class BinarySearchSolutions {
         // 结束循环时，left>right，返回right
         return right;
     }
+
+    public static int mySqrt2(int x) {
+        if (x == 0 || x == 1) {
+            return x;
+        }
+        // x 的平方根的搜索区间：[1, x-1]
+        int left = 1, right = x - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            // 比较x与mid*mid时，mid*mid会溢出，所以使用x/mid与mid比较
+            if (mid <= x / mid) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        // 结束循环时，left>right，返回right
+        return right;
+    }
 }

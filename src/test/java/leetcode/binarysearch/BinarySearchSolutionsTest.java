@@ -19,5 +19,12 @@ public class BinarySearchSolutionsTest {
             System.out.println("i = " + i + ", expected = " + expected + ", actual = " + actual);
             Assert.assertEquals(expected, actual);
         }
+        System.out.println("---------------------");
+        for (int i = 0; i < 20; i++) {
+            int expected = (int) Math.sqrt(i);
+            int actual = BinarySearchSolutions.mySqrt2(i);
+            System.out.println("i = " + i + ", expected = " + expected + ", actual = " + actual);
+            Assert.assertEquals(expected, actual);
+        }
     }
 }
