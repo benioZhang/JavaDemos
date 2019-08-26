@@ -18,6 +18,7 @@
 * [61-旋转链表](md/leetcode/61-旋转链表.md)
 * [66-加一](md/leetcode/66-加一.md)
 * [67-二进制求和](md/leetcode/67-二进制求和.md)
+* [69-x的平方根](md/leetcode/69-x的平方根.md)
 * [94-二叉树的中序遍历](md/leetcode/94-二叉树的中序遍历.md)
 * [101-对称二叉树](md/leetcode/101-对称二叉树.md)
 * [102-二叉树的层次遍历](md/leetcode/102-二叉树的层次遍历.md)
